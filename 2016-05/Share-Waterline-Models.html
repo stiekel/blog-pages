@@ -20,20 +20,13 @@
   
   <title>应用内 Waterline 实例的共享 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -43,7 +36,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -173,13 +166,16 @@
     </p>
     
     <p>相对于 Mongoose 的初始化来讲，Waterline 的要麻烦得多，首先 Waterline 的初始化是异步的，其次，它是返回一个全新的对象，所以不得不使用单独的代码，来解决应用内共享同一个数据库的 models 。<a href="/2015-10/Use-Waterline-in-Express-project.html">在 Express 项目中使用 Waterline</a>一文中，我们是将所有的集合加载到 Express 的实例中，网友 wuwanyu 问道，还有没有其它的办法，让应用内能够更方便的共享 Waterline 实例。</p>
-<p>在 Node.js 中，模块是单例模式共享的，所以可以利用这一特性来在应用内共享 Waterline 实例。下面的代码依然是基于 <a href="https://github.com/stiekel/waterline-sample" target="_blank" rel="noopener">waterline-sample</a> 。</p>
+<p>在 Node.js 中，模块是单例模式共享的，所以可以利用这一特性来在应用内共享 Waterline 实例。下面的代码依然是基于 <a target="_blank" rel="noopener" href="https://github.com/stiekel/waterline-sample">waterline-sample</a> 。</p>
 <p>首先，为了程序的可读性，我们在 <code>config/waterline.js</code> 的最后一行，增加一个导出的变量，用以存放 waterline 中所有 models 的引用，将其初始化为 <code>null</code>：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exports.orm = orm;</span><br><span class="line">exports.config = wlconfig;</span><br><span class="line">exports.models = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.orm = orm;</span><br><span class="line"><span class="built_in">exports</span>.config = wlconfig;</span><br><span class="line"><span class="built_in">exports</span>.models = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+
 <p>接着，在初始化的时候，将其赋值，修改 <code>bin/www</code> 相关代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'../app'</span>);</span><br><span class="line"><span class="keyword">var</span> config = <span class="built_in">require</span>(<span class="string">'../config/config'</span>);</span><br><span class="line"><span class="keyword">var</span> waterline = <span class="built_in">require</span>(<span class="string">'../config/waterline'</span>);</span><br><span class="line"></span><br><span class="line">waterline.orm.initialize(waterline.config, <span class="function"><span class="keyword">function</span>(<span class="params">err, models</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  waterline.models = models.collections;</span><br><span class="line">  <span class="comment">// app.set('models', models.collections);</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">&#x27;../app&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> config = <span class="built_in">require</span>(<span class="string">&#x27;../config/config&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> waterline = <span class="built_in">require</span>(<span class="string">&#x27;../config/waterline&#x27;</span>);</span><br><span class="line"></span><br><span class="line">waterline.orm.initialize(waterline.config, <span class="function"><span class="keyword">function</span>(<span class="params">err, models</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  waterline.models = models.collections;</span><br><span class="line">  <span class="comment">// app.set(&#x27;models&#x27;, models.collections);</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>以后，直接使用 <code>config/waterline.js</code> 中导出的 <code>models</code> 即可进行 Waterline 的相关操作了，比如，在控制器中，可以这样操作：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> waterline = <span class="built_in">require</span>(<span class="string">'../../config/waterline'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  list: <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> page = <span class="built_in">parseInt</span>(req.query.page, <span class="number">10</span>) ? <span class="built_in">parseInt</span>(req.query.page, <span class="number">10</span>) : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> limit = <span class="built_in">parseInt</span>(req.query.limit, <span class="number">10</span>) ? <span class="built_in">parseInt</span>(req.query.limit, <span class="number">10</span>) : <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// req.models.post</span></span><br><span class="line">    waterline.models.post</span><br><span class="line">    .find()</span><br><span class="line">    .paginate(&#123;<span class="attr">page</span>: page, <span class="attr">limit</span>: limit&#125;)</span><br><span class="line">    .exec(<span class="function"><span class="keyword">function</span>(<span class="params">err, docs</span>)</span>&#123;</span><br><span class="line">      res.json(docs);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> waterline = <span class="built_in">require</span>(<span class="string">&#x27;../../config/waterline&#x27;</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  list: <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> page = <span class="built_in">parseInt</span>(req.query.page, <span class="number">10</span>) ? <span class="built_in">parseInt</span>(req.query.page, <span class="number">10</span>) : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> limit = <span class="built_in">parseInt</span>(req.query.limit, <span class="number">10</span>) ? <span class="built_in">parseInt</span>(req.query.limit, <span class="number">10</span>) : <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// req.models.post</span></span><br><span class="line">    waterline.models.post</span><br><span class="line">    .find()</span><br><span class="line">    .paginate(&#123;<span class="attr">page</span>: page, <span class="attr">limit</span>: limit&#125;)</span><br><span class="line">    .exec(<span class="function"><span class="keyword">function</span>(<span class="params">err, docs</span>)</span>&#123;</span><br><span class="line">      res.json(docs);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>同理，其它所有需要在应用内进行共享的数据，都可以通过 Node.js 模块的单例特性来实现。</p>
 
   </article>
@@ -221,7 +217,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -246,12 +242,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -259,7 +255,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -267,7 +263,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -275,7 +271,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -283,7 +279,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -291,7 +287,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -349,22 +345,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

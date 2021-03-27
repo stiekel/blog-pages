@@ -21,20 +21,13 @@
   
   <title>PHP源码编码与转换：搞定首行为空和“锘匡豢” [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -44,7 +37,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -171,20 +164,20 @@
 <h3 id="1、编码转到UTF-8可能出现的问题"><a href="#1、编码转到UTF-8可能出现的问题" class="headerlink" title="1、编码转到UTF-8可能出现的问题"></a>1、编码转到UTF-8可能出现的问题</h3><p>转换起来并不麻烦，而且网上有很多工具可以用于转换，但<strong>不推荐使用工具进行批量转换</strong>，编码转换时的不确定因素太多，比如原编码，甚至系统语言等，都会引起转换的失败。</p>
 <p>PHP源码直接转换到UTF-8后，很有可能会遇到下面的两个问题：</p>
 <ul>
-<li>1、首行代码为空；</li>
-<li>2、顶行有多个“锘匡豢”；<br>当然，很多人已经解决了，还发了<a href="http://tunps.com/1286216026" target="_blank" rel="noopener" title="2天的“锘匡豢”问题，终于有了答案！！！">博文——不过这文章是让你郁闷的</a>。这位用了两天时间终于解决了问题，但却舍不得与人分享一下。当然也有<a href="http://blog.csdn.net/zjwtnt/article/details/1927638" target="_blank" rel="noopener" title="UTF-8 下 php include 注意空行问题">很靠谱的人</a>，提供了使用VS进行解决的方法，不过搞PHP开发的还装VS的可能不多。<a id="more"></a></li>
+<li>  1、首行代码为空；</li>
+<li>  2、顶行有多个“锘匡豢”；<br>当然，很多人已经解决了，还发了<a target="_blank" rel="noopener" href="http://tunps.com/1286216026" title="2天的“锘匡豢”问题，终于有了答案！！！">博文——不过这文章是让你郁闷的</a>。这位用了两天时间终于解决了问题，但却舍不得与人分享一下。当然也有<a target="_blank" rel="noopener" href="http://blog.csdn.net/zjwtnt/article/details/1927638" title="UTF-8 下 php include 注意空行问题">很靠谱的人</a>，提供了使用VS进行解决的方法，不过搞PHP开发的还装VS的可能不多。<span id="more"></span></li>
 </ul>
-<p>导致出现以上问题的原因，可以看一下维基<a href="http://zh.wikipedia.org/zh-cn/%E4%BD%8D%E5%85%83%E7%B5%84%E9%A0%86%E5%BA%8F%E8%A8%98%E8%99%9F" target="_blank" rel="noopener" title="维基百科：BOM">BOM词条</a>，解决的方法也很简单，转换成UTF8后，将BOM的问题解决即可。很多人使用UltraEdit32，这也是个方法。不过还有更方便的选择，使用Notepad++会<strong>更简单，更安全</strong>。</p>
+<p>导致出现以上问题的原因，可以看一下维基<a target="_blank" rel="noopener" href="http://zh.wikipedia.org/zh-cn/%E4%BD%8D%E5%85%83%E7%B5%84%E9%A0%86%E5%BA%8F%E8%A8%98%E8%99%9F" title="维基百科：BOM">BOM词条</a>，解决的方法也很简单，转换成UTF8后，将BOM的问题解决即可。很多人使用UltraEdit32，这也是个方法。不过还有更方便的选择，使用Notepad++会<strong>更简单，更安全</strong>。</p>
 <h3 id="2、使用Notepad-进行转换的方法"><a href="#2、使用Notepad-进行转换的方法" class="headerlink" title="2、使用Notepad++进行转换的方法"></a>2、使用Notepad++进行转换的方法</h3><p>使用Notepad++，打开所有需要转换的文件，然后战壕菜单“Encoding（编码）”→“Convert to UTF-8 without BOM（转换为UTF-8无BOM编码格式）”，再保存文件，即可完成无恙转换。</p>
 <p>顺便提一下，Notepad++的确是一个非常优秀的编辑器，完全可以作为你Win下的主力代码工具——它已经是win下我唯一用的代码工具了。</p>
 <h3 id="3、转换中需要注意的问题"><a href="#3、转换中需要注意的问题" class="headerlink" title="3、转换中需要注意的问题"></a>3、转换中需要注意的问题</h3><p>转换很简单，但还需要注意以下几个方面的问题：</p>
 <ul>
-<li>1、HTML中HEAD部分中对编码的指定，一般可能设置了charset，将值改成UTF8即可；</li>
-<li>2、apache等web服务器中的默认编码设置，CentOS中的apache在httpd.con里修改，搜索“AddDefaultCharset”，将后面的值改为UTF-8；</li>
-<li>3、CSS文件编码的修改；<br><a href="http://ued.taobao.com/blog/2011/08/26/encode-war/" target="_blank" rel="noopener" title="前端工程师的编码遭遇战">淘宝也是用的gbk，转换起来</a>一定又是一个折腾人的过程。</li>
+<li>  1、HTML中HEAD部分中对编码的指定，一般可能设置了charset，将值改成UTF8即可；</li>
+<li>  2、apache等web服务器中的默认编码设置，CentOS中的apache在httpd.con里修改，搜索“AddDefaultCharset”，将后面的值改为UTF-8；</li>
+<li>  3、CSS文件编码的修改；<br><a target="_blank" rel="noopener" href="http://ued.taobao.com/blog/2011/08/26/encode-war/" title="前端工程师的编码遭遇战">淘宝也是用的gbk，转换起来</a>一定又是一个折腾人的过程。</li>
 </ul>
 <hr>
-<p><span style="color: red;">抱歉</span>：上文中所提到的那篇“<a href="http://tunps.com/1286216026" target="_blank" rel="noopener" title="2天的“锘匡豢”问题，终于有了答案！！！">让人郁闷的文意</a>”的博主<a href="http://tunps.com/" target="_blank" rel="noopener" title="TechGuru">tunpishuang</a>，并非我小人之心所揣测的“舍不得与人分享”的人，他早已将<a href="http://tunps.com/link-and-script-goes-under-body-tag" target="_blank" rel="noopener" title="link标签和script标签跑到body下面，网页顶部有空白，出现“锘匡豢”乱码，UTF-8 BOM，EF BB BF">解决的整个过程</a>分享出来。在此，为我自己的武断之为而向您致以深深的歉意！</p>
+<p><span style="color: red;">抱歉</span>：上文中所提到的那篇“<a target="_blank" rel="noopener" href="http://tunps.com/1286216026" title="2天的“锘匡豢”问题，终于有了答案！！！">让人郁闷的文意</a>”的博主<a target="_blank" rel="noopener" href="http://tunps.com/" title="TechGuru">tunpishuang</a>，并非我小人之心所揣测的“舍不得与人分享”的人，他早已将<a target="_blank" rel="noopener" href="http://tunps.com/link-and-script-goes-under-body-tag" title="link标签和script标签跑到body下面，网页顶部有空白，出现“锘匡豢”乱码，UTF-8 BOM，EF BB BF">解决的整个过程</a>分享出来。在此，为我自己的武断之为而向您致以深深的歉意！</p>
 
   </article>
   <div class="random-toc-area">
@@ -192,7 +185,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、编码转到UTF-8可能出现的问题"><span class="toc-text">1、编码转到UTF-8可能出现的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、使用Notepad-进行转换的方法"><span class="toc-text">2、使用Notepad++进行转换的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、转换中需要注意的问题"><span class="toc-text">3、转换中需要注意的问题</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E7%BC%96%E7%A0%81%E8%BD%AC%E5%88%B0UTF-8%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">1、编码转到UTF-8可能出现的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8Notepad-%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">2、使用Notepad++进行转换的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E8%BD%AC%E6%8D%A2%E4%B8%AD%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">3、转换中需要注意的问题</span></a></li></ol>
   </div>
 </div>
 
@@ -225,7 +218,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -250,12 +243,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -263,7 +256,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -271,7 +264,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -279,7 +272,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -287,7 +280,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -295,7 +288,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -353,22 +346,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

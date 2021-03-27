@@ -20,20 +20,13 @@
   
   <title>BlueHost空间中的免费邮箱功能开通 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -43,7 +36,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -179,24 +172,25 @@
     </p>
     
     <p>BlueHost的空间附带了邮箱功能，功能相对够用。今天早上专门来试了一下BlueHost邮件功能开通的方法，之前搜索了一下，好像网上还没有相对完整的资料，于是开了这个过程记录。主要包括BlueHost设置和MX记录的设置。</p>
-<a id="more"></a>
+<span id="more"></span>
+
 <h3 id="1、BlueHost设置"><a href="#1、BlueHost设置" class="headerlink" title="1、BlueHost设置"></a>1、BlueHost设置</h3><p>先在BlueHost主页上用域名和密码登录，之后，进入cPanel，然后找到Mail之中的Email Accounts，开始创建Email账号。</p>
-<p><a href="/upfile/2010/04/cPanel_Mail.png"><img src="/upfile/2010/04/cPanel_Mail-500x146.png" alt="" title="cPanel_Mail"></a></p>
-<p>添加邮箱的名字和密码，例如，这里的用户名是<a href="mailto:admin@sex.com">admin@sex.com</a>（<a href="http://chensd.com/2010-04/bluehost-dedicated-ip.html">再次声明</a>，sex.com可不是我的），@右侧有个下拉列表，分别是“sex.com”和“mail.sex.com”，如果想使自己的域名是<a href="mailto:admin@mail.sex.com">admin@mail.sex.com</a>，则可以选择第二个。MailBox Quote可以设定邮箱大小，只能是250MB或者是无限制。完成之后，点击“Create Account”按钮，即完成添加。</p>
-<p><a href="/upfile/2010/04/Email_Accounts.png"><img src="/upfile/2010/04/Email_Accounts-500x298.png" alt="" title="Email_Accounts"></a></p>
-<p>这样，邮箱就添加完成了，然后进入<a href="http://sex.com/webmail/，输入用户名密码，即可进行登录：" target="_blank" rel="noopener">http://sex.com/webmail/，输入用户名密码，即可进行登录：</a></p>
-<p><a href="/upfile/2010/04/Mail_Login.png"><img src="/upfile/2010/04/Mail_Login-307x400.png" alt="" title="Mail_Login"></a></p>
+<p><a href="/upfile/2010/04/cPanel_Mail.png"><img src="/upfile/2010/04/cPanel_Mail-500x146.png" title="cPanel_Mail"></a></p>
+<p>添加邮箱的名字和密码，例如，这里的用户名是<a href="mailto:&#97;&#x64;&#x6d;&#105;&#110;&#x40;&#115;&#101;&#x78;&#x2e;&#99;&#x6f;&#109;">&#97;&#x64;&#x6d;&#105;&#110;&#x40;&#115;&#101;&#x78;&#x2e;&#99;&#x6f;&#109;</a>（<a target="_blank" rel="noopener" href="http://chensd.com/2010-04/bluehost-dedicated-ip.html">再次声明</a>，sex.com可不是我的），@右侧有个下拉列表，分别是“sex.com”和“mail.sex.com”，如果想使自己的域名是<a href="mailto:&#x61;&#x64;&#109;&#x69;&#x6e;&#64;&#x6d;&#x61;&#105;&#x6c;&#46;&#x73;&#101;&#120;&#46;&#99;&#111;&#109;">&#x61;&#x64;&#109;&#x69;&#x6e;&#64;&#x6d;&#x61;&#105;&#x6c;&#46;&#x73;&#101;&#120;&#46;&#99;&#111;&#109;</a>，则可以选择第二个。MailBox Quote可以设定邮箱大小，只能是250MB或者是无限制。完成之后，点击“Create Account”按钮，即完成添加。</p>
+<p><a href="/upfile/2010/04/Email_Accounts.png"><img src="/upfile/2010/04/Email_Accounts-500x298.png" title="Email_Accounts"></a></p>
+<p>这样，邮箱就添加完成了，然后进入<a target="_blank" rel="noopener" href="http://sex.com/webmail/%EF%BC%8C%E8%BE%93%E5%85%A5%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81%EF%BC%8C%E5%8D%B3%E5%8F%AF%E8%BF%9B%E8%A1%8C%E7%99%BB%E5%BD%95%EF%BC%9A">http://sex.com/webmail/，输入用户名密码，即可进行登录：</a></p>
+<p><a href="/upfile/2010/04/Mail_Login.png"><img src="/upfile/2010/04/Mail_Login-307x400.png" title="Mail_Login"></a></p>
 <p>登录后，就可以看到邮箱的管理界面了：</p>
-<p><a href="/upfile/2010/04/Mail_Manage.png"><img src="/upfile/2010/04/Mail_Manage-499x286.png" alt="" title="Mail_Manage"></a></p>
+<p><a href="/upfile/2010/04/Mail_Manage.png"><img src="/upfile/2010/04/Mail_Manage-499x286.png" title="Mail_Manage"></a></p>
 <p>显示的有三种方法来进行邮件的阅读方式，随便哪一种都行，在这里，我们选择SquirrelMail，然后，即可开始进行邮件的收发。进入后，点击“Compose”，写一个邮件，发到一个Gmail邮箱。</p>
-<p><a href="/upfile/2010/04/compose_mail.png"><img src="/upfile/2010/04/compose_mail-499x400.png" alt="" title="compose_mail"></a></p>
+<p><a href="/upfile/2010/04/compose_mail.png"><img src="/upfile/2010/04/compose_mail-499x400.png" title="compose_mail"></a></p>
 <p>然后发送，数秒之后，即可在Gmail中收到邮件，我们可以试着回复。这会发现，Gmail返给我们一个投递错误的回复。这是因为我们还没有为邮箱设置MX记录。</p>
-<h3 id="2、为邮箱设置MX-DNS记录"><a href="#2、为邮箱设置MX-DNS记录" class="headerlink" title="2、为邮箱设置MX DNS记录"></a>2、为邮箱设置MX DNS记录</h3><p>我的这个域名是在<a href="http://chensd.com/2010-03/godaddy-plan-to-stop-domain-service-in-china.html">Godaddy</a>申请的，进入Godaddy，然后登录，再点击Domain Auctions，进入Domains中的Domain Manager，点击相应域名，开始进行域名的管理。</p>
+<h3 id="2、为邮箱设置MX-DNS记录"><a href="#2、为邮箱设置MX-DNS记录" class="headerlink" title="2、为邮箱设置MX DNS记录"></a>2、为邮箱设置MX DNS记录</h3><p>我的这个域名是在<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/godaddy-plan-to-stop-domain-service-in-china.html">Godaddy</a>申请的，进入Godaddy，然后登录，再点击Domain Auctions，进入Domains中的Domain Manager，点击相应域名，开始进行域名的管理。</p>
 <p>顺便抱怨一下，Godaddy的域名管理系统，竟然还不支持Chrome，害得我每次管理域名，都得使用人见人骂的IE（Firefox已经是我的翻墙专用工具了）。</p>
 <p>点击“Total DNS”下方的“Total DNS Control”，开始进行MX记录设置。在管理界面中，找到“MX (Mail Exchange)”，点击右侧的“Add New MX Record”，在“Host Name”和“Enter Goes To Address”都填入“@”，然后点击OK按钮。</p>
-<p><a href="/upfile/2010/04/Add_MX_Record.png"><img src="/upfile/2010/04/Add_MX_Record-500x178.png" alt="" title="Add_MX_Record"></a></p>
+<p><a href="/upfile/2010/04/Add_MX_Record.png"><img src="/upfile/2010/04/Add_MX_Record-500x178.png" title="Add_MX_Record"></a></p>
 <p>稍候，就会提示添加成功。Godaddy的域名指向更改，时间是非常快的。一般对于第一次设置的记录，可以立即生效。</p>
-<p>再试试用Gmail给我们的<a href="mailto:admin@sex.com">admin@sex.com</a>回复，OK，发送成功了！</p>
+<p>再试试用Gmail给我们的<a href="mailto:&#x61;&#100;&#x6d;&#x69;&#x6e;&#x40;&#115;&#101;&#x78;&#x2e;&#x63;&#x6f;&#x6d;">&#x61;&#100;&#x6d;&#x69;&#x6e;&#x40;&#115;&#101;&#x78;&#x2e;&#x63;&#x6f;&#x6d;</a>回复，OK，发送成功了！</p>
 
   </article>
   <div class="random-toc-area">
@@ -204,7 +198,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、BlueHost设置"><span class="toc-text">1、BlueHost设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、为邮箱设置MX-DNS记录"><span class="toc-text">2、为邮箱设置MX DNS记录</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81BlueHost%E8%AE%BE%E7%BD%AE"><span class="toc-text">1、BlueHost设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E4%B8%BA%E9%82%AE%E7%AE%B1%E8%AE%BE%E7%BD%AEMX-DNS%E8%AE%B0%E5%BD%95"><span class="toc-text">2、为邮箱设置MX DNS记录</span></a></li></ol>
   </div>
 </div>
 
@@ -237,7 +231,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -262,12 +256,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -275,7 +269,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -283,7 +277,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -291,7 +285,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -299,7 +293,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -307,7 +301,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -365,22 +359,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

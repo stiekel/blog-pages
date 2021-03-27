@@ -21,20 +21,13 @@
   
   <title>发布了一个 Hexo 的新主题：Random [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -44,7 +37,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -179,13 +172,13 @@
       </span>
     </p>
     
-    <p>把博客从 Wordpress 转换到 Hexo 之后，大部分的时间使用的就是 NeXT 这个主题，不过一直不是很喜欢在文章列表中显示摘要，加上最近发现了一个提供随机图片的服务 <a href="http://source.unsplash.com/" target="_blank" rel="noopener">unsplash</a>，所以决定自己来写一款 Hexo 主题。</p>
-<p>五一假期的时候动工的，一直到 19 号早上提交到 Hexo 的官方主题列表，总共花了差不多 20 天，大问题已经差不多解决了，不过 css 写得挺乱的。第一次做博客程序的主题，收获还是挺多的，接触了两个新技术，一个是模板引擎 swig，一个是 css 预编译 stylus ——前同天才看到， swig 已经停止更新一年多了。还发现了 <a href="http://iconfont.cn/" target="_blank" rel="noopener">iconfont</a> 这个相当不错的平台。另外就是用了一下在 Github Tending 上发现的视频插件 <a href="https://plyr.io/" target="_blank" rel="noopener">plyr</a> ，界面还挺不错。部署时，由于 Github 上单个 repo 所属的 Github pages 与 stiekel.github.io 的发生冲突，所以用上了注册了很久的 heroku 账号，感叹国内速度 Github Pages 快多了。</p>
-<p>在制作主题的过程中，借鉴了 <a href="https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme" target="_blank" rel="noopener">Tranquilpeak</a> 这个主题，以及 <a href="http://iwritejs.com/who-is-using-jquery/" target="_blank" rel="noopener">IwJS</a> 中的翻页按钮——不过目前做得没这个漂亮。主题的基础是使用 <a href="https://github.com/tcrowe/generator-hexo-theme" target="_blank" rel="noopener">generator-hexo-theme</a> 生成的。</p>
+    <p>把博客从 Wordpress 转换到 Hexo 之后，大部分的时间使用的就是 NeXT 这个主题，不过一直不是很喜欢在文章列表中显示摘要，加上最近发现了一个提供随机图片的服务 <a target="_blank" rel="noopener" href="http://source.unsplash.com/">unsplash</a>，所以决定自己来写一款 Hexo 主题。</p>
+<p>五一假期的时候动工的，一直到 19 号早上提交到 Hexo 的官方主题列表，总共花了差不多 20 天，大问题已经差不多解决了，不过 css 写得挺乱的。第一次做博客程序的主题，收获还是挺多的，接触了两个新技术，一个是模板引擎 swig，一个是 css 预编译 stylus ——前同天才看到， swig 已经停止更新一年多了。还发现了 <a target="_blank" rel="noopener" href="http://iconfont.cn/">iconfont</a> 这个相当不错的平台。另外就是用了一下在 Github Tending 上发现的视频插件 <a target="_blank" rel="noopener" href="https://plyr.io/">plyr</a> ，界面还挺不错。部署时，由于 Github 上单个 repo 所属的 Github pages 与 stiekel.github.io 的发生冲突，所以用上了注册了很久的 heroku 账号，感叹国内速度 Github Pages 快多了。</p>
+<p>在制作主题的过程中，借鉴了 <a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme">Tranquilpeak</a> 这个主题，以及 <a target="_blank" rel="noopener" href="http://iwritejs.com/who-is-using-jquery/">IwJS</a> 中的翻页按钮——不过目前做得没这个漂亮。主题的基础是使用 <a target="_blank" rel="noopener" href="https://github.com/tcrowe/generator-hexo-theme">generator-hexo-theme</a> 生成的。</p>
 <p>由于使用了 unsplash 的随机图片作为背景图，所以主题定名为 Random ，主要特色如下：</p>
 <ul>
 <li>使用只有基本信息和链接的首页</li>
-<li>使用随机轮播大图作为背景，感谢 <a href="http://source.unsplash.com/" target="_blank" rel="noopener">unsplash</a> 和 <a href="http://vegas.jaysalvat.com/" target="_blank" rel="noopener">vegas</a></li>
+<li>使用随机轮播大图作为背景，感谢 <a target="_blank" rel="noopener" href="http://source.unsplash.com/">unsplash</a> 和 <a target="_blank" rel="noopener" href="http://vegas.jaysalvat.com/">vegas</a></li>
 <li>放弃在存档、标签和分类列表中使用摘要显示</li>
 <li>放弃在存档、标签和分类列表中使用翻页功能</li>
 <li>在存档、标签和分类列表中支持图库的显示</li>
@@ -194,8 +187,8 @@
 <p>当然，自己的博客第一时间切换到了新主题，最后放上链接：</p>
 <ul>
 <li>heroku 的 <a href="hexo-theme-random.herokuapp.com">demo</a> </li>
-<li>Github 上的 <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">hexo-theme-random</a>  repo </li>
-<li><a href="https://github.com/stiekel/hexo-theme-random/blob/master/README.CN.md" target="_blank" rel="noopener">hexo-theme-random 中文文档</a></li>
+<li>Github 上的 <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">hexo-theme-random</a>  repo </li>
+<li><a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random/blob/master/README.CN.md">hexo-theme-random 中文文档</a></li>
 </ul>
 <p>有问题或建议，欢迎提 issue。</p>
 
@@ -238,7 +231,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -263,12 +256,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -276,7 +269,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -284,7 +277,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -292,7 +285,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -300,7 +293,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -308,7 +301,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -366,22 +359,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

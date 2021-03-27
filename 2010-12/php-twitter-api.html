@@ -21,20 +21,13 @@
   
   <title>PHP空间无法无天API搭建 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -44,7 +37,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -180,29 +173,33 @@
     </p>
     
     <p>天朝上邦是普及计算机技术的天堂，V5。</p>
-<p>最近GAE也用不成了，很多放在Appspot上的宝贝儿全没戏了，法子都得换了。多说无用。在这里，用我手里的<a href="http://www.photonvps.com/billing/aff.php?aff=651" target="_blank" rel="noopener">PhotonVPS</a>的BEAN1 VPS为例进行搭建，当然，想用免费PHP空间的朋友就自己再找找吧，但要注意，<strong>PHP空间一定要支持CURL</strong>，否则这个搭建方案是行不通的。VPS的朋友，进行以下操作的前提是已经在服务器上<a href="http://chensd.com/2010-03/photonvps-web-php-mysql-phpmyadmin.html">安装好了PHP环境</a>，有了这些，就可以开工了。<a id="more"></a></p>
-<h3 id="一、申请API"><a href="#一、申请API" class="headerlink" title="一、申请API"></a>一、申请API</h3><p>先到推官网（<a href="http://dev.twitter.com/" target="_blank" rel="noopener">http://dev.twitter.com/</a>）进行申请，这个怎么进去大家自己想办法。进入后，先用你的账号进行登录，点击“<a href="http://dev.twitter.com/apps/new" target="_blank" rel="noopener">Register an app</a>”然后一一填写相应内容，这些以后还可以修改，所以随便怎么填都无所谓。项目主要如下：</p>
+<p>最近GAE也用不成了，很多放在Appspot上的宝贝儿全没戏了，法子都得换了。多说无用。在这里，用我手里的<a target="_blank" rel="noopener" href="http://www.photonvps.com/billing/aff.php?aff=651">PhotonVPS</a>的BEAN1 VPS为例进行搭建，当然，想用免费PHP空间的朋友就自己再找找吧，但要注意，<strong>PHP空间一定要支持CURL</strong>，否则这个搭建方案是行不通的。VPS的朋友，进行以下操作的前提是已经在服务器上<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/photonvps-web-php-mysql-phpmyadmin.html">安装好了PHP环境</a>，有了这些，就可以开工了。<span id="more"></span></p>
+<h3 id="一、申请API"><a href="#一、申请API" class="headerlink" title="一、申请API"></a>一、申请API</h3><p>先到推官网（<a target="_blank" rel="noopener" href="http://dev.twitter.com/">http://dev.twitter.com/</a>）进行申请，这个怎么进去大家自己想办法。进入后，先用你的账号进行登录，点击“<a target="_blank" rel="noopener" href="http://dev.twitter.com/apps/new">Register an app</a>”然后一一填写相应内容，这些以后还可以修改，所以随便怎么填都无所谓。项目主要如下：</p>
 <ul>
-<li>Application Name：名字，即显示的tweet发送源，随意，可用中英文；</li>
-<li>Description：相应的描述，相当于API的介绍文字，可以随便，支持中英文；</li>
-<li>Application Website：每条tweet后，都会显示Application Name，点击这个名字，就会到这个指定的风址；</li>
-<li>Organization：随意；</li>
-<li>Application Type：程序类型，选择“Browser”；</li>
-<li>Callback URL：这个很重要，主要是指你的搭建位置，可以随便填个URL，等一下再回来修改；</li>
-<li>Default Access Type：这个选择“Read &amp; Write”；</li>
-<li>Application ICON：图标，随意；<br>填完后，会给你一个包括有API key / Registered Callback URL / Consumer key等内容，找个安全的地方记下来，等一下还需要用的。</li>
+<li>  Application Name：名字，即显示的tweet发送源，随意，可用中英文；</li>
+<li>  Description：相应的描述，相当于API的介绍文字，可以随便，支持中英文；</li>
+<li>  Application Website：每条tweet后，都会显示Application Name，点击这个名字，就会到这个指定的风址；</li>
+<li>  Organization：随意；</li>
+<li>  Application Type：程序类型，选择“Browser”；</li>
+<li>  Callback URL：这个很重要，主要是指你的搭建位置，可以随便填个URL，等一下再回来修改；</li>
+<li>  Default Access Type：这个选择“Read &amp; Write”；</li>
+<li>  Application ICON：图标，随意；<br>填完后，会给你一个包括有API key / Registered Callback URL / Consumer key等内容，找个安全的地方记下来，等一下还需要用的。</li>
 </ul>
-<h3 id="二、程序下载与修改"><a href="#二、程序下载与修改" class="headerlink" title="二、程序下载与修改"></a>二、程序下载与修改</h3><p>不少开源项目都在做TW API相关的东西。比如这个<a href="http://code.google.com/p/twip/" target="_blank" rel="noopener">twip项目</a>，先<a href="http://twip.googlecode.com/files/twip-4.1-r184.tar.gz" target="_blank" rel="noopener">下载</a>回程序，然后用WinRAR之类的程序解压，找到其中的config-example.php文件，将其改名为 <code>config.php</code> 然后，找个文本编辑器打开，比如记事本之类，会看到以下内容：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'OAUTH_KEY'</span>,<span class="string">''</span>);</span><br><span class="line">define(<span class="string">'OAUTH_SECRET'</span>,<span class="string">''</span>);</span><br><span class="line">define(<span class="string">'BASE_URL'</span>,<span class="string">''</span>);</span><br><span class="line">define(<span class="string">'API_VERSION'</span>,<span class="string">'1'</span>);</span><br><span class="line">define(<span class="string">'DEBUG'</span>,<span class="keyword">FALSE</span>);</span><br><span class="line">define(<span class="string">'DOLOG'</span>,<span class="keyword">FALSE</span>);</span><br><span class="line">define(<span class="string">'COMPRESS'</span>,<span class="keyword">FALSE</span>);</span><br></pre></td></tr></table></figure>
-<p>接下来，要做的是，确定你的程序存放的位置，免费PHP空间的朋友自理，已经有域名绑定了的PHP空间的，自己可以随意，比如，我这里放在这个博客的根目录下的twapi目录下，则，地址为 <code>http://chensd.com/twapi/</code> 现在可以回到推官网（<a href="http://dev.twitter.com/" target="_blank" rel="noopener">http://dev.twitter.com/</a>），然后点击Your apps，将Callback URL修改为上面的地址。</p>
+<h3 id="二、程序下载与修改"><a href="#二、程序下载与修改" class="headerlink" title="二、程序下载与修改"></a>二、程序下载与修改</h3><p>不少开源项目都在做TW API相关的东西。比如这个<a target="_blank" rel="noopener" href="http://code.google.com/p/twip/">twip项目</a>，先<a target="_blank" rel="noopener" href="http://twip.googlecode.com/files/twip-4.1-r184.tar.gz">下载</a>回程序，然后用WinRAR之类的程序解压，找到其中的config-example.php文件，将其改名为 <code>config.php</code> 然后，找个文本编辑器打开，比如记事本之类，会看到以下内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">&#x27;OAUTH_KEY&#x27;</span>,<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">define(<span class="string">&#x27;OAUTH_SECRET&#x27;</span>,<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">define(<span class="string">&#x27;BASE_URL&#x27;</span>,<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">define(<span class="string">&#x27;API_VERSION&#x27;</span>,<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">define(<span class="string">&#x27;DEBUG&#x27;</span>,<span class="literal">FALSE</span>);</span><br><span class="line">define(<span class="string">&#x27;DOLOG&#x27;</span>,<span class="literal">FALSE</span>);</span><br><span class="line">define(<span class="string">&#x27;COMPRESS&#x27;</span>,<span class="literal">FALSE</span>);</span><br></pre></td></tr></table></figure>
+
+<p>接下来，要做的是，确定你的程序存放的位置，免费PHP空间的朋友自理，已经有域名绑定了的PHP空间的，自己可以随意，比如，我这里放在这个博客的根目录下的twapi目录下，则，地址为 <code>http://chensd.com/twapi/</code> 现在可以回到推官网（<a target="_blank" rel="noopener" href="http://dev.twitter.com/">http://dev.twitter.com/</a>），然后点击Your apps，将Callback URL修改为上面的地址。</p>
 <p>找到刚刚记下的API key / Registered Callback URL / Consumer key，把API key填到第二行的OAUTH_KEY后的单绰号里，把Consumer key填到第二行的OAUTH_SECRET后的单引号里，把你确定的地址填到BASE_URL后的单引号里，完成，然后保存。</p>
 <h3 id="三、上传与服务器的配置"><a href="#三、上传与服务器的配置" class="headerlink" title="三、上传与服务器的配置"></a>三、上传与服务器的配置</h3><p>对于使用VPS的朋友，可以使用SSH Secure File Transfer Client这个工具进行上传。其它的可以八仙过海。</p>
 <p>对于VPS，先要让PHP支持curl，以安装Ubuntu 10.04的PhotonVPS可以输入如下命令：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install php5-curl</span><br></pre></td></tr></table></figure>
+
 <p>然后重启一下apache：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+
 <p>CURL设置就完成了。再就是给twip中的oauth文件夹给写权限，进入放twip的目录，本例是进入chensd.com所在的目录，然后依次执行如下命令：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> twapi</span><br><span class="line"></span><br><span class="line">sudo chmod 777 oauth</span><br></pre></td></tr></table></figure>
+
 <p>即可完成权限的改变。服务器的设置也就完成了。</p>
 <h3 id="四、打完收功"><a href="#四、打完收功" class="headerlink" title="四、打完收功"></a>四、打完收功</h3><p>使用浏览器进入刚刚设置的callback URL，即可看到如下的页面：</p>
 <p><a href="/upfile/2010/12/twip_index_php.png"><img src="/upfile/2010/12/twip_index_php.png" alt="Twip搭建成功" title="twip_index_php"></a></p>
@@ -218,7 +215,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、申请API"><span class="toc-text">一、申请API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、程序下载与修改"><span class="toc-text">二、程序下载与修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、上传与服务器的配置"><span class="toc-text">三、上传与服务器的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、打完收功"><span class="toc-text">四、打完收功</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%94%B3%E8%AF%B7API"><span class="toc-text">一、申请API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%A8%8B%E5%BA%8F%E4%B8%8B%E8%BD%BD%E4%B8%8E%E4%BF%AE%E6%94%B9"><span class="toc-text">二、程序下载与修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%8A%E4%BC%A0%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-text">三、上传与服务器的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%89%93%E5%AE%8C%E6%94%B6%E5%8A%9F"><span class="toc-text">四、打完收功</span></a></li></ol>
   </div>
 </div>
 
@@ -251,7 +248,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -276,12 +273,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -289,7 +286,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -297,7 +294,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -305,7 +302,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -313,7 +310,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -321,7 +318,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -379,22 +376,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

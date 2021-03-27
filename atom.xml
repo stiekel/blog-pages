@@ -5,9 +5,9 @@
   <subtitle>A Developer</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://chensd.com/"/>
+  <link href="http://nskip.com/"/>
   <updated>2021-03-10T23:07:38.710Z</updated>
-  <id>http://chensd.com/</id>
+  <id>http://nskip.com/</id>
   
   <author>
     <name>Stiekel</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>我的 2017 技术流水账</title>
-    <link href="http://chensd.com/2017-12/2017-my-technology-logs.html"/>
-    <id>http://chensd.com/2017-12/2017-my-technology-logs.html</id>
+    <link href="http://nskip.com/2017-12/2017-my-technology-logs.html"/>
+    <id>http://nskip.com/2017-12/2017-my-technology-logs.html</id>
     <published>2017-12-31T06:25:31.000Z</published>
     <updated>2021-03-10T23:07:38.710Z</updated>
     
@@ -34,17 +34,17 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="账单" scheme="http://chensd.com/tags/%E8%B4%A6%E5%8D%95/"/>
+      <category term="账单" scheme="http://nskip.com/tags/%E8%B4%A6%E5%8D%95/"/>
     
   </entry>
   
   <entry>
     <title>打造一个安全的用户名密码登录系统</title>
-    <link href="http://chensd.com/2016-08/Safe-username-password-Login-System.html"/>
-    <id>http://chensd.com/2016-08/Safe-username-password-Login-System.html</id>
+    <link href="http://nskip.com/2016-08/Safe-username-password-Login-System.html"/>
+    <id>http://nskip.com/2016-08/Safe-username-password-Login-System.html</id>
     <published>2016-07-31T23:08:04.000Z</published>
     <updated>2021-03-10T23:07:38.715Z</updated>
     
@@ -60,25 +60,25 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="AngularJS" scheme="http://chensd.com/tags/AngularJS/"/>
+      <category term="AngularJS" scheme="http://nskip.com/tags/AngularJS/"/>
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
-      <category term="Waterline" scheme="http://chensd.com/tags/Waterline/"/>
+      <category term="Waterline" scheme="http://nskip.com/tags/Waterline/"/>
     
-      <category term="Express" scheme="http://chensd.com/tags/Express/"/>
+      <category term="Express" scheme="http://nskip.com/tags/Express/"/>
     
-      <category term="安全" scheme="http://chensd.com/tags/%E5%AE%89%E5%85%A8/"/>
+      <category term="安全" scheme="http://nskip.com/tags/%E5%AE%89%E5%85%A8/"/>
     
   </entry>
   
   <entry>
     <title>Angular 控制器之间的数据共享与通信</title>
-    <link href="http://chensd.com/2016-07/Data-share-and-communication-between-Angular-Controllers.html"/>
-    <id>http://chensd.com/2016-07/Data-share-and-communication-between-Angular-Controllers.html</id>
+    <link href="http://nskip.com/2016-07/Data-share-and-communication-between-Angular-Controllers.html"/>
+    <id>http://nskip.com/2016-07/Data-share-and-communication-between-Angular-Controllers.html</id>
     <published>2016-07-27T22:02:45.000Z</published>
     <updated>2021-03-10T23:07:38.713Z</updated>
     
@@ -93,21 +93,21 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="AngularJS" scheme="http://chensd.com/tags/AngularJS/"/>
+      <category term="AngularJS" scheme="http://nskip.com/tags/AngularJS/"/>
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://chensd.com/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://nskip.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
   <entry>
     <title>Angular应用中的登录与身份验证</title>
-    <link href="http://chensd.com/2016-07/Authorzation-and-Login-in-Angular.html"/>
-    <id>http://chensd.com/2016-07/Authorzation-and-Login-in-Angular.html</id>
+    <link href="http://nskip.com/2016-07/Authorzation-and-Login-in-Angular.html"/>
+    <id>http://nskip.com/2016-07/Authorzation-and-Login-in-Angular.html</id>
     <published>2016-07-09T23:34:34.000Z</published>
     <updated>2021-03-10T23:07:38.713Z</updated>
     
@@ -122,21 +122,21 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="AngularJS" scheme="http://chensd.com/tags/AngularJS/"/>
+      <category term="AngularJS" scheme="http://nskip.com/tags/AngularJS/"/>
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://chensd.com/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://nskip.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
   <entry>
     <title>使用原生 JavaScript 获取文本的行数</title>
-    <link href="http://chensd.com/2016-06/Pure-js-get-line-count-of-html-element.html"/>
-    <id>http://chensd.com/2016-06/Pure-js-get-line-count-of-html-element.html</id>
+    <link href="http://nskip.com/2016-06/Pure-js-get-line-count-of-html-element.html"/>
+    <id>http://nskip.com/2016-06/Pure-js-get-line-count-of-html-element.html</id>
     <published>2016-06-24T22:52:48.000Z</published>
     <updated>2021-03-10T23:07:38.715Z</updated>
     
@@ -151,19 +151,19 @@
     
     </summary>
     
-      <category term="随手记" scheme="http://chensd.com/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
+      <category term="随手记" scheme="http://nskip.com/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://chensd.com/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://nskip.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
   <entry>
     <title>Hexo 主题开发指南</title>
-    <link href="http://chensd.com/2016-06/hexo-theme-guide.html"/>
-    <id>http://chensd.com/2016-06/hexo-theme-guide.html</id>
+    <link href="http://nskip.com/2016-06/hexo-theme-guide.html"/>
+    <id>http://nskip.com/2016-06/hexo-theme-guide.html</id>
     <published>2016-06-19T07:17:53.000Z</published>
     <updated>2021-03-10T23:07:38.727Z</updated>
     
@@ -178,21 +178,21 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="前端" scheme="http://chensd.com/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://nskip.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="Hexo" scheme="http://chensd.com/tags/Hexo/"/>
+      <category term="Hexo" scheme="http://nskip.com/tags/Hexo/"/>
     
-      <category term="Blog" scheme="http://chensd.com/tags/Blog/"/>
+      <category term="Blog" scheme="http://nskip.com/tags/Blog/"/>
     
   </entry>
   
   <entry>
     <title>CSS 模拟实现 Material Design 样式的悬浮操作按钮</title>
-    <link href="http://chensd.com/2016-06/Material-Design-Float-Action-Button.html"/>
-    <id>http://chensd.com/2016-06/Material-Design-Float-Action-Button.html</id>
+    <link href="http://nskip.com/2016-06/Material-Design-Float-Action-Button.html"/>
+    <id>http://nskip.com/2016-06/Material-Design-Float-Action-Button.html</id>
     <published>2016-06-05T00:08:19.000Z</published>
     <updated>2021-03-10T23:07:38.714Z</updated>
     
@@ -207,17 +207,17 @@
     
     </summary>
     
-      <category term="随手记" scheme="http://chensd.com/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
+      <category term="随手记" scheme="http://nskip.com/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
     
     
-      <category term="前端" scheme="http://chensd.com/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://nskip.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
   <entry>
     <title>利用 EncloseJS 来打包、加密和保护 Node.js 代码</title>
-    <link href="http://chensd.com/2016-05/EncloseJS.html"/>
-    <id>http://chensd.com/2016-05/EncloseJS.html</id>
+    <link href="http://nskip.com/2016-05/EncloseJS.html"/>
+    <id>http://nskip.com/2016-05/EncloseJS.html</id>
     <published>2016-05-22T03:52:33.000Z</published>
     <updated>2021-03-10T23:07:38.713Z</updated>
     
@@ -236,19 +236,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>发布了一个 Hexo 的新主题：Random</title>
-    <link href="http://chensd.com/2016-05/hexo-theme-random.html"/>
-    <id>http://chensd.com/2016-05/hexo-theme-random.html</id>
+    <link href="http://nskip.com/2016-05/hexo-theme-random.html"/>
+    <id>http://nskip.com/2016-05/hexo-theme-random.html</id>
     <published>2016-05-19T22:17:40.000Z</published>
     <updated>2021-03-10T23:07:38.728Z</updated>
     
@@ -263,21 +263,21 @@
     
     </summary>
     
-      <category term="建站相关" scheme="http://chensd.com/categories/%E5%BB%BA%E7%AB%99%E7%9B%B8%E5%85%B3/"/>
+      <category term="建站相关" scheme="http://nskip.com/categories/%E5%BB%BA%E7%AB%99%E7%9B%B8%E5%85%B3/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="Hexo" scheme="http://chensd.com/tags/Hexo/"/>
+      <category term="Hexo" scheme="http://nskip.com/tags/Hexo/"/>
     
-      <category term="Blog" scheme="http://chensd.com/tags/Blog/"/>
+      <category term="Blog" scheme="http://nskip.com/tags/Blog/"/>
     
   </entry>
   
   <entry>
     <title>应用内 Waterline 实例的共享</title>
-    <link href="http://chensd.com/2016-05/Share-Waterline-Models.html"/>
-    <id>http://chensd.com/2016-05/Share-Waterline-Models.html</id>
+    <link href="http://nskip.com/2016-05/Share-Waterline-Models.html"/>
+    <id>http://nskip.com/2016-05/Share-Waterline-Models.html</id>
     <published>2016-05-13T01:46:42.000Z</published>
     <updated>2021-03-10T23:07:38.716Z</updated>
     
@@ -292,19 +292,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
-      <category term="Waterline" scheme="http://chensd.com/tags/Waterline/"/>
+      <category term="Waterline" scheme="http://nskip.com/tags/Waterline/"/>
     
   </entry>
   
   <entry>
     <title>使用 NW.js 将 Web 应用打包为桌面应用</title>
-    <link href="http://chensd.com/2016-04/Transfer-web-app-to-desktop-app-with-NW-js.html"/>
-    <id>http://chensd.com/2016-04/Transfer-web-app-to-desktop-app-with-NW-js.html</id>
+    <link href="http://nskip.com/2016-04/Transfer-web-app-to-desktop-app-with-NW-js.html"/>
+    <id>http://nskip.com/2016-04/Transfer-web-app-to-desktop-app-with-NW-js.html</id>
     <published>2016-04-03T08:01:51.000Z</published>
     <updated>2021-03-10T23:07:38.716Z</updated>
     
@@ -316,19 +316,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="NW.js" scheme="http://chensd.com/tags/NW-js/"/>
+      <category term="NW.js" scheme="http://nskip.com/tags/NW-js/"/>
     
   </entry>
   
   <entry>
     <title>AngularJS 中利用 Interceptors 来统一处理 HTTP 的错误</title>
-    <link href="http://chensd.com/2016-03/Angular-Handle-Global-Http-Error-with-Interceptors.html"/>
-    <id>http://chensd.com/2016-03/Angular-Handle-Global-Http-Error-with-Interceptors.html</id>
+    <link href="http://nskip.com/2016-03/Angular-Handle-Global-Http-Error-with-Interceptors.html"/>
+    <id>http://nskip.com/2016-03/Angular-Handle-Global-Http-Error-with-Interceptors.html</id>
     <published>2016-03-11T22:29:26.000Z</published>
     <updated>2021-03-10T23:07:38.711Z</updated>
     
@@ -340,19 +340,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="AngularJS" scheme="http://chensd.com/tags/AngularJS/"/>
+      <category term="AngularJS" scheme="http://nskip.com/tags/AngularJS/"/>
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>AngularJS 指令 angular-image-404</title>
-    <link href="http://chensd.com/2016-01/AngularJS-Directive-angular-image-404.html"/>
-    <id>http://chensd.com/2016-01/AngularJS-Directive-angular-image-404.html</id>
+    <link href="http://nskip.com/2016-01/AngularJS-Directive-angular-image-404.html"/>
+    <id>http://nskip.com/2016-01/AngularJS-Directive-angular-image-404.html</id>
     <published>2016-01-01T00:12:41.000Z</published>
     <updated>2021-03-10T23:07:38.712Z</updated>
     
@@ -369,19 +369,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="AngularJS" scheme="http://chensd.com/tags/AngularJS/"/>
+      <category term="AngularJS" scheme="http://nskip.com/tags/AngularJS/"/>
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>使用 Gulp 构建 AngularJS / Jade 项目</title>
-    <link href="http://chensd.com/2015-11/Use-Gulp-in-AngularJS-and-Jade-project.html"/>
-    <id>http://chensd.com/2015-11/Use-Gulp-in-AngularJS-and-Jade-project.html</id>
+    <link href="http://nskip.com/2015-11/Use-Gulp-in-AngularJS-and-Jade-project.html"/>
+    <id>http://nskip.com/2015-11/Use-Gulp-in-AngularJS-and-Jade-project.html</id>
     <published>2015-11-07T23:22:45.000Z</published>
     <updated>2021-03-10T23:07:38.716Z</updated>
     
@@ -401,19 +401,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="Gulp" scheme="http://chensd.com/tags/Gulp/"/>
+      <category term="Gulp" scheme="http://nskip.com/tags/Gulp/"/>
     
   </entry>
   
   <entry>
     <title>在 Express 项目中使用 Waterline</title>
-    <link href="http://chensd.com/2015-10/Use-Waterline-in-Express-project.html"/>
-    <id>http://chensd.com/2015-10/Use-Waterline-in-Express-project.html</id>
+    <link href="http://nskip.com/2015-10/Use-Waterline-in-Express-project.html"/>
+    <id>http://nskip.com/2015-10/Use-Waterline-in-Express-project.html</id>
     <published>2015-10-25T17:40:22.000Z</published>
     <updated>2021-03-10T23:07:38.717Z</updated>
     
@@ -426,19 +426,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
-      <category term="Waterline" scheme="http://chensd.com/tags/Waterline/"/>
+      <category term="Waterline" scheme="http://nskip.com/tags/Waterline/"/>
     
   </entry>
   
   <entry>
     <title>Node.js ORM 数据操作中间件 Waterline</title>
-    <link href="http://chensd.com/2015-10/Node-ORM-Waterline.html"/>
-    <id>http://chensd.com/2015-10/Node-ORM-Waterline.html</id>
+    <link href="http://nskip.com/2015-10/Node-ORM-Waterline.html"/>
+    <id>http://nskip.com/2015-10/Node-ORM-Waterline.html</id>
     <published>2015-10-25T08:31:51.000Z</published>
     <updated>2021-03-10T23:07:38.715Z</updated>
     
@@ -451,19 +451,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
-      <category term="Waterline" scheme="http://chensd.com/tags/Waterline/"/>
+      <category term="Waterline" scheme="http://nskip.com/tags/Waterline/"/>
     
   </entry>
   
   <entry>
     <title>如何在 Mongoose 的实例方法中访问静态方法</title>
-    <link href="http://chensd.com/2015-09/How-to-invoke-static-method-in-instance-method-of-mongoose.html"/>
-    <id>http://chensd.com/2015-09/How-to-invoke-static-method-in-instance-method-of-mongoose.html</id>
+    <link href="http://nskip.com/2015-09/How-to-invoke-static-method-in-instance-method-of-mongoose.html"/>
+    <id>http://nskip.com/2015-09/How-to-invoke-static-method-in-instance-method-of-mongoose.html</id>
     <published>2015-09-21T13:36:31.000Z</published>
     <updated>2021-03-10T23:07:38.714Z</updated>
     
@@ -475,17 +475,17 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>Node.js 4.0.0 新特性：模板字符串（Template Strings）</title>
-    <link href="http://chensd.com/2015-09/ES6-template-strings.html"/>
-    <id>http://chensd.com/2015-09/ES6-template-strings.html</id>
+    <link href="http://nskip.com/2015-09/ES6-template-strings.html"/>
+    <id>http://nskip.com/2015-09/ES6-template-strings.html</id>
     <published>2015-09-12T22:21:58.000Z</published>
     <updated>2021-03-10T23:07:38.713Z</updated>
     
@@ -497,19 +497,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>Hexo中的分页、标签、分类链接地址错误问题</title>
-    <link href="http://chensd.com/2015-09/Hexo-Relative-Link-Problems.html"/>
-    <id>http://chensd.com/2015-09/Hexo-Relative-Link-Problems.html</id>
+    <link href="http://nskip.com/2015-09/Hexo-Relative-Link-Problems.html"/>
+    <id>http://nskip.com/2015-09/Hexo-Relative-Link-Problems.html</id>
     <published>2015-09-11T22:16:54.000Z</published>
     <updated>2021-03-10T23:07:38.714Z</updated>
     
@@ -527,17 +527,17 @@
     
     </summary>
     
-      <category term="建站相关" scheme="http://chensd.com/categories/%E5%BB%BA%E7%AB%99%E7%9B%B8%E5%85%B3/"/>
+      <category term="建站相关" scheme="http://nskip.com/categories/%E5%BB%BA%E7%AB%99%E7%9B%B8%E5%85%B3/"/>
     
     
-      <category term="Hexo" scheme="http://chensd.com/tags/Hexo/"/>
+      <category term="Hexo" scheme="http://nskip.com/tags/Hexo/"/>
     
   </entry>
   
   <entry>
     <title>译作《 MEAN Web 开发》中文版发行</title>
-    <link href="http://chensd.com/2015-09/MEAN-Web-Development-CN-published.html"/>
-    <id>http://chensd.com/2015-09/MEAN-Web-Development-CN-published.html</id>
+    <link href="http://nskip.com/2015-09/MEAN-Web-Development-CN-published.html"/>
+    <id>http://nskip.com/2015-09/MEAN-Web-Development-CN-published.html</id>
     <published>2015-09-10T21:31:50.000Z</published>
     <updated>2021-03-10T23:07:38.714Z</updated>
     
@@ -552,21 +552,21 @@
     
     </summary>
     
-      <category term="翻译" scheme="http://chensd.com/categories/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="http://nskip.com/categories/%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
-      <category term="翻译" scheme="http://chensd.com/tags/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="http://nskip.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
   </entry>
   
   <entry>
     <title>WebSocket的性能与压力测试</title>
-    <link href="http://chensd.com/2015-07/websocket-stress-test-and-performance-test.html"/>
-    <id>http://chensd.com/2015-07/websocket-stress-test-and-performance-test.html</id>
+    <link href="http://nskip.com/2015-07/websocket-stress-test-and-performance-test.html"/>
+    <id>http://nskip.com/2015-07/websocket-stress-test-and-performance-test.html</id>
     <published>2015-07-30T09:22:09.000Z</published>
     <updated>2021-03-10T23:07:38.741Z</updated>
     
@@ -579,19 +579,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>Angular2路由模块简介</title>
-    <link href="http://chensd.com/2015-06/Angular-New-Router.html"/>
-    <id>http://chensd.com/2015-06/Angular-New-Router.html</id>
+    <link href="http://nskip.com/2015-06/Angular-New-Router.html"/>
+    <id>http://nskip.com/2015-06/Angular-New-Router.html</id>
     <published>2015-06-07T07:19:08.000Z</published>
     <updated>2021-03-10T23:07:38.712Z</updated>
     
@@ -605,19 +605,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="AngularJS" scheme="http://chensd.com/tags/AngularJS/"/>
+      <category term="AngularJS" scheme="http://nskip.com/tags/AngularJS/"/>
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>Safari 中转换 &#39;YYYY-M-D&#39; 格式时间的一个坑</title>
-    <link href="http://chensd.com/2015-06/safari-date-parse.html"/>
-    <id>http://chensd.com/2015-06/safari-date-parse.html</id>
+    <link href="http://nskip.com/2015-06/safari-date-parse.html"/>
+    <id>http://nskip.com/2015-06/safari-date-parse.html</id>
     <published>2015-06-01T22:19:09.000Z</published>
     <updated>2021-03-10T23:07:38.738Z</updated>
     
@@ -632,17 +632,17 @@
     
     </summary>
     
-      <category term="随手记" scheme="http://chensd.com/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
+      <category term="随手记" scheme="http://nskip.com/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>AngularJS常用插件与指令收集</title>
-    <link href="http://chensd.com/2015-06/AngularJS-popular-Plugins-and-Directive.html"/>
-    <id>http://chensd.com/2015-06/AngularJS-popular-Plugins-and-Directive.html</id>
+    <link href="http://nskip.com/2015-06/AngularJS-popular-Plugins-and-Directive.html"/>
+    <id>http://nskip.com/2015-06/AngularJS-popular-Plugins-and-Directive.html</id>
     <published>2015-06-01T10:21:23.000Z</published>
     <updated>2021-03-10T23:07:38.712Z</updated>
     
@@ -658,19 +658,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="AngularJS" scheme="http://chensd.com/tags/AngularJS/"/>
+      <category term="AngularJS" scheme="http://nskip.com/tags/AngularJS/"/>
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>怎样以后台Demon方式启动关闭MongoDB和Redis</title>
-    <link href="http://chensd.com/2015-05/Start-MongoDB-Redis-as-Demon-and-Shutdown.html"/>
-    <id>http://chensd.com/2015-05/Start-MongoDB-Redis-as-Demon-and-Shutdown.html</id>
+    <link href="http://nskip.com/2015-05/Start-MongoDB-Redis-as-Demon-and-Shutdown.html"/>
+    <id>http://nskip.com/2015-05/Start-MongoDB-Redis-as-Demon-and-Shutdown.html</id>
     <published>2015-05-26T03:20:13.000Z</published>
     <updated>2021-03-10T23:07:38.716Z</updated>
     
@@ -683,17 +683,17 @@
     
     </summary>
     
-      <category term="建站相关" scheme="http://chensd.com/categories/%E5%BB%BA%E7%AB%99%E7%9B%B8%E5%85%B3/"/>
+      <category term="建站相关" scheme="http://nskip.com/categories/%E5%BB%BA%E7%AB%99%E7%9B%B8%E5%85%B3/"/>
     
     
-      <category term="Linux" scheme="http://chensd.com/tags/Linux/"/>
+      <category term="Linux" scheme="http://nskip.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>一种权重算法及其实现</title>
-    <link href="http://chensd.com/2015-05/algorithm-of-weight.html"/>
-    <id>http://chensd.com/2015-05/algorithm-of-weight.html</id>
+    <link href="http://nskip.com/2015-05/algorithm-of-weight.html"/>
+    <id>http://nskip.com/2015-05/algorithm-of-weight.html</id>
     <published>2015-05-15T01:25:24.000Z</published>
     <updated>2021-03-10T23:07:38.718Z</updated>
     
@@ -724,17 +724,17 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>那些援助到底可以折算成多少吨黄金？</title>
-    <link href="http://chensd.com/2015-03/how-many-tons-of-gold.html"/>
-    <id>http://chensd.com/2015-03/how-many-tons-of-gold.html</id>
+    <link href="http://nskip.com/2015-03/how-many-tons-of-gold.html"/>
+    <id>http://nskip.com/2015-03/how-many-tons-of-gold.html</id>
     <published>2015-03-17T04:33:50.000Z</published>
     <updated>2021-03-10T23:07:38.728Z</updated>
     
@@ -750,17 +750,17 @@
     
     </summary>
     
-      <category term="胡说八道" scheme="http://chensd.com/categories/%E8%83%A1%E8%AF%B4%E5%85%AB%E9%81%93/"/>
+      <category term="胡说八道" scheme="http://nskip.com/categories/%E8%83%A1%E8%AF%B4%E5%85%AB%E9%81%93/"/>
     
     
-      <category term="和谐" scheme="http://chensd.com/tags/%E5%92%8C%E8%B0%90/"/>
+      <category term="和谐" scheme="http://nskip.com/tags/%E5%92%8C%E8%B0%90/"/>
     
   </entry>
   
   <entry>
     <title>使用过滤器filter在ngOptions和ngRepeat中筛选与排除</title>
-    <link href="http://chensd.com/2015-03/AngularJS-ngOptions-ngRepeat-filter-exclude-and-screen.html"/>
-    <id>http://chensd.com/2015-03/AngularJS-ngOptions-ngRepeat-filter-exclude-and-screen.html</id>
+    <link href="http://nskip.com/2015-03/AngularJS-ngOptions-ngRepeat-filter-exclude-and-screen.html"/>
+    <id>http://nskip.com/2015-03/AngularJS-ngOptions-ngRepeat-filter-exclude-and-screen.html</id>
     <published>2015-03-03T05:11:12.000Z</published>
     <updated>2021-03-10T23:07:38.712Z</updated>
     
@@ -772,19 +772,19 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="AngularJS" scheme="http://chensd.com/tags/AngularJS/"/>
+      <category term="AngularJS" scheme="http://nskip.com/tags/AngularJS/"/>
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>利用Ajax无刷新上传文件到Node.js服务器</title>
-    <link href="http://chensd.com/2015-01/Node-js-Ajax-Upload-File.html"/>
-    <id>http://chensd.com/2015-01/Node-js-Ajax-Upload-File.html</id>
+    <link href="http://nskip.com/2015-01/Node-js-Ajax-Upload-File.html"/>
+    <id>http://nskip.com/2015-01/Node-js-Ajax-Upload-File.html</id>
     <published>2015-01-30T07:08:08.000Z</published>
     <updated>2021-03-10T23:07:38.715Z</updated>
     
@@ -805,21 +805,21 @@
     
     </summary>
     
-      <category term="编程杂记" scheme="http://chensd.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
+      <category term="编程杂记" scheme="http://nskip.com/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
-      <category term="Node.js" scheme="http://chensd.com/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://nskip.com/tags/Node-js/"/>
     
-      <category term="jQuery" scheme="http://chensd.com/tags/jQuery/"/>
+      <category term="jQuery" scheme="http://nskip.com/tags/jQuery/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript奇技淫巧45招</title>
-    <link href="http://chensd.com/2015-01/45-useful-javascript-tips-tricks-and-best-practices.html"/>
-    <id>http://chensd.com/2015-01/45-useful-javascript-tips-tricks-and-best-practices.html</id>
+    <link href="http://nskip.com/2015-01/45-useful-javascript-tips-tricks-and-best-practices.html"/>
+    <id>http://nskip.com/2015-01/45-useful-javascript-tips-tricks-and-best-practices.html</id>
     <published>2015-01-05T06:49:09.000Z</published>
     <updated>2021-03-10T23:07:38.711Z</updated>
     
@@ -838,10 +838,10 @@
     
     </summary>
     
-      <category term="翻译" scheme="http://chensd.com/categories/%E7%BF%BB%E8%AF%91/"/>
+      <category term="翻译" scheme="http://nskip.com/categories/%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="JavaScript" scheme="http://chensd.com/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://nskip.com/tags/JavaScript/"/>
     
   </entry>
   

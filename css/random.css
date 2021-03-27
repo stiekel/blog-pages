@@ -1,7 +1,7 @@
 body {
   background-color: #34495e;
   margin: 0px;
-  font-family: 400 1em/1.8 'Microsoft Yahei', 'PingFang SC', 'Avenir', 'Segoe UI', 'Hiragino Sans GB', STHeiti, 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif;
+  font: 400 1em/1.8 'Microsoft Yahei', 'PingFang SC', 'Avenir', 'Segoe UI', 'Hiragino Sans GB', STHeiti, 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif;
   font-size: 18px;
 }
 @media (max-width: 860px) {
@@ -591,14 +591,14 @@ figure.highlight .line {
   height: 22px;
 }
 code {
-  font-family: Verdana, Lucida Console, Consolas, Monaco, Courier New;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   background-color: #ddd;
   font-style: italic;
   padding-left: 12px;
   padding-right: 12px;
 }
 table .line {
-  font-family: Verdana, Lucida Console, Consolas, Monaco, Courier New;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   height: 22px;
 }
 blockquote {
@@ -658,7 +658,7 @@ blockquote {
     margin-right: 0px;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 760px) and (max-width: 480px) {
   .random-center {
     position: static;
     left: 0;
@@ -677,7 +677,7 @@ blockquote {
     opacity: 0.95;
   }
 }
-@media (max-height: 480px) {
+@media (max-width: 760px) and (max-height: 480px) {
   .random-center {
     position: static;
     top: 0;
@@ -691,7 +691,7 @@ blockquote {
     padding: 0px 0px;
   }
 }
-@media (max-height: 320px) {
+@media (max-width: 760px) and (max-height: 320px) {
   .random-center {
     margin-top: 75px;
   }

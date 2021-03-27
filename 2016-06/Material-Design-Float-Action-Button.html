@@ -22,20 +22,13 @@
   
   <title>CSS 模拟实现 Material Design 样式的悬浮操作按钮 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -45,7 +38,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -168,11 +161,12 @@
       </span>
     </p>
     
-    <p>Material Design 的悬浮操作按钮虽然会挡住一部分页面内容，但的确提供了一种不错的表现操作按钮的思路。手里一个微信的项目正好准备试试用这种风格来表现创建一类的操作。关于 Material Design 的按钮介绍，可以看<a href="https://www.google.com/design/spec/components/buttons.html#buttons-button-types" target="_blank" rel="noopener">这里</a>。</p>
+    <p>Material Design 的悬浮操作按钮虽然会挡住一部分页面内容，但的确提供了一种不错的表现操作按钮的思路。手里一个微信的项目正好准备试试用这种风格来表现创建一类的操作。关于 Material Design 的按钮介绍，可以看<a target="_blank" rel="noopener" href="https://www.google.com/design/spec/components/buttons.html#buttons-button-types">这里</a>。</p>
 <p>这里实现一个类似于 Gmail App 中的新建邮件按钮风格类似的样式，为了简便，就直接使用一个样式来完成，元素的 HTML 如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"float-action-button"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;float-action-button&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="按钮的定位"><a href="#按钮的定位" class="headerlink" title="按钮的定位"></a>按钮的定位</h3><p>悬浮操作按钮一般是位于屏幕的右下方，并且位置不随网页的滚动而变化。这可以通过设置 <code>position</code> 为 <code>fixed</code> 来实现，位置则通过 <code>bottom</code> 和 <code>right</code> 来指定。另外还修改一下光标的指针样式：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.float-action-button</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="按钮的颜色与形状"><a href="#按钮的颜色与形状" class="headerlink" title="按钮的颜色与形状"></a>按钮的颜色与形状</h3><p>这里的颜色包括四个，分别是：</p>
 <ul>
 <li>按钮的主体背景色</li>
@@ -180,18 +174,24 @@
 <li>按钮中铅笔图标的铅笔颜色</li>
 <li>按钮的阴影色</li>
 </ul>
-<p>其中前两个颜色类似，而主体色要比边框色稍微浅一点。如果你有颜色选择困难症，可以直接使用 <a href="https://www.google.com/design/spec/style/color.html#" target="_blank" rel="noopener">Material Design 颜色推荐表</a>，或者试试这两个扁平化设计颜色推荐网站：<a href="http://www.flatuicolorpicker.com/" target="_blank" rel="noopener">flatuicolorpicker.com</a>、<a href="https://flatuicolors.com/" target="_blank" rel="noopener">flatuicolors.com</a>。我用的是 flatuicolorpicker 上的颜色。</p>
+<p>其中前两个颜色类似，而主体色要比边框色稍微浅一点。如果你有颜色选择困难症，可以直接使用 <a target="_blank" rel="noopener" href="https://www.google.com/design/spec/style/color.html#">Material Design 颜色推荐表</a>，或者试试这两个扁平化设计颜色推荐网站：<a target="_blank" rel="noopener" href="http://www.flatuicolorpicker.com/">flatuicolorpicker.com</a>、<a target="_blank" rel="noopener" href="https://flatuicolors.com/">flatuicolors.com</a>。我用的是 flatuicolorpicker 上的颜色。</p>
 <p>圆形通过设置 <code>border-radius</code> 可以实现，其值大于 <code>50%</code> 时可以表现为圆形。这里借助 <code>padding</code> 来设置按钮的大小。</p>
-<p>设置颜色和形状如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.float-action-button</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#D91E18</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#F2F1EF</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="按钮的图标"><a href="#按钮的图标" class="headerlink" title="按钮的图标"></a>按钮的图标</h3><p>按钮中有一个铅笔的图标，这里为了简单，直接使用一个图片来实现。目前发现的最丰富的图标资源站，当然是 <a href="http://iconfont.cn/" target="_blank" rel="noopener">iconfont</a> ，搜索 <code>pencil</code> 可以找到 258 个图标，挑一个就行。但要注意，因为背景色为深色，为了使铅笔看起来相对明显一点，最好选择图标中着色面积大的。鼠标指向图标可以显示下载按钮，着色要与背景色形成对象，使用白色，或者浅灰，这里直接使用 iconfont 推荐的 <code>#ecf0f1</code> 。</p>
+<p>设置颜色和形状如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.float-action-button</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#D91E18</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#F2F1EF</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="按钮的图标"><a href="#按钮的图标" class="headerlink" title="按钮的图标"></a>按钮的图标</h3><p>按钮中有一个铅笔的图标，这里为了简单，直接使用一个图片来实现。目前发现的最丰富的图标资源站，当然是 <a target="_blank" rel="noopener" href="http://iconfont.cn/">iconfont</a> ，搜索 <code>pencil</code> 可以找到 258 个图标，挑一个就行。但要注意，因为背景色为深色，为了使铅笔看起来相对明显一点，最好选择图标中着色面积大的。鼠标指向图标可以显示下载按钮，着色要与背景色形成对象，使用白色，或者浅灰，这里直接使用 iconfont 推荐的 <code>#ecf0f1</code> 。</p>
 <p>背景图要设置为居中，不重复。大小为整个按钮大小的一半——将 <code>background-size</code> 设置为 <code>padding</code> 值即可。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.float-action-button</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">'./pencil.png'</span>);</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">  <span class="attribute">background-position</span>: center;</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.float-action-button</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;./pencil.png&#x27;</span>);</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">  <span class="attribute">background-position</span>: center;</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="按钮的边框"><a href="#按钮的边框" class="headerlink" title="按钮的边框"></a>按钮的边框</h3><p>按钮有一个很细的边框，颜色相对背景色要稍深一点，通过 <code>border</code> 来设置：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.float-action-button</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#CF000F</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="按钮的阴影"><a href="#按钮的阴影" class="headerlink" title="按钮的阴影"></a>按钮的阴影</h3><p>CSS 的阴影有两种， <code>text-shadow</code> 和 <code>box-shadow</code> ，前者用于指定文字阴影，这里要使用 <code>box-shadow</code>，它典型的值有五个，分别是x轴偏移、y轴偏移、blur 模糊的半径、发散半径、阴影颜色。悬浮操作按钮只有 y 轴偏移。而且颜色很浅。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.float-action-button</span> &#123;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0px</span> <span class="number">3px</span> <span class="number">9px</span> <span class="number">2px</span> <span class="number">#BFBFBF</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="悬停样式"><a href="#悬停样式" class="headerlink" title="悬停样式"></a>悬停样式</h3><p>当鼠标经过和点击之后，要模板一个按钮按下的效果，直接通过修改背景色和加大阴影 y 轴偏移即可，如下：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.float-action-button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#F22613</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0px</span> <span class="number">6px</span> <span class="number">9px</span> <span class="number">2px</span> <span class="number">#BFBFBF</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p>请参见 <a href="/code/floatActionButton.html">Demo</a>。</p>
 
   </article>
@@ -200,7 +200,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#按钮的定位"><span class="toc-text">按钮的定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按钮的颜色与形状"><span class="toc-text">按钮的颜色与形状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按钮的图标"><span class="toc-text">按钮的图标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按钮的边框"><span class="toc-text">按钮的边框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按钮的阴影"><span class="toc-text">按钮的阴影</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#悬停样式"><span class="toc-text">悬停样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最终效果"><span class="toc-text">最终效果</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%92%AE%E7%9A%84%E5%AE%9A%E4%BD%8D"><span class="toc-text">按钮的定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%92%AE%E7%9A%84%E9%A2%9C%E8%89%B2%E4%B8%8E%E5%BD%A2%E7%8A%B6"><span class="toc-text">按钮的颜色与形状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%92%AE%E7%9A%84%E5%9B%BE%E6%A0%87"><span class="toc-text">按钮的图标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%92%AE%E7%9A%84%E8%BE%B9%E6%A1%86"><span class="toc-text">按钮的边框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%92%AE%E7%9A%84%E9%98%B4%E5%BD%B1"><span class="toc-text">按钮的阴影</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%82%AC%E5%81%9C%E6%A0%B7%E5%BC%8F"><span class="toc-text">悬停样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li></ol>
   </div>
 </div>
 
@@ -233,7 +233,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -258,12 +258,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -271,7 +271,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -279,7 +279,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -287,7 +287,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -295,7 +295,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -303,7 +303,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -361,22 +361,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

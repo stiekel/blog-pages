@@ -22,20 +22,13 @@
   
   <title>由MySQL的1194错误导致的Wordpress主页无任何文章显示 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -45,7 +38,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -158,13 +151,14 @@
       </span>
     </p>
     
-    <p>6月13号到14号，PhotonVPS号称是<a href="http://www.netroby.com/article-2463.html" target="_blank" rel="noopener">给机房换供电设备</a>，13号晚上还发了设备换毕的邮件，结果14号还在抽风，一度连其官方网站都打不开，直到14号晚上才终于恢复正常。整整两天，PhotonVPS就没有怎么正常过。事后，官方也没有给出邮件进行解释，就更谈不上补偿损失了。</p>
-<p><a href="/upfile/2010/06/photonvps_down.png"><img src="/upfile/2010/06/photonvps_down.png" alt="" title="6月14日PhotonVPS连其官方网站都无法打开"></a></p>
+    <p>6月13号到14号，PhotonVPS号称是<a target="_blank" rel="noopener" href="http://www.netroby.com/article-2463.html">给机房换供电设备</a>，13号晚上还发了设备换毕的邮件，结果14号还在抽风，一度连其官方网站都打不开，直到14号晚上才终于恢复正常。整整两天，PhotonVPS就没有怎么正常过。事后，官方也没有给出邮件进行解释，就更谈不上补偿损失了。</p>
+<p><a href="/upfile/2010/06/photonvps_down.png"><img src="/upfile/2010/06/photonvps_down.png" title="6月14日PhotonVPS连其官方网站都无法打开"></a></p>
 <p>比较惨的是，经过两天的折腾后，打开自己的博客一看，首页已经无任何博文显示了。其它页面，也没有内容。</p>
-<a id="more"></a>
-<p><a href="/upfile/2010/06/saywiki_black.png"><img src="/upfile/2010/06/saywiki_black-560x531.png" alt="" title="saywiki_black"></a></p>
+<span id="more"></span>
+
+<p><a href="/upfile/2010/06/saywiki_black.png"><img src="/upfile/2010/06/saywiki_black-560x531.png" title="saywiki_black"></a></p>
 <p>于是用phpMyAdmin登录上，查看相应的数据库，发现数据库本身是正常的，但在浏览wp_post表的时候，前几页还没有问题，往后翻时，出现了1194错误的提示。</p>
-<p><a href="/upfile/2010/06/mysql_1194_error.png"><img src="/upfile/2010/06/mysql_1194_error.png" alt="" title="MySQL数据库1194错误"></a></p>
+<p><a href="/upfile/2010/06/mysql_1194_error.png"><img src="/upfile/2010/06/mysql_1194_error.png" title="MySQL数据库1194错误"></a></p>
 <p>幸好问题不大，于是试着用phpMyAdmin修复相应被损坏的表。在phpMyAdmin中选择相应的数据库，然后进入数据表列表，在需要修复的wp_post表前打勾，再在下方的下拉选框中选择&ldquo;Repair Table&rdquo;（修复表），即可完成修复。</p>
 <p>在修复以后，发现表中最新的几条记录已经无法找回了。没办法，只好借助RSS输出来找回了一些数据。</p>
 <p>忍不住抱怨一下PhotonVPS，据说部分用户提前收到了通知，但我却没有看到。直到13号晚上发邮件说设备弄好了才知道，结果14号还是断断续续的出问题。官网都抽冈了，结果连个道歉的邮件都没有看到。</p>
@@ -208,7 +202,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -233,12 +227,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -246,7 +240,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -254,7 +248,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -262,7 +256,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -270,7 +264,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -278,7 +272,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -336,22 +330,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

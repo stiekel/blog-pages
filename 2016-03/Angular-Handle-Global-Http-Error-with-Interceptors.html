@@ -20,20 +20,13 @@
   
   <title>AngularJS 中利用 Interceptors 来统一处理 HTTP 的错误 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -43,7 +36,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -172,50 +165,52 @@
       </span>
     </p>
     
-    <p>Web 开发中，除了数据操作之外，最频繁的就是发起和处理各种 HTTP 请求了，加上 HTTP 请求又是异步的，如果在每个请求中来单独捕获各种常规错误，处理各类自定义错误，那将会有大量的功能类似的代码，或者使用丑陋的方法在每个请求中调用某几个自定义的函数来处理。这两种方法基本都不是靠谱之选。好在 AngularJS 提供了 <a href="https://docs.angularjs.org/api/ng/service/$http#Interceptors" target="_blank" rel="noopener">Interceptors</a>——拦截战斗机——来对应用内所有的 XHR 请求进行统一处理。</p>
-<a id="more"></a>
+    <p>Web 开发中，除了数据操作之外，最频繁的就是发起和处理各种 HTTP 请求了，加上 HTTP 请求又是异步的，如果在每个请求中来单独捕获各种常规错误，处理各类自定义错误，那将会有大量的功能类似的代码，或者使用丑陋的方法在每个请求中调用某几个自定义的函数来处理。这两种方法基本都不是靠谱之选。好在 AngularJS 提供了 <a target="_blank" rel="noopener" href="https://docs.angularjs.org/api/ng/service/$http#Interceptors">Interceptors</a>——拦截战斗机——来对应用内所有的 XHR 请求进行统一处理。</p>
+<span id="more"></span>
+
 <h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><p>Interceptors 有两个处理时机，分别是：</p>
 <ul>
-<li>其它程序代码执行 HTTP 请求之后，在实际从浏览器发出请求之前，即处理请求</li>
-<li>得到请求的响应之后，在交给其它程序代码处理之前，即处理请求的响应</li>
+<li>  其它程序代码执行 HTTP 请求之后，在实际从浏览器发出请求之前，即处理请求</li>
+<li>  得到请求的响应之后，在交给其它程序代码处理之前，即处理请求的响应</li>
 </ul>
 <p>所以，不难理解它可以用于如下几个方面：</p>
 <ul>
-<li>全局处理错误</li>
-<li>统一进行身份验证一类的处理</li>
-<li>对所有发出去的请求进行预处理</li>
-<li>对所有收到的响应进行预处理</li>
-<li>做一些增强用户体验的操作，例如显示一个进度条</li>
+<li>  全局处理错误</li>
+<li>  统一进行身份验证一类的处理</li>
+<li>  对所有发出去的请求进行预处理</li>
+<li>  对所有收到的响应进行预处理</li>
+<li>  做一些增强用户体验的操作，例如显示一个进度条</li>
 </ul>
 <h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>先来看看最基本的使用：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'app'</span>, []);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个 Service ，稍等将会把它作为 Interceptors 的处理函数</span></span><br><span class="line">app.factory(<span class="string">'HttpInterceptor'</span>, [<span class="string">'$q'</span>, HttpInterceptor]);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">HttpInterceptor</span>(<span class="params">$q</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    request: <span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> config;</span><br><span class="line">    &#125;,</span><br><span class="line">    requestError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">    &#125;,</span><br><span class="line">    response: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">    &#125;,</span><br><span class="line">    responseError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="number">-1</span> === err.status) &#123;</span><br><span class="line">        <span class="comment">// 远程服务器无响应</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">500</span> === err.status) &#123;</span><br><span class="line">        <span class="comment">// 处理各类自定义错误</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">501</span> === err.status) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加对应的 Interceptors</span></span><br><span class="line">app.config([<span class="string">'$httpProvider'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$httpProvider</span>)</span>&#123;</span><br><span class="line">  $httpProvider.interceptors.push(HttpInterceptor);</span><br><span class="line">&#125;]);</span><br></pre></td></tr></table></figure>
-<h3 id="进一步了解"><a href="#进一步了解" class="headerlink" title="进一步了解"></a>进一步了解</h3><p>实际的 Interceptor 处理函数中， <code>return</code> 了一个包含四个成员的对象，这四个成员都<strong>不是必须</strong>的，可以按实际情况指定一二，分别如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">&#x27;app&#x27;</span>, []);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个 Service ，稍等将会把它作为 Interceptors 的处理函数</span></span><br><span class="line">app.factory(<span class="string">&#x27;HttpInterceptor&#x27;</span>, [<span class="string">&#x27;$q&#x27;</span>, HttpInterceptor]);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">HttpInterceptor</span>(<span class="params">$q</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    request: <span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> config;</span><br><span class="line">    &#125;,</span><br><span class="line">    requestError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">    &#125;,</span><br><span class="line">    response: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">    &#125;,</span><br><span class="line">    responseError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(-<span class="number">1</span> === err.status) &#123;</span><br><span class="line">        <span class="comment">// 远程服务器无响应</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">500</span> === err.status) &#123;</span><br><span class="line">        <span class="comment">// 处理各类自定义错误</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">501</span> === err.status) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加对应的 Interceptors</span></span><br><span class="line">app.config([<span class="string">&#x27;$httpProvider&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$httpProvider</span>)</span>&#123;</span><br><span class="line">  $httpProvider.interceptors.push(HttpInterceptor);</span><br><span class="line">&#125;]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="进一步了解"><a href="#进一步了解" class="headerlink" title="进一步了解"></a>进一步了解</h3><p>实际的 Interceptor 处理函数中， <code>return</code> 了一个包含四个成员的对象，这四个成员都__不是必须__的，可以按实际情况指定一二，分别如下：</p>
 <ul>
-<li><strong><code>request</code></strong>：接收一个参数，它是 <code>$http</code> 中的标准 <a href="https://docs.angularjs.org/api/ng/service/$http#usage" target="_blank" rel="noopener">config</a> 对象，同时也需要返回一个标准 <code>config</code> ，此时可以添加各类身份验证信息，同时也可在此启动进度条</li>
-<li><strong><code>requestError</code></strong>：当有多个 Interceptor 的时候，<code>requestError</code> 会在前一个 Interceptor 抛出错误或者执行 <code>$q.reject()</code> 时执行，接收的参数就对应的错误</li>
-<li><strong><code>response</code></strong>：接受一个请求对象参数，可以不处理就直接返回，此时也可以将进度条显示为成功完成，当然，如果后端 API 返回自定义错误时，HTTP 的状态码仍然是 200 得话，便在这里处理自定义错误，也可以对返回数据做一些处理，注意要将进度条置为完成</li>
-<li><strong><code>responseError</code></strong>：这个是重头戏，即可以处理标准的 Http 错误，如服务器没有响应时，或者 PHP 之类的 CGI 经常出现的 502 一类，还可以处理 HTTP 状态码不是 200 的各类自定义错误</li>
+<li>  __<code>request</code>__：接收一个参数，它是 <code>$http</code> 中的标准 <a target="_blank" rel="noopener" href="https://docs.angularjs.org/api/ng/service/$http#usage">config</a> 对象，同时也需要返回一个标准 <code>config</code> ，此时可以添加各类身份验证信息，同时也可在此启动进度条</li>
+<li>  __<code>requestError</code>__：当有多个 Interceptor 的时候，<code>requestError</code> 会在前一个 Interceptor 抛出错误或者执行 <code>$q.reject()</code> 时执行，接收的参数就对应的错误</li>
+<li>  __<code>response</code>__：接受一个请求对象参数，可以不处理就直接返回，此时也可以将进度条显示为成功完成，当然，如果后端 API 返回自定义错误时，HTTP 的状态码仍然是 200 得话，便在这里处理自定义错误，也可以对返回数据做一些处理，注意要将进度条置为完成</li>
+<li>  __<code>responseError</code>__：这个是重头戏，即可以处理标准的 Http 错误，如服务器没有响应时，或者 PHP 之类的 CGI 经常出现的 502 一类，还可以处理 HTTP 状态码不是 200 的各类自定义错误</li>
 </ul>
 <p>上面四个中，前两个是请求的前置处理，后两个是针对请求的响应的处理。</p>
 <h3 id="几个相关的库"><a href="#几个相关的库" class="headerlink" title="几个相关的库"></a>几个相关的库</h3><p>显示进度：</p>
 <ul>
-<li><a href="http://ricostacruz.com/nprogress/" target="_blank" rel="noopener">NProgress</a> </li>
-<li><a href="http://victorbjelkholm.github.io/ngProgress/" target="_blank" rel="noopener">NgProgress</a> NProgress for AngularJS</li>
-<li><a href="http://react-component.github.io/progress/" target="_blank" rel="noopener">rc-progress</a></li>
-<li><a href="https://github.com/bahmutov/progress-full-width" target="_blank" rel="noopener">progress-full-width</a></li>
-<li><a href="http://jkroso.github.io/progress-svg/" target="_blank" rel="noopener">progress-svg</a></li>
+<li>  <a target="_blank" rel="noopener" href="http://ricostacruz.com/nprogress/">NProgress</a> </li>
+<li>  <a target="_blank" rel="noopener" href="http://victorbjelkholm.github.io/ngProgress/">NgProgress</a> NProgress for AngularJS</li>
+<li>  <a target="_blank" rel="noopener" href="http://react-component.github.io/progress/">rc-progress</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://github.com/bahmutov/progress-full-width">progress-full-width</a></li>
+<li>  <a target="_blank" rel="noopener" href="http://jkroso.github.io/progress-svg/">progress-svg</a></li>
 </ul>
 <p>提示框：</p>
 <ul>
-<li><a href="http://codeseven.github.io/toastr/demo.html" target="_blank" rel="noopener">toastr</a></li>
-<li><a href="http://tamerayd.in/ngToast/#" target="_blank" rel="noopener">ngToast</a> toast for AngularJS</li>
-<li><a href="http://jackhanford.com/angular-toast/" target="_blank" rel="noopener">angular-toast</a></li>
-<li><a href="https://derby-demos.herokuapp.com/derby-ui-toast" target="_blank" rel="noopener">k-toast</a></li>
-<li><a href="https://jaredreich.com/projects/notie.js/" target="_blank" rel="noopener">notie</a></li>
-<li><a href="https://www.npmjs.com/package/ng-notie" target="_blank" rel="noopener">ng-notie</a></li>
-<li><a href="https://egoistian.com/corner-notie/" target="_blank" rel="noopener">corner-notie</a></li>
+<li>  <a target="_blank" rel="noopener" href="http://codeseven.github.io/toastr/demo.html">toastr</a></li>
+<li>  <a target="_blank" rel="noopener" href="http://tamerayd.in/ngToast/#">ngToast</a> toast for AngularJS</li>
+<li>  <a target="_blank" rel="noopener" href="http://jackhanford.com/angular-toast/">angular-toast</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://derby-demos.herokuapp.com/derby-ui-toast">k-toast</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://jaredreich.com/projects/notie.js/">notie</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/ng-notie">ng-notie</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://egoistian.com/corner-notie/">corner-notie</a></li>
 </ul>
-<h3 id="代码和-DEMO"><a href="#代码和-DEMO" class="headerlink" title="代码和 DEMO"></a>代码和 DEMO</h3><p>具体请参见代码 <a href="https://github.com/stiekel/angular-interceptors-demo" target="_blank" rel="noopener">Github</a> 、<a href="http://stiekel.github.io/angular-interceptors-demo/" target="_blank" rel="noopener">DEMO</a> 。</p>
+<h3 id="代码和-DEMO"><a href="#代码和-DEMO" class="headerlink" title="代码和 DEMO"></a>代码和 DEMO</h3><p>具体请参见代码 <a target="_blank" rel="noopener" href="https://github.com/stiekel/angular-interceptors-demo">Github</a> 、<a target="_blank" rel="noopener" href="http://stiekel.github.io/angular-interceptors-demo/">DEMO</a> 。</p>
 
   </article>
   <div class="random-toc-area">
@@ -223,7 +218,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要功能"><span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本使用"><span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进一步了解"><span class="toc-text">进一步了解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#几个相关的库"><span class="toc-text">几个相关的库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码和-DEMO"><span class="toc-text">代码和 DEMO</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E4%BA%86%E8%A7%A3"><span class="toc-text">进一步了解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93"><span class="toc-text">几个相关的库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%92%8C-DEMO"><span class="toc-text">代码和 DEMO</span></a></li></ol>
   </div>
 </div>
 
@@ -256,7 +251,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -281,12 +276,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -294,7 +289,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -302,7 +297,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -310,7 +305,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -318,7 +313,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -326,7 +321,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -384,22 +379,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

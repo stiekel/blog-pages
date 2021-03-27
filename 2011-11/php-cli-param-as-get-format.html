@@ -21,20 +21,13 @@
   
   <title>在PHP CLI下使用类似GET的方法传参 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -44,7 +37,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -170,16 +163,21 @@
     <p>Linux下为了方便，有时候会直接使用命令行的方式来执行php程序，比如一些crontab任务之类，但通常写出来的大部分php程序，都没有考虑到命令行下的一些情况，直接使用GET进行参数传递也是常态，但这在命令行下却很无奈，尤其是传递多个GET参数时，连命令都无法正确执行——GET多参数分隔符&amp;会妨碍命令的执行。</p>
 <h3 id="1、PHP-CLI的参数传递方式"><a href="#1、PHP-CLI的参数传递方式" class="headerlink" title="1、PHP CLI的参数传递方式"></a>1、PHP CLI的参数传递方式</h3><p>PHP CLI下参数的传递是使用Linux命令行的方式进行，将参数值按照指定的先后顺序依次排列，一旦顺序错误，最终传送的结果也将错误，而且，如果程序要支持命令行参数，还需要专门的分析和拆开$argv数组，如果是修改现有程序，工作量将会更大。</p>
 <h3 id="2、捕获参数，组装伪-GET和-REQUEST数组"><a href="#2、捕获参数，组装伪-GET和-REQUEST数组" class="headerlink" title="2、捕获参数，组装伪$_GET和$_REQUEST数组"></a>2、捕获参数，组装伪$_GET和$_REQUEST数组</h3><p>命令行下是没有$_GET等变量的，但如果使用GET进行参数传递，程序中肯定会有对诸如$_GET和$_REQUEST数组的调用。如果要降低修改的工作量，最简单的办法就是，抓获CLI传递的参数，再将参数组装成一个$_GET和$_REQUEST数组。<br>为了避开cli中对参数的先后顺序的要求，让命令执行使用更容易分辨更让人熟悉的URL参数传递方式，可以按如下的格式来传递参数并捕获：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php filename.php "name=Roges&amp;height=187.96&amp;weight=99.79"</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php filename.php &quot;name=Roges&amp;height=187.96&amp;weight=99.79&quot;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
 <p>注意，命令行中使用<code>&amp;</code>符号时，必须要将其用引号括住，否则你会有意外的惊喜。</p>
 <h3 id="3、实现"><a href="#3、实现" class="headerlink" title="3、实现"></a>3、实现</h3><p>想到了过程，实现起来就比较简单了，一个比较简单的实现如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if file was executed by php cli, cli paramertes will be convert</span></span><br><span class="line"><span class="comment">// to $_GET and $_REQUEST array.</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($argv) <span class="keyword">AND</span> count($argv) &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="comment">// GET paramertes are always follow the page url with ? symtax,</span></span><br><span class="line">    <span class="comment">// it show be removed.</span></span><br><span class="line">    $argv[<span class="number">1</span>] = str_replace(<span class="string">"?"</span>, <span class="string">''</span>, $argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    $params = explode(<span class="string">'&amp;'</span>, $argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    $_REQUEST = <span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">foreach</span>($params <span class="keyword">as</span> $p) &#123;</span><br><span class="line">        <span class="comment">//get the location of the '='</span></span><br><span class="line">        $eq_loc = strpos($p, <span class="string">'='</span>);</span><br><span class="line"></span><br><span class="line">        $_REQUEST[substr($p, <span class="number">0</span>, $eq_loc)] = substr($p, $eq_loc + <span class="number">1</span>, strlen($p) - $eq_loc);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $_GET = $_REQUEST;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if file was executed by php cli, cli paramertes will be convert</span></span><br><span class="line"><span class="comment">// to $_GET and $_REQUEST array.</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$argv</span>) <span class="keyword">AND</span> count(<span class="variable">$argv</span>) &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="comment">// GET paramertes are always follow the page url with ? symtax,</span></span><br><span class="line">    <span class="comment">// it show be removed.</span></span><br><span class="line">    <span class="variable">$argv</span>[<span class="number">1</span>] = str_replace(<span class="string">&quot;?&quot;</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$argv</span>[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$params</span> = explode(<span class="string">&#x27;&amp;&#x27;</span>, <span class="variable">$argv</span>[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$_REQUEST</span> = <span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">foreach</span>(<span class="variable">$params</span> <span class="keyword">as</span> <span class="variable">$p</span>) &#123;</span><br><span class="line">        <span class="comment">//get the location of the &#x27;=&#x27;</span></span><br><span class="line">        <span class="variable">$eq_loc</span> = strpos(<span class="variable">$p</span>, <span class="string">&#x27;=&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="variable">$_REQUEST</span>[substr(<span class="variable">$p</span>, <span class="number">0</span>, <span class="variable">$eq_loc</span>)] = substr(<span class="variable">$p</span>, <span class="variable">$eq_loc</span> + <span class="number">1</span>, strlen(<span class="variable">$p</span>) - <span class="variable">$eq_loc</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$_GET</span> = <span class="variable">$_REQUEST</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>将这个代码存储为文件，再在需要使用的文件头部进行引用即可。当在命令行下执行脚本时，使会进行转换，否则是不会进行任何操作的。</p>
 <h3 id="4、执行效果"><a href="#4、执行效果" class="headerlink" title="4、执行效果"></a>4、执行效果</h3><p>将上面的代码保存然后在最后加上如下的两句，便可查看参数传递的效果：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">'$_REQUEST: '</span>;</span><br><span class="line">print_r($_REQUEST);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'$_GET: '</span>;</span><br><span class="line">print_r($_GET);</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;$_REQUEST: &#x27;</span>;</span><br><span class="line">print_r(<span class="variable">$_REQUEST</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;$_GET: &#x27;</span>;</span><br><span class="line">print_r(<span class="variable">$_GET</span>);</span><br></pre></td></tr></table></figure>
+
 <p>将文件命令为cli_get.php，在命令行中执行，结果如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Roges@US:~/www$ php cli_get.php  "name=Roges&amp;height=187.96&amp;weight=99.79"</span><br><span class="line"><span class="meta">$</span><span class="bash">_REQUEST: Array</span></span><br><span class="line">(</span><br><span class="line">    [name] =&gt; Roges</span><br><span class="line">    [height] =&gt; 187.96</span><br><span class="line">    [weight] =&gt; 99.79</span><br><span class="line">)</span><br><span class="line"><span class="meta">$</span><span class="bash">_GET: Array</span></span><br><span class="line">(</span><br><span class="line">    [name] =&gt; Roges</span><br><span class="line">    [height] =&gt; 187.96</span><br><span class="line">    [weight] =&gt; 99.79</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Roges@US:~/www$ php cli_get.php  &quot;name=Roges&amp;height=187.96&amp;weight=99.79&quot;</span><br><span class="line"><span class="meta">$</span><span class="bash">_REQUEST: Array</span></span><br><span class="line">(</span><br><span class="line">    [name] =&gt; Roges</span><br><span class="line">    [height] =&gt; 187.96</span><br><span class="line">    [weight] =&gt; 99.79</span><br><span class="line">)</span><br><span class="line"><span class="meta">$</span><span class="bash">_GET: Array</span></span><br><span class="line">(</span><br><span class="line">    [name] =&gt; Roges</span><br><span class="line">    [height] =&gt; 187.96</span><br><span class="line">    [weight] =&gt; 99.79</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
 <p>手机选来选去，还是黑莓靠谱，大屏幕目前只是玩具而已。</p>
 
   </article>
@@ -188,7 +186,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、PHP-CLI的参数传递方式"><span class="toc-text">1、PHP CLI的参数传递方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、捕获参数，组装伪-GET和-REQUEST数组"><span class="toc-text">2、捕获参数，组装伪$_GET和$_REQUEST数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、实现"><span class="toc-text">3、实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、执行效果"><span class="toc-text">4、执行效果</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81PHP-CLI%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%96%B9%E5%BC%8F"><span class="toc-text">1、PHP CLI的参数传递方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%8D%95%E8%8E%B7%E5%8F%82%E6%95%B0%EF%BC%8C%E7%BB%84%E8%A3%85%E4%BC%AA-GET%E5%92%8C-REQUEST%E6%95%B0%E7%BB%84"><span class="toc-text">2、捕获参数，组装伪$_GET和$_REQUEST数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">3、实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E6%89%A7%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-text">4、执行效果</span></a></li></ol>
   </div>
 </div>
 
@@ -221,7 +219,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -246,12 +244,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -259,7 +257,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -267,7 +265,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -275,7 +273,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -283,7 +281,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -291,7 +289,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -349,22 +347,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

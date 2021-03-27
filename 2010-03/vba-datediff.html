@@ -26,20 +26,13 @@
   
   <title>2010年3月二级Access考试难点：DateDiff [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -49,7 +42,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -190,11 +183,12 @@
       </span>
     </p>
     
-    <a id="more"></a>
-<p>27日下午更新：发布<a href="http://chensd.com/2010-03/ncre-2-201003-jichu.html">2010年3月计算机 二级各科目公共基础部分答案</a>。</p>
-<p>29日上午更新：<a href="http://chensd.com/2010-03/ncre-2-access-201003-test-answer.html">2010 年3月计算机二级Access全部答案发布</a>。</p>
+    <span id="more"></span>
+
+<p>27日下午更新：发布<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-201003-jichu.html">2010年3月计算机 二级各科目公共基础部分答案</a>。</p>
+<p>29日上午更新：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-201003-test-answer.html">2010 年3月计算机二级Access全部答案发布</a>。</p>
 <p>29日上午更新：正在撰写各题答案解析，请稍候……</p>
-<p>29日下午更新：<a href="http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html">2010 年3月计算机二级Access答案详细解析已经出炉</a>，另外，还可下载本次考试<a href="/upfile/2010/03/NCRE-2-Access-201003-Test-APP.7z">二 级Access笔试各VBA程序题的示例程序</a>。</p>
+<p>29日下午更新：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html">2010 年3月计算机二级Access答案详细解析已经出炉</a>，另外，还可下载本次考试<a href="/upfile/2010/03/NCRE-2-Access-201003-Test-APP.7z">二 级Access笔试各VBA程序题的示例程序</a>。</p>
 <p>在本次Access考试中，有道内容大致如下的题目：</p>
 <blockquote>
 <p>有一程度的代码如下：</p>
@@ -207,22 +201,30 @@
 <p>当点击按钮后，输出结果为：</p>
 <p>A：1　　　B：2　　　C：10　　　D：11<br>这道题目的关键在于理解DateDiff这个函数，关于这个函数的详细信息，可以在这里查看。我们简单的理解一下题目中的关键语句：</p>
 </blockquote>
-<p><pre>Msgbox DateDiff(“ww”,d1,d2)</pre><br>Msgbox是弹出一个对话框，框中的显示内容为DateDiff(“ww”,d1,d2)的结果。其关键部分意义如下：</p>
+<pre>Msgbox DateDiff("ww",d1,d2)</pre>
+<p>Msgbox是弹出一个对话框，框中的显示内容为DateDiff(“ww”,d1,d2)的结果。其关键部分意义如下：</p>
 <ul>
-<li>DateDiff：求两个日期之间的差值，结果是个Long</li>
-<li>“ww”：求差值的单位，”ww”表示是周<br>所以，需要表明的意思就是，日期d1与d2之间的周数。也即2009年12月25日与2010年1月5日之间的星期间隔数。二者之差相差10天，即，两周。因此，<strong>正确答案应该是B</strong>。</li>
+<li>  DateDiff：求两个日期之间的差值，结果是个Long</li>
+<li>  “ww”：求差值的单位，”ww”表示是周<br>所以，需要表明的意思就是，日期d1与d2之间的周数。也即2009年12月25日与2010年1月5日之间的星期间隔数。二者之差相差10天，即，两周。因此，<strong>正确答案应该是B</strong>。</li>
 </ul>
-<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><div><br><br><em>   2008年3月和9月试卷下载：<a href="http://chensd.com/2010-03/ncre-2-access-2008-test-papers.html">http://chensd.com/2010-03/ncre-2-access-2008-test-papers.html</a>
-</em>   2009年3月的试卷下载：<a href="http://chensd.com/2010-03/ncre-2-access-200903-test-papers.html">http://chensd.com/2010-03/ncre-2-access-200903-test-papers.html</a><br><em>   2009年9月的试卷下载：<a href="http://chensd.com/2010-03/ncre-2-access-200909-test-papers.html">http://chensd.com/2010-03/ncre-2-access-200909-test-papers.html</a>
-</em>   2010年3月的试卷（word版）下载：<a href="http://chensd.com/2010-09/ncre-2-access-201003-doc.html">http://chensd.com/2010-09/ncre-2-access-201003-doc.html</a><br><em>   2010年3月公共基础题目答案与分析：<a href="http://chensd.com/2010-03/ncre-2-201003-jichu.html">http://chensd.com/2010-03/ncre-2-201003-jichu.html</a>
-</em>   2010年3月笔试题目答案分析：<a href="http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html">http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html</a><br></div>
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><div>
+
+<ul>
+<li>  2008年3月和9月试卷下载：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-2008-test-papers.html">http://chensd.com/2010-03/ncre-2-access-2008-test-papers.html</a></li>
+<li>  2009年3月的试卷下载：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-200903-test-papers.html">http://chensd.com/2010-03/ncre-2-access-200903-test-papers.html</a></li>
+<li>  2009年9月的试卷下载：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-200909-test-papers.html">http://chensd.com/2010-03/ncre-2-access-200909-test-papers.html</a></li>
+<li>  2010年3月的试卷（word版）下载：<a target="_blank" rel="noopener" href="http://chensd.com/2010-09/ncre-2-access-201003-doc.html">http://chensd.com/2010-09/ncre-2-access-201003-doc.html</a></li>
+<li>  2010年3月公共基础题目答案与分析：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-201003-jichu.html">http://chensd.com/2010-03/ncre-2-201003-jichu.html</a></li>
+<li>  2010年3月笔试题目答案分析：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html">http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html</a></div></li>
+</ul>
+
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连接"><span class="toc-text">连接</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-text">连接</span></a></li></ol>
   </div>
 </div>
 
@@ -255,7 +257,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -280,12 +282,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -293,7 +295,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -301,7 +303,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -309,7 +311,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -317,7 +319,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -325,7 +327,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -383,22 +385,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

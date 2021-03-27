@@ -17,24 +17,17 @@
   
   
     <meta name="description" content="最近因为工作上的原因，重拾C#做一个Windows Phone 7的客户端应用，虽然半途而废，不过也在碰摔中了解到了WP７的确是一个仓促之作，尤其是对于开发人员而言。
-在应用中展示html或者远程网页，SliverLight for Windows Phone提供了一个叫WebBrowser.aspx “WebBrowser Members”)的控件。在使用这个控件的过程中，发现了一个哭笑不...">
+在应用中展示html或者远程网页，SliverLight for Windows Phone提供了一个叫WebBrowser的控件。在使用这个控件的过程中，发现了一个哭笑不得的问题：应用无法直接使用其内部的各类资源，无论是ht...">
   
   <title>Sliverlight for WP7 中WebBrowser控件对js和css的支持性总结 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -44,7 +37,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -168,7 +161,7 @@
     </p>
     
     <p>最近因为工作上的原因，重拾C#做一个Windows Phone 7的客户端应用，虽然半途而废，不过也在碰摔中了解到了WP７的确是一个仓促之作，尤其是对于开发人员而言。</p>
-<p>在应用中展示html或者远程网页，SliverLight for Windows Phone提供了一个叫<a href="http://msdn.microsoft.com/en-us/library/microsoft.phone.controls.webbrowser_members(v=VS.92" target="_blank" rel="noopener">WebBrowser</a>.aspx “WebBrowser Members”)的控件。在使用这个控件的过程中，发现了一个哭笑不得的问题：应用无法直接使用其内部的各类资源，无论是html还是图片，必须先得将这些复制到手机上，再从手机上读取后使用！天哪！亏WP7 SDK的开发人员想得出来，你看到<a href="http://msdn.microsoft.com/en-us/library/ff431811(v=VS.92" target="_blank" rel="noopener">这篇MSDN文章</a>.aspx “How to: Display Static Web Content Using the WebBrowser Control for Windows Phone”)的时候一定会崩溃，不过我已经不是第一个<a href="http://technodave.wordpress.com/2010/11/11/moving-files-from-xap-to-isolated-storage-for-local-html-content-on-windows-phone-7/" target="_blank" rel="noopener" title="Moving Files from XAP to Isolated Storage for Local HTML Content on Windows Phone 7">遇到这种情况的人了</a>。</p>
+<p>在应用中展示html或者远程网页，SliverLight for Windows Phone提供了一个叫<a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/microsoft.phone.controls.webbrowser_members(v=VS.92).aspx" title="WebBrowser Members">WebBrowser</a>的控件。在使用这个控件的过程中，发现了一个哭笑不得的问题：应用无法直接使用其内部的各类资源，无论是html还是图片，必须先得将这些复制到手机上，再从手机上读取后使用！天哪！亏WP7 SDK的开发人员想得出来，你看到<a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/ff431811(v=VS.92).aspx" title="How to: Display Static Web Content Using the WebBrowser Control for Windows Phone">这篇MSDN文章</a>的时候一定会崩溃，不过我已经不是第一个<a target="_blank" rel="noopener" href="http://technodave.wordpress.com/2010/11/11/moving-files-from-xap-to-isolated-storage-for-local-html-content-on-windows-phone-7/" title="Moving Files from XAP to Isolated Storage for Local HTML Content on Windows Phone 7">遇到这种情况的人了</a>。</p>
 <p>WebBrowser控件在默认的情况下，是不支持JavaScript的，若需要对其进行支持，需要设置其IsScriptEnabled为true，但要命的是，设置之后，只有在下一次打开页面的时候才会生效。</p>
 <p>经测试，当html是从手机的独立存储中读取时，无论CSS是在手机内，还是在远程服务器上，均可正常支持。JavaScript同样如此。当html位于远程服务器中时，js可以是来自另外的远程服务器。</p>
 <p>但致命的问题是，当WebBrowser控件中的内容有鼠标点击动作时，整个控件（还包括其它的输入性控件，如TextBox或者RadioButton）均有闪烁的情况！！这预示着大部分的html5游戏是没办法简单的移植了。</p>
@@ -214,7 +207,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -239,12 +232,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -252,7 +245,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -260,7 +253,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -268,7 +261,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -276,7 +269,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -284,7 +277,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -342,22 +335,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

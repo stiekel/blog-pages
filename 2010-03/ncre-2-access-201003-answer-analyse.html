@@ -16,24 +16,19 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="本博在今天上午已经发布了[2010年3月计算机二级Access考试的答案](http://chensd.com/2010-03/ncre-2-access-201003-test-answer.html)。这里也有[本次考试的真题](http://www.exam8.com/computer/djks/dj2/Access/zhenti/201003/977199.html)。
+
+试题中的部...">
   
   <title>2010年3月计算机二级Access考试答案解析 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -43,7 +38,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -184,8 +179,9 @@
       </span>
     </p>
     
-    <p><a id="more"></a>本博在今天上午已经发布了<a href="http://chensd.com/2010-03/ncre-2-access-201003-test-answer.html">2010年3月计算机二级Access考试的答案</a>。这里也有<a href="http://www.exam8.com/computer/djks/dj2/Access/zhenti/201003/977199.html" target="_blank" rel="noopener">本次考试的真题</a>。</p>
-<p>试题中的部分题目是可以运行的，同学们下载并试运行<strong><a href="../wp-content/upfile/2010/03/NCRE-2-Access-201003-Test-APP.7z">真题的示例运行程序</a></strong>。</p>
+    <span id="more"></span>本博在今天上午已经发布了[2010年3月计算机二级Access考试的答案](http://chensd.com/2010-03/ncre-2-access-201003-test-answer.html)。这里也有[本次考试的真题](http://www.exam8.com/computer/djks/dj2/Access/zhenti/201003/977199.html)。
+
+<p>试题中的部分题目是可以运行的，同学们下载并试运行**<a href="../wp-content/upfile/2010/03/NCRE-2-Access-201003-Test-APP.7z">真题的示例运行程序</a>**。</p>
 <p>解析如下：</p>
 <p>2010年3月二级Access考试答案解析</p>
 <p>选择题：</p>
@@ -217,12 +213,12 @@
 <p>26、C。</p>
 <p>27、D。</p>
 <p>28、需要在千分位进行四舍五入操作，则最后结果肯定是精确到百分位的。而Int只能取整，无法取小数部分，因此，必须对转换对象进行一个先乘以一百，再除以一百的操作。而如果想在千分位进行四舍五入，又必须对于千分位上进行加5的操作。这样，千分位上为4和4以下的，百分位不变，而千分位上5及5以上的，百分位将被加1。</p>
-<p>29、B。A(2 to 5, 5)第一个元素为A(2,0)，最后一个元素是A(5,5)，第一维上有2~5四种变化，而第二维上有0~5六种变化，因素元素数为4×6，为24个。</p>
+<p>29、B。A(2 to 5, 5)第一个元素为A(2,0)，最后一个元素是A(5,5)，第一维上有2<del>5四种变化，而第二维上有0</del>5六种变化，因素元素数为4×6，为24个。</p>
 <p>30、A。对于步长为负数且循环变量的初值又比终值小的循环，会直接退出。</p>
 <p>31、对于外层的i循环，因为其循环体第1句就是将x置0，所以只用考虑其最后一次循环，最后一次后循环时，i的值为19。此时，里面循环j的初值为19，终值为20，步长为3，则其循环体只运行一次，即x的值只加了一个1。.因此，答案为1</p>
 <p>32、do loop while循环是为了控制输入。而直接输出是在Debug.Print y，即if then这个选择中，此题的关键在于读懂if (y Mod 10) + Int(y / 10) = 10这个条件，y mod 10是取y的个位上的数。而Int (y / 10)则是相当于取y的十位上的数，满足这个条件的二位数的y值有。19、28、37、46、55、64、73、82、91，且只能为正数。因此，答案为37 55 64 28 19。</p>
 <p>33、此题在于考查对传值和传址的理解。传值为ByVal，传址为ByRef，默认如果不指定则为传址。对于传值，子过程中值的变化不会影响调用它的这个过程，而传址则不然。（亦可用实参形参的概念进行理解）。</p>
-<p>34、此题在于理解<strong>DateDiff</strong>，这也是个比较偏的考点。DateDiff有三个参数，第一个为差距的计算单位，第二个为时间起始点，第二个为时间终止点。ww指单位为周，从2009年12月25日到2010年1月5日其中有两周。对于此题，可参考<a href="http://office.microsoft.com/zh-cn/access/HA012288112052.aspx" target="_blank" rel="noopener">这里</a>。详细解析，请点<a href="http://chensd.com/2010-03/vba-datediff.html">这里</a>。</p>
+<p>34、此题在于理解<strong>DateDiff</strong>，这也是个比较偏的考点。DateDiff有三个参数，第一个为差距的计算单位，第二个为时间起始点，第二个为时间终止点。ww指单位为周，从2009年12月25日到2010年1月5日其中有两周。对于此题，可参考<a target="_blank" rel="noopener" href="http://office.microsoft.com/zh-cn/access/HA012288112052.aspx">这里</a>。详细解析，请点<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/vba-datediff.html">这里</a>。</p>
 <p>35、对年龄字段加1，需要使用update的SQL语句，其中格式正确的只有B。</p>
 <p>1、对于队列来讲，是先进先出。</p>
 <p>2、同2008年4月考试第3题不同的是，这次头指针在尾指针之后，因为是循环队列，所以应该是从45到50，再从1到10构成了这个队列。</p>
@@ -230,24 +226,31 @@
 <p>4、软件=程序+数据+相关文档</p>
 <p>5、选课表一方面要连接学生基本信息表，另外一方面还需要连接课程表，所以应该填入课程表中的课号字段。</p>
 <p>6、选项组控件中的文字显示，是利用标签控件来实现的，题中的Frame1对应的标签控件名称为Label1，要将这个选项组中显示的“Frame1”，则需要修改Label1的标题Caption属性。答案为：Label1.Caption = “性别”。</p>
-<p>7、<strong>要使焦点移到指定的控件，需要使用GoToControl</strong>，而不是网上流传的SetFocus，因为宏操作中根本就没有叫SetFocus的操作。具体可以参考Microsoft Office Online的<a href="http://office.microsoft.com/zh-cn/access/HA012262182052.aspx" target="_blank" rel="noopener">相关文档</a>。</p>
+<p>7、<strong>要使焦点移到指定的控件，需要使用GoToControl</strong>，而不是网上流传的SetFocus，因为宏操作中根本就没有叫SetFocus的操作。具体可以参考Microsoft Office Online的<a target="_blank" rel="noopener" href="http://office.microsoft.com/zh-cn/access/HA012262182052.aspx">相关文档</a>。</p>
 <p>8、在向导中，最多可设置4个分组字段。</p>
-<p>9、KeyPress事件是当键盘按下某个键后的所执行的事件，其参数KeyAscii值为按下键所对应的ASCII值，Chr(KeyAscii(i))可以将相应的数值转换成字符，而Ucase是将小写字符转换成大写，而Lcase是将小写转换成大写。另外，ASCII值48~57是数字0~9，65~90是字母A到Z，97~122是字母a到z。因此，该题的答案应该是456aBc。可参考<a href="http://zh.wikipedia.org/zh-cn/ASCII" target="_blank" rel="noopener">ASCII码表</a>。</p>
+<p>9、KeyPress事件是当键盘按下某个键后的所执行的事件，其参数KeyAscii值为按下键所对应的ASCII值，Chr(KeyAscii(i))可以将相应的数值转换成字符，而Ucase是将小写字符转换成大写，而Lcase是将小写转换成大写。另外，ASCII值48<del>57是数字0</del>9，65<del>90是字母A到Z，97</del>122是字母a到z。因此，该题的答案应该是456aBc。可参考<a target="_blank" rel="noopener" href="http://zh.wikipedia.org/zh-cn/ASCII">ASCII码表</a>。</p>
 <p>10、经过第一个for循环，a(i)中a(1) 到a(10)存的分别是1到10的平方。第二个循环后，p(i)中的p(1)存有a(1)的值，p(2)中存的是a(4)的值， p(3)中存的是a(9)的值，经过最后一个循环之后，K的值应该为201</p>
 <p>11、题目要求在显示出最小的五个可以同时被5和7除后余1的整数。Do loop until Ncount = 5循环进行整体控制，n = n + 1保证是最小的五个正整数。而if控制的两个语句，一个是打印，一个是对找出的数进行计数。因此，if的条件必定是满足要求的一条语句，要满足这个条件，必须分两方面，一是i mod 5 = 1，二是i mod 7 = 1，要同时满足，则可用and进行连接，答案为：(i mod 5 = 1) and (i mod 7 = 1)</p>
-<p>12、本题中，b的目的是为了控制打开debug.print i，而如果想要其不打开这个值，必须歙使得期if后的条件为假，为假的办法就是使b为false，因此，在第【12】空就应填false。k是do while循环的递增变量，因此需要对其进行递增，即k =  k + 1。</p>
+<p>12、本题中，b的目的是为了控制打开debug.print i，而如果想要其不打开这个值，必须歙使得期if后的条件为假，为假的办法就是使b为false，因此，在第【12】空就应填false。k是do while循环的递增变量，因此需要对其进行递增，即k =  k + 1。</p>
 <p>13、本题要求对所有的行进行操作，即要从第一行到最后一行，控制的办法就是查看数据集的EOF值，如果为真就到了最后一行。而为了使while循环的循环体对每一行进行操作，就必须使其条件在最后一行时为假，因此使用Not rs.EOF。难点的Not已经由题目给出了。而对数据记进行操作之后，一定要使用Update进行更新，再才能继续下一行的操作。</p>
-<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><div><br><br><em>   2008年3月和9月试卷下载：<a href="http://chensd.com/2010-03/ncre-2-access-2008-test-papers.html">http://chensd.com/2010-03/ncre-2-access-2008-test-papers.html</a>
-</em>   2009年3月的试卷下载：<a href="http://chensd.com/2010-03/ncre-2-access-200903-test-papers.html">http://chensd.com/2010-03/ncre-2-access-200903-test-papers.html</a><br><em>   2009年9月的试卷下载：<a href="http://chensd.com/2010-03/ncre-2-access-200909-test-papers.html">http://chensd.com/2010-03/ncre-2-access-200909-test-papers.html</a>
-</em>   2010年3月的试卷（word版）下载：<a href="http://chensd.com/2010-09/ncre-2-access-201003-doc.html">http://chensd.com/2010-09/ncre-2-access-201003-doc.html</a><br><em>   2010年3月公共基础题目答案与分析：<a href="http://chensd.com/2010-03/ncre-2-201003-jichu.html">http://chensd.com/2010-03/ncre-2-201003-jichu.html</a>
-</em>   2010年3月笔试题目答案分析：<a href="http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html">http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html</a><br></div>
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><div>
+
+<ul>
+<li>  2008年3月和9月试卷下载：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-2008-test-papers.html">http://chensd.com/2010-03/ncre-2-access-2008-test-papers.html</a></li>
+<li>  2009年3月的试卷下载：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-200903-test-papers.html">http://chensd.com/2010-03/ncre-2-access-200903-test-papers.html</a></li>
+<li>  2009年9月的试卷下载：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-200909-test-papers.html">http://chensd.com/2010-03/ncre-2-access-200909-test-papers.html</a></li>
+<li>  2010年3月的试卷（word版）下载：<a target="_blank" rel="noopener" href="http://chensd.com/2010-09/ncre-2-access-201003-doc.html">http://chensd.com/2010-09/ncre-2-access-201003-doc.html</a></li>
+<li>  2010年3月公共基础题目答案与分析：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-201003-jichu.html">http://chensd.com/2010-03/ncre-2-201003-jichu.html</a></li>
+<li>  2010年3月笔试题目答案分析：<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html">http://chensd.com/2010-03/ncre-2-access-201003-answer-analyse.html</a></div></li>
+</ul>
+
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连接"><span class="toc-text">连接</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-text">连接</span></a></li></ol>
   </div>
 </div>
 
@@ -280,7 +283,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -305,12 +308,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -318,7 +321,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -326,7 +329,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -334,7 +337,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -342,7 +345,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -350,7 +353,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -408,22 +411,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

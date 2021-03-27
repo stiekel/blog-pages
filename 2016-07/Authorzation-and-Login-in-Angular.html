@@ -18,24 +18,18 @@
   
     <meta name="description" content="Angular 经常会被用到后台和管理工具的开发，这两类都会需要对用户进行鉴权。而鉴权的第一步，就是进行身份验证。由于 Angular 是单页应用，会在一开始，就把大部分的资源加载到浏览器中，所以就更需要注意验证的时机，并保证只有通过了验证的用户才能看到对应的界面。
 
-功能边界本篇文章中的身份验证，指的是如何确定用户是否已经登录，并确保在每次与服务器的通信中，都能够满足服务器的验证需求。注意...">
+
+功能边界本篇文章中的身份验证，指的是如何确定用户是否已经登录，并确保在每次与服务器的通信中，都能够满足服务器的验证需求。注...">
   
   <title>Angular应用中的登录与身份验证 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -45,7 +39,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -182,6 +176,7 @@
     
     <p>Angular 经常会被用到后台和管理工具的开发，这两类都会需要对用户进行鉴权。而鉴权的第一步，就是进行身份验证。由于 Angular 是单页应用，会在一开始，就把大部分的资源加载到浏览器中，所以就更需要注意验证的时机，并保证只有通过了验证的用户才能看到对应的界面。</p>
 <!-- __提示__：阅读本篇文章需要对 Angular 有基本的了解。 -->
+
 <h2 id="功能边界"><a href="#功能边界" class="headerlink" title="功能边界"></a>功能边界</h2><p>本篇文章中的身份验证，指的是如何确定用户是否已经登录，并确保在每次与服务器的通信中，都能够满足服务器的验证需求。注意，并不包括对具体是否具有某一个权限的判断。</p>
 <p>对于登录，主要是接受用户的用户名密码输入，提交到服务器进行验证，处理验证响应，在浏览器端构建身份验证数据。</p>
 <h2 id="实现身份验证的两种方式"><a href="#实现身份验证的两种方式" class="headerlink" title="实现身份验证的两种方式"></a>实现身份验证的两种方式</h2><p>目前，实现身份验证的方法，主要有两个大类：</p>
@@ -193,18 +188,21 @@
 <h2 id="处理登录"><a href="#处理登录" class="headerlink" title="处理登录"></a>处理登录</h2><p>登录是身份验证第一步，通过登录，才能够组织起来对应的身份验证数据。</p>
 <h3 id="需要使用单独的登录页吗？"><a href="#需要使用单独的登录页吗？" class="headerlink" title="需要使用单独的登录页吗？"></a>需要使用单独的登录页吗？</h3><p>登录页的处理，有两种方式：</p>
 <ul>
-<li><strong>单独的登录页</strong>，在登录完成后，跳转到单页应用之中，这样做可以对单页应用的资源进行访问控制，防止非登录用户访问，适合后台或者管理工具的应用场景。但实际上降低了单页应用的用户体验</li>
-<li><strong>在单页应用之内执行登录</strong>，这样更符合单页应用的设计理念，比较适合大众产品的场景，因为恶意的人总是能够拿到你单页应用的前端代码</li>
+<li>__单独的登录页__，在登录完成后，跳转到单页应用之中，这样做可以对单页应用的资源进行访问控制，防止非登录用户访问，适合后台或者管理工具的应用场景。但实际上降低了单页应用的用户体验</li>
+<li>__在单页应用之内执行登录__，这样更符合单页应用的设计理念，比较适合大众产品的场景，因为恶意的人总是能够拿到你单页应用的前端代码</li>
 </ul>
 <h3 id="单独的登录页"><a href="#单独的登录页" class="headerlink" title="单独的登录页"></a>单独的登录页</h3><p>一般情况下，使用单独的登录页的目的在于保护登录后跳转的页面不被匿名用户访问。因此，在登录页里，构造一个表单，直接采用传统的表彰提交方式（非 Ajax），后端验证用户名密码成功后，输出登录后单面应用页面的 HTML 。</p>
 <p>在这种情况下，可以直接将身份验证信息放在输出的 HTML 里，比如，可以使用 Jade 构造一个这样的页面：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- dashboard.jade --&gt;</span><br><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    link(rel=<span class="string">"stylesheet"</span>, href=<span class="string">"/assets/app.e1c2c6ea9350869264da10de799dced1.css"</span>)</span><br><span class="line">  body</span><br><span class="line">    script.</span><br><span class="line">      <span class="built_in">window</span>.token = !&#123;<span class="built_in">JSON</span>.stringify(token)&#125;;</span><br><span class="line">    div.md-padding(ui-view)</span><br><span class="line">    script(src=<span class="string">"/assets/app.84b1e53df1b4b23171da.js"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- dashboard.jade --&gt;</span><br><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    link(rel=<span class="string">&quot;stylesheet&quot;</span>, href=<span class="string">&quot;/assets/app.e1c2c6ea9350869264da10de799dced1.css&quot;</span>)</span><br><span class="line">  body</span><br><span class="line">    script.</span><br><span class="line">      <span class="built_in">window</span>.token = !&#123;<span class="built_in">JSON</span>.stringify(token)&#125;;</span><br><span class="line">    div.md-padding(ui-view)</span><br><span class="line">    script(src=<span class="string">&quot;/assets/app.84b1e53df1b4b23171da.js&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>后端在用户名密码验证成功之后，可以采用如下的方式来渲染输出 HTML ：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> res.render(<span class="string">'dashboard'</span>, &#123;</span><br><span class="line">  token: token</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> res.render(<span class="string">&#x27;dashboard&#x27;</span>, &#123;</span><br><span class="line">  token: token</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>Angular 应用一启动，便可以进行需要使用身份验证的通信。而且还保证了只有登录成功的用户才可以进入这个页面。</p>
 <h3 id="单页应用内登录的组织"><a href="#单页应用内登录的组织" class="headerlink" title="单页应用内登录的组织"></a>单页应用内登录的组织</h3><p>对于多视图的 Angular 应用，一般会采用路由，在页面之内，一般有固定的侧边栏菜单，或者顶部导航菜单，正文区域由路由模块来控制。</p>
-<p>下面的示例代码，使用的是 <a href="https://material.angularjs.org/latest/" target="_blank" rel="noopener">Angular Material</a> 来组织页面，路由模块使用的是 <a href="https://github.com/angular-ui/ui-router" target="_blank" rel="noopener">ui-router</a> 。在应用打开的时候，有专门的加载动画，加载完成之后，显示的页面，使用 <code>AppController</code> 这个控制器，对于没有登录的用户，会显示登录表单，登录完成之后，页面分为三大部分，一是顶部面包屑导航，二是侧边栏菜单，另外就是路由控制的正文部分。代码如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span> <span class="attr">layout</span>=<span class="string">"row"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"loading"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--页面加载的提示--&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">flex</span> <span class="attr">layout</span>=<span class="string">"row"</span> <span class="attr">ng-cloak</span> <span class="attr">ng-controller</span>=<span class="string">"AppController"</span> <span class="attr">ng-init</span>=<span class="string">"load()"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-if</span>=<span class="string">"!isUserAuth"</span>, <span class="attr">ng-controller</span>=<span class="string">"LoginController"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--登录表单--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-if</span>=<span class="string">"isUserAuth"</span> <span class="attr">flex</span> <span class="attr">layout</span>=<span class="string">"row"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">md-sidenav</span> <span class="attr">flex</span>=<span class="string">"15"</span> <span class="attr">md-is-locked-open</span>=<span class="string">"true"</span> <span class="attr">class</span>=<span class="string">"stop-text-select bbmd-sidebar md-whiteframe-4dp"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--侧边栏菜单--&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">md-sidenav</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">md-content</span> <span class="attr">flex</span> <span class="attr">layout</span>=<span class="string">"column"</span> <span class="attr">role</span>=<span class="string">"main"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">md-toolbar</span> <span class="attr">class</span>=<span class="string">"stop-text-select md-whiteframe-glow-z1"</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--顶部菜单--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">md-toolbar</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">md-content</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--路由--&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">ui-view</span> <span class="attr">class</span>=<span class="string">"md-padding"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">md-content</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">md-content</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>下面的示例代码，使用的是 <a target="_blank" rel="noopener" href="https://material.angularjs.org/latest/">Angular Material</a> 来组织页面，路由模块使用的是 <a target="_blank" rel="noopener" href="https://github.com/angular-ui/ui-router">ui-router</a> 。在应用打开的时候，有专门的加载动画，加载完成之后，显示的页面，使用 <code>AppController</code> 这个控制器，对于没有登录的用户，会显示登录表单，登录完成之后，页面分为三大部分，一是顶部面包屑导航，二是侧边栏菜单，另外就是路由控制的正文部分。代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">&quot;app&quot;</span> <span class="attr">layout</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;loading&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--页面加载的提示--&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">flex</span> <span class="attr">layout</span>=<span class="string">&quot;row&quot;</span> <span class="attr">ng-cloak</span> <span class="attr">ng-controller</span>=<span class="string">&quot;AppController&quot;</span> <span class="attr">ng-init</span>=<span class="string">&quot;load()&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-if</span>=<span class="string">&quot;!isUserAuth&quot;</span>, <span class="attr">ng-controller</span>=<span class="string">&quot;LoginController&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--登录表单--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-if</span>=<span class="string">&quot;isUserAuth&quot;</span> <span class="attr">flex</span> <span class="attr">layout</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">md-sidenav</span> <span class="attr">flex</span>=<span class="string">&quot;15&quot;</span> <span class="attr">md-is-locked-open</span>=<span class="string">&quot;true&quot;</span> <span class="attr">class</span>=<span class="string">&quot;stop-text-select bbmd-sidebar md-whiteframe-4dp&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--侧边栏菜单--&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">md-sidenav</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">md-content</span> <span class="attr">flex</span> <span class="attr">layout</span>=<span class="string">&quot;column&quot;</span> <span class="attr">role</span>=<span class="string">&quot;main&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">md-toolbar</span> <span class="attr">class</span>=<span class="string">&quot;stop-text-select md-whiteframe-glow-z1&quot;</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--顶部菜单--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">md-toolbar</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">md-content</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--路由--&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">ui-view</span> <span class="attr">class</span>=<span class="string">&quot;md-padding&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">md-content</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">md-content</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>对于 Loading 动画，是在 <code>AppController</code> 之外的，可以在 <code>AppController</code> 的代码中，对其进行隐藏。这样达到了所有 CSS / JavaScript 加载完成之后 Loading 就消失的目的。</p>
 <p><code>AppController</code> 中有一个变量 <code>isUserAuth</code> ，初始化的时候是 <code>false</code> ，当本地存储的会话信息验证有效，或者登录完成之后，这个值便会置为 <code>ture</code> ，由于 <code>ng-if</code> 的控制，便可以实现隐藏登录表单、显示应用内容的目的。要注意，这里只有使用 <code>ng-if</code> 而不是 <code>ng-show/ng-hide</code> ，前者才会真正的删除和增加 DOM 元素，而后者只是修改某个 DOM 元素的 CSS 属性，这点很重要，只有这样，才能够保证登录完成之后，再加载单页应用中的内容，防止还没有登录，当前路由中的控制器代码就直接执行了。</p>
 <h3 id="为什么客户端也要加密密码"><a href="#为什么客户端也要加密密码" class="headerlink" title="为什么客户端也要加密密码"></a>为什么客户端也要加密密码</h3><p>一个比较理想的基于用户名和密码的登录流程是这样的：</p>
@@ -216,40 +214,45 @@
 </ul>
 <p>可能有 80% 的人无法理解为什么要把一个登录做得这么复杂。这可能要写一篇专门的文章才解释得清楚。在这里先解释一下为什么浏览器端要对密码做哈希，原因如下：</p>
 <ul>
-<li>从源头上保护用户的密码，保证只有做按键记录才可以拿到用户的原始密码</li>
-<li>就算网络被窃听，又没有使用 https ，那么被偷走的密码，也只是哈希之后的，最多影响用户在这个服务器里的数据，而不影响使用相同密码的其它网站</li>
-<li>就算是服务器的所有者，都无法获取用户的原始密码</li>
+<li> 从源头上保护用户的密码，保证只有做按键记录才可以拿到用户的原始密码</li>
+<li> 就算网络被窃听，又没有使用 https ，那么被偷走的密码，也只是哈希之后的，最多影响用户在这个服务器里的数据，而不影响使用相同密码的其它网站</li>
+<li> 就算是服务器的所有者，都无法获取用户的原始密码</li>
 </ul>
 <p>这种做法，使得用户的最大风险，也只是当前这个应用中的数据被窃取。不会扩大损失范围，绝不会出现 CSDN 之流的问题。</p>
 <h3 id="登录成功的通知"><a href="#登录成功的通知" class="headerlink" title="登录成功的通知"></a>登录成功的通知</h3><p>对于有些应用，并不是所有的页面都需要用户登录的，可能是进行某些操作的时候，才需要登录。在这种情况下，登录完成之后，必须要通知整个应用。这可以使用广播这个功能。</p>
 <p>简易代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(<span class="string">'app'</span>)</span><br><span class="line">  .controller(<span class="string">'LoginController'</span>, [<span class="string">'$rootScope'</span>, LoginController]);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LoginController</span>(<span class="params">$rootScope</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 登录成功之后调用的函数</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">afterLoginSuccess</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    $rootScope.$broadcast(<span class="string">'user.login.success'</span>, &#123;</span><br><span class="line">      <span class="comment">// 需要传输的数据</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(<span class="string">&#x27;app&#x27;</span>)</span><br><span class="line">  .controller(<span class="string">&#x27;LoginController&#x27;</span>, [<span class="string">&#x27;$rootScope&#x27;</span>, LoginController]);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LoginController</span>(<span class="params">$rootScope</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 登录成功之后调用的函数</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">afterLoginSuccess</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    $rootScope.$broadcast(<span class="string">&#x27;user.login.success&#x27;</span>, &#123;</span><br><span class="line">      <span class="comment">// 需要传输的数据</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在其它的控制器中，便可以监听这个广播，并执行登录成功之后需要进行的操作，如获取列表或者详情：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">'user.login.success'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">handle, data</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 处理</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">&#x27;user.login.success&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">handle, data</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 处理</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <h2 id="身份验证信息"><a href="#身份验证信息" class="headerlink" title="身份验证信息"></a>身份验证信息</h2><p>登录成功之后，服务器返回了密钥，之后的 API 请求都需要带上密钥，而且请求返回的响应，还需要检查是否是关于身份信息失效的错误。这一系列的工作比较繁琐，应该是自动完成才行。</p>
 <h3 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h3><p>密钥的保存，大概有如下几个办法：</p>
 <ul>
-<li><strong>Cookies</strong>：前面已经提到了，这个并不推荐使用。同时，它还有最大 4k 的限制</li>
-<li><strong>sessionStorage</strong>：tab 页内有效，一旦关闭，或者打开了新的 tab 页，sessionStorage 是不能共享的</li>
-<li><strong>localStorage</strong>：较为理想的存储方式，除非清理浏览器数据，否则 localStorage 存储的数据会一直存在</li>
-<li><strong>Angular 单例 Service</strong>：存储在应用之内得话，刷新后数据会丢失，当然也不能 tab 页之间共享</li>
+<li> __Cookies__：前面已经提到了，这个并不推荐使用。同时，它还有最大 4k 的限制</li>
+<li> __sessionStorage__：tab 页内有效，一旦关闭，或者打开了新的 tab 页，sessionStorage 是不能共享的</li>
+<li> __localStorage__：较为理想的存储方式，除非清理浏览器数据，否则 localStorage 存储的数据会一直存在</li>
+<li> __Angular 单例 Service__：存储在应用之内得话，刷新后数据会丢失，当然也不能 tab 页之间共享</li>
 </ul>
 <p>比较好的办法是，身份验证信息存储在 localStorage 里，但在应用启动时，初始化到 Angular 的单例 Service 中。</p>
 <h3 id="在请求中加入身份验证信息"><a href="#在请求中加入身份验证信息" class="headerlink" title="在请求中加入身份验证信息"></a>在请求中加入身份验证信息</h3><p>身份验证信息的目的，是为了向服务器表明身份，获取数据。所以，在请求中需要附加身份验证信息。</p>
 <p>一般的应用中，身份验证信息都是放在请求的 headers 头部中。如果在每次请求的时候，一一设置 headers ，那就太费时费力了。Angular 中的 <code>$httpProvider</code> 提供了一个拦截器 <code>interceptors</code> ，通过它可以实现对每一个请求和响应的统一处理。添加拦截器的方式如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(<span class="string">'app'</span>)</span><br><span class="line">  .config([<span class="string">'$httpProvider'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$httpProvider</span>)</span>&#123;</span><br><span class="line">    $httpProvider.interceptors.push(HttpInterceptor);</span><br><span class="line">  &#125;]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(<span class="string">&#x27;app&#x27;</span>)</span><br><span class="line">  .config([<span class="string">&#x27;$httpProvider&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$httpProvider</span>)</span>&#123;</span><br><span class="line">    $httpProvider.interceptors.push(HttpInterceptor);</span><br><span class="line">  &#125;]);</span><br></pre></td></tr></table></figure>
+
 <p><code>HttpInterceptor</code> 的定义方式如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(<span class="string">'app'</span>)</span><br><span class="line">  .factory(<span class="string">'HttpInterceptor'</span>, [<span class="string">'$q'</span>, HttpInterceptor]);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">HttpInterceptor</span>(<span class="params">$q</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// 请求发出之前，可以用于添加各种身份验证信息</span></span><br><span class="line">    request: <span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(localStorage.token) &#123;</span><br><span class="line">        config.headers.token = localStorage.token;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> config;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 请求发出时出错</span></span><br><span class="line">    requestError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 成功返回了响应</span></span><br><span class="line">    response: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 返回的响应出错，包括后端返回响应时，设置了非 200 的 http 状态码</span></span><br><span class="line">    responseError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(<span class="string">&#x27;app&#x27;</span>)</span><br><span class="line">  .factory(<span class="string">&#x27;HttpInterceptor&#x27;</span>, [<span class="string">&#x27;$q&#x27;</span>, HttpInterceptor]);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">HttpInterceptor</span>(<span class="params">$q</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// 请求发出之前，可以用于添加各种身份验证信息</span></span><br><span class="line">    request: <span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="built_in">localStorage</span>.token) &#123;</span><br><span class="line">        config.headers.token = <span class="built_in">localStorage</span>.token;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> config;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 请求发出时出错</span></span><br><span class="line">    requestError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 成功返回了响应</span></span><br><span class="line">    response: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 返回的响应出错，包括后端返回响应时，设置了非 200 的 http 状态码</span></span><br><span class="line">    responseError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>拦截器提供了对发出请求到返回响应的全生命周期处理，一般可以用来做下面几个事情：</p>
 <ul>
-<li>统一在发出的请求中添加数据，如添加身份验证信息</li>
-<li>统一处理错误，包括请求发出时出的错（如浏览器端的网络不通），还有响应时返回的错误</li>
-<li>统一处理响应，比如缓存一些数据等</li>
-<li>显示请求进度条</li>
+<li> 统一在发出的请求中添加数据，如添加身份验证信息</li>
+<li> 统一处理错误，包括请求发出时出的错（如浏览器端的网络不通），还有响应时返回的错误</li>
+<li> 统一处理响应，比如缓存一些数据等</li>
+<li> 显示请求进度条</li>
 </ul>
 <p>在上面的示例代码中，当 localStorage 中包括 <code>token</code> 这个值时，就在每一个请求的头部，添加一个 <code>token</code> 值。</p>
 <h3 id="失效及处理"><a href="#失效及处理" class="headerlink" title="失效及处理"></a>失效及处理</h3><p>一般的，后端应该在 <code>token</code> 验证失败时，将响应的 http 状态码设置为 401 ，这样，在拦截器的 <code>responseError</code> 中便可以统一处理：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">responseError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="number">-1</span> === err.status) &#123;</span><br><span class="line">    <span class="comment">// 远程服务器无响应</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">401</span> === err.status) &#123;</span><br><span class="line">    <span class="comment">// 401 错误一般是用于身份验证失败，具体要看后端对身份验证失败时抛出的错误</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">404</span> === err.status) &#123;</span><br><span class="line">    <span class="comment">// 服务器返回了 404</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">responseError: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(-<span class="number">1</span> === err.status) &#123;</span><br><span class="line">    <span class="comment">// 远程服务器无响应</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">401</span> === err.status) &#123;</span><br><span class="line">    <span class="comment">// 401 错误一般是用于身份验证失败，具体要看后端对身份验证失败时抛出的错误</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">404</span> === err.status) &#123;</span><br><span class="line">    <span class="comment">// 服务器返回了 404</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> $q.reject(err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>其实，只要服务器返回的状态码不是 200 ，都会调用 <code>responseError</code> ，可以在这里，统一处理并显示错误。</p>
 
   </article>
@@ -258,7 +261,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#功能边界"><span class="toc-text">功能边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现身份验证的两种方式"><span class="toc-text">实现身份验证的两种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookies"><span class="toc-text">Cookies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#密钥"><span class="toc-text">密钥</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理登录"><span class="toc-text">处理登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#需要使用单独的登录页吗？"><span class="toc-text">需要使用单独的登录页吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单独的登录页"><span class="toc-text">单独的登录页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单页应用内登录的组织"><span class="toc-text">单页应用内登录的组织</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么客户端也要加密密码"><span class="toc-text">为什么客户端也要加密密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#登录成功的通知"><span class="toc-text">登录成功的通知</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#身份验证信息"><span class="toc-text">身份验证信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#保存"><span class="toc-text">保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在请求中加入身份验证信息"><span class="toc-text">在请求中加入身份验证信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#失效及处理"><span class="toc-text">失效及处理</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%BE%B9%E7%95%8C"><span class="toc-text">功能边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">实现身份验证的两种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookies"><span class="toc-text">Cookies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5"><span class="toc-text">密钥</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E7%99%BB%E5%BD%95"><span class="toc-text">处理登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E5%8D%95%E7%8B%AC%E7%9A%84%E7%99%BB%E5%BD%95%E9%A1%B5%E5%90%97%EF%BC%9F"><span class="toc-text">需要使用单独的登录页吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%8B%AC%E7%9A%84%E7%99%BB%E5%BD%95%E9%A1%B5"><span class="toc-text">单独的登录页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E5%86%85%E7%99%BB%E5%BD%95%E7%9A%84%E7%BB%84%E7%BB%87"><span class="toc-text">单页应用内登录的组织</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B9%9F%E8%A6%81%E5%8A%A0%E5%AF%86%E5%AF%86%E7%A0%81"><span class="toc-text">为什么客户端也要加密密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F%E7%9A%84%E9%80%9A%E7%9F%A5"><span class="toc-text">登录成功的通知</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E4%BF%A1%E6%81%AF"><span class="toc-text">身份验证信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98"><span class="toc-text">保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E8%AF%B7%E6%B1%82%E4%B8%AD%E5%8A%A0%E5%85%A5%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E4%BF%A1%E6%81%AF"><span class="toc-text">在请求中加入身份验证信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B1%E6%95%88%E5%8F%8A%E5%A4%84%E7%90%86"><span class="toc-text">失效及处理</span></a></li></ol></li></ol>
   </div>
 </div>
 
@@ -291,7 +294,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -316,12 +319,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -329,7 +332,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -337,7 +340,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -345,7 +348,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -353,7 +356,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -361,7 +364,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -419,22 +422,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

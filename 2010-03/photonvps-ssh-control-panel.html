@@ -22,20 +22,13 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
   
   <title>PhotonVPS系列之二：Webmin控制面板和SSH终端使用 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -45,7 +38,7 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -186,20 +179,21 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
       </span>
     </p>
     
-    <p>在完成<a href="http://chensd.com/2010-03/photonvps-order.html">VPS的购买</a>之后，就可以坐等开通VPS了。大约在你交费后的五个小时左右，你会收到来自PhotonVPS的如下内容的邮件：</p>
+    <p>在完成<a target="_blank" rel="noopener" href="http://chensd.com/2010-03/photonvps-order.html">VPS的购买</a>之后，就可以坐等开通VPS了。大约在你交费后的五个小时左右，你会收到来自PhotonVPS的如下内容的邮件：</p>
 <blockquote>
-<h1 id="Server-Details"><a href="#Server-Details" class="headerlink" title="Server Details"></a>Server Details</h1><p>Beam1<br>Main IP: 173.224.209.19<br>Username: root<br>Root pass: XXXXX（一串随机密码）<br>IP address allocation: 173.224.209.20<br>ServerName: vps.chensd.com</p>
-<h1 id="SSH-Access-Information"><a href="#SSH-Access-Information" class="headerlink" title="SSH Access Information"></a>SSH Access Information</h1><p>Main IP Address: 173.224.209.19<br>Server Name: vps.chensd.com<br>Root Password: XXXXX（随机密码，与上面的Root pass相同）<br><a id="more"></a></p>
+<h1 id="Server-Details"><a href="#Server-Details" class="headerlink" title="Server Details"></a>Server Details</h1><p>Beam1<br>Main IP: 173.224.209.19<br>Username: root<br>Root pass: XXXXX（一串随机密码）<br>IP address allocation: 173.224.209.20<br>ServerName: vps.chensd.com<br>SSH Access Information<br>=============================<br>Main IP Address: 173.224.209.19<br>Server Name: vps.chensd.com<br>Root Password: XXXXX（随机密码，与上面的Root pass相同）</p>
 </blockquote>
+<span id="more"></span>
+
 <p>这里包括了关于你VPS服务最重要的信息，包括你的IP地址、ROOT密码等，还有一个套餐内的附加IP。现在，就可以借助SSH进行登录了。</p>
 <p>先说两种SSH的登录方法，分别是：</p>
 <ol>
-<li>在Window平台下，可以借助PuTTY工具，具体下载在<a href="/upfile/2010/03/putty_0.60cn.zip">这里</a>，使用教程，在<a href="http://www.vpser.net/uncategorized/putty-ssh-linux-vps.html" target="_blank" rel="noopener">这里</a>；<br><a href="/upfile/2010/03/photonvps-putty.jpg"><img src="/upfile/2010/03/photonvps-putty.jpg" alt="" title="photonvps-putty"></a></li>
-<li>在Linux平台下，可以使用Linux自带的SSH工具，即直接使用ssh命令进行连接即可；<br><a href="/upfile/2010/03/photonvps-linux-ssh.jpg"><img src="/upfile/2010/03/photonvps-linux-ssh.jpg" alt="" title="photonvps-linux-ssh"></a><br>另外就是要获得VPS控制面板的使用地址和用户名密码。可以在PhtonVPS客服系统里<a href="https://www.photonvps.com/billing/submitticket.php?step=2&amp;deptid=1" target="_blank" rel="noopener">提交服务申请单</a>，说明需要使用控制面板来使用VPS，并提供你的VPS基本信息，包括IP、名称、Root密码。三到四小时后，就会得到客服的回复，告知你VPS的控制面板地址、及登录用户名和密码。如下图（点击可放大）。</li>
+<li> 在Window平台下，可以借助PuTTY工具，具体下载在<a href="/upfile/2010/03/putty_0.60cn.zip">这里</a>，使用教程，在<a target="_blank" rel="noopener" href="http://www.vpser.net/uncategorized/putty-ssh-linux-vps.html">这里</a>；<br><a href="/upfile/2010/03/photonvps-putty.jpg"><img src="/upfile/2010/03/photonvps-putty.jpg" title="photonvps-putty"></a></li>
+<li> 在Linux平台下，可以使用Linux自带的SSH工具，即直接使用ssh命令进行连接即可；<br><a href="/upfile/2010/03/photonvps-linux-ssh.jpg"><img src="/upfile/2010/03/photonvps-linux-ssh.jpg" title="photonvps-linux-ssh"></a><br>另外就是要获得VPS控制面板的使用地址和用户名密码。可以在PhtonVPS客服系统里<a target="_blank" rel="noopener" href="https://www.photonvps.com/billing/submitticket.php?step=2&amp;deptid=1">提交服务申请单</a>，说明需要使用控制面板来使用VPS，并提供你的VPS基本信息，包括IP、名称、Root密码。三到四小时后，就会得到客服的回复，告知你VPS的控制面板地址、及登录用户名和密码。如下图（点击可放大）。</li>
 </ol>
-<p><a href="/upfile/2010/03/photonvps-support-ticket.jpg"><img src="/upfile/2010/03/photonvps-support-ticket.jpg" alt="" title="photonvps-support-ticket"></a></p>
+<p><a href="/upfile/2010/03/photonvps-support-ticket.jpg"><img src="/upfile/2010/03/photonvps-support-ticket.jpg" title="photonvps-support-ticket"></a></p>
 <p>之后，便可以登录Webmin控制面板来控制VPS了。下一篇文章，将介绍Webmin的使用。下图中是Webmin登录后的界面（点击可以放大）。</p>
-<p><a href="/upfile/2010/03/photonvps-webmin.jpg"><img src="/upfile/2010/03/photonvps-webmin.jpg" alt="" title="photonvps-webmin"></a></p>
+<p><a href="/upfile/2010/03/photonvps-webmin.jpg"><img src="/upfile/2010/03/photonvps-webmin.jpg" title="photonvps-webmin"></a></p>
 <p>一般的，控制面板的登录密码就是你的Root Pass。</p>
 
   </article>
@@ -208,7 +202,7 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Server-Details"><span class="toc-text">Server Details</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSH-Access-Information"><span class="toc-text">SSH Access Information</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Server-Details"><span class="toc-text">Server Details</span></a></li></ol>
   </div>
 </div>
 
@@ -241,7 +235,7 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -266,12 +260,12 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -279,7 +273,7 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -287,7 +281,7 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -295,7 +289,7 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -303,7 +297,7 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -311,7 +305,7 @@ Server DetailsBeam1Main IP: 173.224.209.19Username: rootRoot pass: XXXXX（一�
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -369,22 +363,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

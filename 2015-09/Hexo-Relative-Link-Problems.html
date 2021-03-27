@@ -18,25 +18,18 @@
   
     <meta name="description" content="从 Wordpress 迁移到 Hexo 已经有半年多的时间了，但有一个问题一直困扰着我没有解决，那就是站点上很多链接的 href 值都有问题，链接点击后会到一些根本不存在的或错误的页面，比如：
 
-分页链接：本来 href 的值应该是 /page/2/index.html 之类，但它的目标地址却是不存在的 /page/index.html ，于是就 404 了
-分类链接：本来 href 的值...">
+  分页链接：本来 href 的值应该是 /page/2/index.html 之类，但它的目标地址却是不存在的 /page/index.html ，于是就 404 了
+  分类链接：本来 hre...">
   
   <title>Hexo中的分页、标签、分类链接地址错误问题 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -46,7 +39,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -171,18 +164,20 @@
     
     <p>从 Wordpress 迁移到 Hexo 已经有半年多的时间了，但有一个问题一直困扰着我没有解决，那就是站点上很多链接的 href 值都有问题，链接点击后会到一些根本不存在的或错误的页面，比如：</p>
 <ul>
-<li>分页链接：本来 href 的值应该是 <code>/page/2/index.html</code> 之类，但它的目标地址却是不存在的 <code>/page/index.html</code> ，于是就 404 了</li>
-<li>分类链接：本来 href 的值应该是 <code>/categories/建站相关/index.html</code> 之类，但却是的 <code>/categories/index.html</code> ，于是不论怎么点，都还是在分类首页中</li>
-<li>标签链接：本来 href 的值应该是 <code>/tags/Hexo/index.html</code> 之类，但却和分类链接一样，直接链到了 <code>/tags/inddex.html</code></li>
+<li>  分页链接：本来 href 的值应该是 <code>/page/2/index.html</code> 之类，但它的目标地址却是不存在的 <code>/page/index.html</code> ，于是就 404 了</li>
+<li>  分类链接：本来 href 的值应该是 <code>/categories/建站相关/index.html</code> 之类，但却是的 <code>/categories/index.html</code> ，于是不论怎么点，都还是在分类首页中</li>
+<li>  标签链接：本来 href 的值应该是 <code>/tags/Hexo/index.html</code> 之类，但却和分类链接一样，直接链到了 <code>/tags/inddex.html</code></li>
 </ul>
 <p>昨天早上的时候，我终于决定，无论如何要找到原因。</p>
-<a id="more"></a>
+<span id="more"></span>
+
 <p>最开始我怀疑的是主题的问题，仔细看了好几个相关的问题，并没有发现任何直接写链接的代码。又更换了主题，问题依然存在，于是便排除主题的原因。</p>
 <p>我把所有的 <code>source/_posts</code> 中的文件复制到一个完全新建的 Hexo 站点中来，只做最简单的配置，运行起来后，发现所有的链接完全正常。于是复制进来主题目录，依然是正常的。再复制站点的 <code>_config.yml</code> 文件——这下便不正常了。</p>
 <p>接着就简单了，一个一个找具体是哪一个配置有问题。几次尝试，终于发现了罪魁祸首——原来是相对链接的配置项：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">relative_link:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
 <p>我最开始使用的是 Hexo 2.x ，可能那时候默认的 <code>relative_link</code> 配置是 <code>true</code>，而 3.x 中已经默认将其设置为 <code>false</code> ，在 3.x 中，Hexo 的相对链接处理，是有 bug 的。于是便导致了这些问题。</p>
-<p>已经有人在大前天提了个 <a href="https://github.com/hexojs/hexo/issues/1381" target="_blank" rel="noopener">issue</a> 。</p>
+<p>已经有人在大前天提了个 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/1381">issue</a> 。</p>
 
   </article>
   <div class="random-toc-area">
@@ -223,7 +218,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -248,12 +243,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -261,7 +256,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -269,7 +264,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -277,7 +272,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -285,7 +280,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -293,7 +288,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -351,22 +346,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

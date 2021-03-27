@@ -27,20 +27,13 @@
   
   <title>一种权重算法及其实现 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -50,7 +43,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -173,7 +166,7 @@
       </span>
     </p>
     
-    <p>一大早在<a href="https://v2ex.com/t/191209" target="_blank" rel="noopener">V2EX上看到有人讨论</a>一个关于权重的算法，源于题主的面试，他还发了<a href="http://www.cnblogs.com/javanerd/p/4504482.html" target="_blank" rel="noopener">博文</a>，果然，面试他的人夸奖了他的态度。这的确是难得的。</p>
+    <p>一大早在<a target="_blank" rel="noopener" href="https://v2ex.com/t/191209">V2EX上看到有人讨论</a>一个关于权重的算法，源于题主的面试，他还发了<a target="_blank" rel="noopener" href="http://www.cnblogs.com/javanerd/p/4504482.html">博文</a>，果然，面试他的人夸奖了他的态度。这的确是难得的。</p>
 <p>面试官给出的题目如下：</p>
 <blockquote>
 <p>每首歌曲都是一个评分，现在有2000首歌曲，要求实现一个随机播放器，每首歌曲播放的概率应该正比于它的评分，例如评分9.1的歌曲，和评分7.9的歌曲，播放的次数应该是91:79</p>
@@ -189,15 +182,17 @@
 <p>不过其实细想来，这无非就是一个简单的权重问题。权重算法有大量的解决思路，前不久在实现一个小的广告系统时，正好也有权重设置。在这里分享了下我的解决方案吧。</p>
 <p>分为三步：</p>
 <ul>
-<li>遍历所有项，得到所有项的总权重</li>
-<li>再次遍历所有项，给每一项，加一个0到总权重之间的随机值，得到新权重。注意，每项加的都是即时生成的随机数</li>
-<li>在第二步遍历的同时，取出新权重最大那一项</li>
+<li> 遍历所有项，得到所有项的总权重</li>
+<li> 再次遍历所有项，给每一项，加一个0到总权重之间的随机值，得到新权重。注意，每项加的都是即时生成的随机数</li>
+<li> 在第二步遍历的同时，取出新权重最大那一项</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
+
 <p>这一算法的思路是，各项的权重，在增加一个随机数后，被选中的概率是不变的，而增加的随机数的范围则很有讲究，如果比最小的权重值还小，那权重值大的被选中的可能性就要大大增加，而如果比最总权重之和还高，则就起不到区分作用了——所有被选中的概率就变得一样了。</p>
 <p>这个方法不增加额外的空间，时间上只需要两次遍历，而且算法逻辑简单，权重值不管是整数还是小数，甚至负数，两项的权重值一样，都没有问题，实现也非常容易。</p>
 <p>下面来是实现的代码。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//待选项列表</span></span><br><span class="line"><span class="keyword">var</span> gnaTempAdv = [...];</span><br><span class="line"><span class="comment">//选取的结果</span></span><br><span class="line"><span class="keyword">var</span> gnaTarget = <span class="literal">null</span>;</span><br><span class="line"><span class="comment">//总权重</span></span><br><span class="line"><span class="keyword">var</span> totalWeight = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//计算总权重</span></span><br><span class="line">gnaTempAdv.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">gnata</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(gnata.weight)</span><br><span class="line">    totalWeight += <span class="built_in">Number</span>(gnata.weight);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gnaTempAdv.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">gnata2</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//加随机数</span></span><br><span class="line">  gnata2.newWeight = <span class="number">0</span>;</span><br><span class="line">  gnata2.newWeight = gnata2.weight + <span class="built_in">Math</span>.random()*totalWeight;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//取新的weight最大的值</span></span><br><span class="line">  <span class="keyword">if</span>(!gnaTarget) &#123;</span><br><span class="line">    gnaTarget = gnata2;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(gnata2.newWeight &gt; gnaTargetAdv.newWeight) &#123;</span><br><span class="line">    gnaTargetAdv = gnata2;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//待选项列表</span></span><br><span class="line"><span class="keyword">var</span> gnaTempAdv = [...];</span><br><span class="line"><span class="comment">//选取的结果</span></span><br><span class="line"><span class="keyword">var</span> gnaTarget = <span class="literal">null</span>;</span><br><span class="line"><span class="comment">//总权重</span></span><br><span class="line"><span class="keyword">var</span> totalWeight = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//计算总权重</span></span><br><span class="line">gnaTempAdv.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">gnata</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(gnata.weight)</span><br><span class="line">    totalWeight += <span class="built_in">Number</span>(gnata.weight);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gnaTempAdv.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">gnata2</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//加随机数</span></span><br><span class="line">  gnata2.newWeight = <span class="number">0</span>;</span><br><span class="line">  gnata2.newWeight = gnata2.weight + <span class="built_in">Math</span>.random()*totalWeight;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//取新的weight最大的值</span></span><br><span class="line">  <span class="keyword">if</span>(!gnaTarget) &#123;</span><br><span class="line">    gnaTarget = gnata2;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(gnata2.newWeight &gt; gnaTargetAdv.newWeight) &#123;</span><br><span class="line">    gnaTargetAdv = gnata2;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>就这么简单。</p>
 
   </article>
@@ -239,7 +234,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -264,12 +259,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -277,7 +272,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -285,7 +280,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -293,7 +288,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -301,7 +296,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -309,7 +304,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -367,22 +362,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

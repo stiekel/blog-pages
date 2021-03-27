@@ -27,20 +27,13 @@
   
   <title>利用 EncloseJS 来打包、加密和保护 Node.js 代码 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -50,7 +43,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -186,13 +179,15 @@
 <li>不想每次都 <code>npm i</code></li>
 <li>想更方便的进行大规模部署</li>
 </ul>
-<p>绝大多数情况下，我们都不是那个首次面对某个问题的人。而这些需求实在是太普通了，开源的，收费的解决方案都有。<a href="http://enclosejs.com/" target="_blank" rel="noopener">EncloseJS</a> 就是一个收费方案。<br><a id="more"></a></p>
+<p>绝大多数情况下，我们都不是那个首次面对某个问题的人。而这些需求实在是太普通了，开源的，收费的解决方案都有。<a target="_blank" rel="noopener" href="http://enclosejs.com/">EncloseJS</a> 就是一个收费方案。</p>
+<span id="more"></span>
+
 <h2 id="EncloseJS-可以做什么"><a href="#EncloseJS-可以做什么" class="headerlink" title="EncloseJS 可以做什么"></a>EncloseJS 可以做什么</h2><ul>
 <li>将源代码打成一个单文件</li>
 <li>打成的包直接运行，无需 <code>npm i</code> 等安装工作</li>
-<li>打成的包运行时<strong>不依赖 Node.js 和 npm</strong></li>
+<li>打成的包运行时__不依赖 Node.js 和 npm__</li>
 </ul>
-<p>虽然还有制作解压缩包和配合 <a href="https://github.com/breach/node-thrust/" target="_blank" rel="noopener">node-thrust</a> 打包 GUI 应用之类，不过这几个基本不是这里要关心的。</p>
+<p>虽然还有制作解压缩包和配合 <a target="_blank" rel="noopener" href="https://github.com/breach/node-thrust/">node-thrust</a> 打包 GUI 应用之类，不过这几个基本不是这里要关心的。</p>
 <h2 id="EncloseJS-安装"><a href="#EncloseJS-安装" class="headerlink" title="EncloseJS 安装"></a>EncloseJS 安装</h2><p>试用版安装非常简单，直接使用 <code>npm i -g enclose</code> 即可。不过需要下载的安装包有好几个，我在阿里云的服务器尝试了好几次都没有成功。</p>
 <h2 id="怎么用？"><a href="#怎么用？" class="headerlink" title="怎么用？"></a>怎么用？</h2><p>我以手头的一个 Socket.io 项目为例做了一个测试，该项目依赖如下：</p>
 <ul>
@@ -202,9 +197,10 @@
 <li>generic-pool</li>
 <li>nutcracker（有依赖，但没有使用）</li>
 </ul>
-<p>EncloseJS 打包，如果只是打包 Node.js 的基本代码文件，那直接使用命令行就够了，当然如果需要包括的文件和目录比较多，可以使用单独的文件来指定，具体可参考<a href="https://github.com/igorklopov/enclose/wiki/02.Packaging#explicit-packaging" target="_blank" rel="noopener">文档</a>。</p>
+<p>EncloseJS 打包，如果只是打包 Node.js 的基本代码文件，那直接使用命令行就够了，当然如果需要包括的文件和目录比较多，可以使用单独的文件来指定，具体可参考<a target="_blank" rel="noopener" href="https://github.com/igorklopov/enclose/wiki/02.Packaging#explicit-packaging">文档</a>。</p>
 <p>这里使用命令行工具就行了，打包命令如下：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enclose -l info -x -o ./sio ~/code/sio/bin/socket</span><br></pre></td></tr></table></figure>
+
 <p>这里使用的几个参数作用如下：</p>
 <ul>
 <li><code>-l info</code>：显示的内容的级别，<code>info</code> 会显示出具体打包的文件列表</li>
@@ -214,9 +210,10 @@
 </ul>
 <p>打包速度还是很快的，结果如下：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ll ./ess</span><br><span class="line">-rwxr-xr--  1 sid  staff    18M May 21 11:38 ./ess</span><br><span class="line">$ file ./ess</span><br><span class="line">./ess: Mach-O 64-bit executable x86_64</span><br></pre></td></tr></table></figure>
+
 <p>打包另外一个项目时，发现对 <code>require</code> 语句中使用字符串拼接的路径支持会有问题。</p>
-<p>对比其它的方案，EncloseJS 还是非常有优势的，至少打包这个测试项目时是一次性成功。它的试用版是有限制的，运行的时候，会打印一个试用提示，还有网络连接数和进程运行时间的限制。<a href="http://enclosejs.com/buy" target="_blank" rel="noopener">购买</a>订阅的价格是一年100刀，对于企业来讲也不贵。</p>
-<h2 id="其它的选择"><a href="#其它的选择" class="headerlink" title="其它的选择"></a>其它的选择</h2><p>开源的方案也有几个，比如 <a href="https://github.com/jaredallard/nexe" target="_blank" rel="noopener">nexe</a> / <a href="https://github.com/jxcore/jxcore" target="_blank" rel="noopener">jxcore</a> 。</p>
+<p>对比其它的方案，EncloseJS 还是非常有优势的，至少打包这个测试项目时是一次性成功。它的试用版是有限制的，运行的时候，会打印一个试用提示，还有网络连接数和进程运行时间的限制。<a target="_blank" rel="noopener" href="http://enclosejs.com/buy">购买</a>订阅的价格是一年100刀，对于企业来讲也不贵。</p>
+<h2 id="其它的选择"><a href="#其它的选择" class="headerlink" title="其它的选择"></a>其它的选择</h2><p>开源的方案也有几个，比如 <a target="_blank" rel="noopener" href="https://github.com/jaredallard/nexe">nexe</a> / <a target="_blank" rel="noopener" href="https://github.com/jxcore/jxcore">jxcore</a> 。</p>
 
   </article>
   <div class="random-toc-area">
@@ -224,7 +221,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#EncloseJS-可以做什么"><span class="toc-text">EncloseJS 可以做什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EncloseJS-安装"><span class="toc-text">EncloseJS 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么用？"><span class="toc-text">怎么用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它的选择"><span class="toc-text">其它的选择</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#EncloseJS-%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88"><span class="toc-text">EncloseJS 可以做什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EncloseJS-%E5%AE%89%E8%A3%85"><span class="toc-text">EncloseJS 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="toc-text">怎么用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">其它的选择</span></a></li></ol>
   </div>
 </div>
 
@@ -257,7 +254,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -282,12 +279,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -295,7 +292,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -303,7 +300,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -311,7 +308,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -319,7 +316,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -327,7 +324,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -385,22 +382,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

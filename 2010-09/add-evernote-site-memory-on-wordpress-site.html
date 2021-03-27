@@ -20,20 +20,13 @@
   
   <title>在Wordpress中添加Evernote的Site Memory按钮 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -43,7 +36,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -178,21 +171,23 @@
       </span>
     </p>
     
-    <p><a href="http://www.steelsnarl.com/evernote%E5%87%A0%E4%B8%AA%E6%8A%80%E5%B7%A7%EF%BC%88%E7%BD%91%E7%BB%9C%E7%89%88%E3%80%81%E5%85%B1%E4%BA%AB%EF%BC%89/" target="_blank" rel="noopener">Evernote的评论</a>不用多说，国内也有不少用户，作为一个优秀的云服务，相对于Dropbox，被封的可能性要小得多，因为Evernote更注重的是收集而不是分享。前段时间Evernote推出了在网站中添加<a href="http://techcrunch.com/2010/09/10/site-memory-evernote-for-websites/" target="_blank" rel="noopener">Site Memory按钮</a>，来快速保存网页中信息的功能，更是方便了用户，下面就以Wordpress blog为例来介绍一下添加Evernote Site Memory按钮的方法。</p>
-<a id="more"></a>
+    <p><a target="_blank" rel="noopener" href="http://www.steelsnarl.com/evernote%E5%87%A0%E4%B8%AA%E6%8A%80%E5%B7%A7%EF%BC%88%E7%BD%91%E7%BB%9C%E7%89%88%E3%80%81%E5%85%B1%E4%BA%AB%EF%BC%89/">Evernote的评论</a>不用多说，国内也有不少用户，作为一个优秀的云服务，相对于Dropbox，被封的可能性要小得多，因为Evernote更注重的是收集而不是分享。前段时间Evernote推出了在网站中添加<a target="_blank" rel="noopener" href="http://techcrunch.com/2010/09/10/site-memory-evernote-for-websites/">Site Memory按钮</a>，来快速保存网页中信息的功能，更是方便了用户，下面就以Wordpress blog为例来介绍一下添加Evernote Site Memory按钮的方法。</p>
+<span id="more"></span>
+
 <h3 id="一、获得代码"><a href="#一、获得代码" class="headerlink" title="一、获得代码"></a>一、获得代码</h3><ul>
-<li>先打开<a href="http://www.evernote.com/about/developer/sitememory/" target="_blank" rel="noopener">Evernote Site Memory的代码生成页面</a>，点击“Show advanced note-specific options”，显示所有可以编辑的选项，选择图标，然后填写如下内容：</li>
-<li>Site Name：你的网站或者博客的名字，这个可以随意；</li>
-<li>Suggested notebook for clips：“推荐粘贴的笔记本名”，这个建议为空，因为如果填入了这一项，而用户的Evernote中又没有与你的这个名字一样的笔记本，Evernote将会默认新建一个，估计有些用户不会喜欢这个功能；</li>
-<li>Content to clip：这个是为了让Evernote知道你的需要截取你网站中的哪部分，只需要填写相应div的名字即可，对于wordpress来讲，输入“content”即可；</li>
-<li>Evernote referal code：推荐专用，详细查看Evernote的介绍；</li>
-<li>Suggested note title：“推荐使用的标题”，这个还是不用了吧，最好就用网页的标题；</li>
-<li>Source URL：URL地址最好也不要填，就用当前网页的地址吧；</li>
-<li>Suggested Tags：推荐使用的标签，这个可以填，根据你博客的主题来吧；</li>
-<li>Styling：可以选择是只复制纯文本，或者全部复制；<br><a href="/upfile/2010/09/get-evernote-site-memory-button-code.png"><img src="/upfile/2010/09/get-evernote-site-memory-button-code.png" alt="" title="get-evernote-site-memory-button-code"></a></li>
+<li>  先打开<a target="_blank" rel="noopener" href="http://www.evernote.com/about/developer/sitememory/">Evernote Site Memory的代码生成页面</a>，点击“Show advanced note-specific options”，显示所有可以编辑的选项，选择图标，然后填写如下内容：</li>
+<li>  Site Name：你的网站或者博客的名字，这个可以随意；</li>
+<li>  Suggested notebook for clips：“推荐粘贴的笔记本名”，这个建议为空，因为如果填入了这一项，而用户的Evernote中又没有与你的这个名字一样的笔记本，Evernote将会默认新建一个，估计有些用户不会喜欢这个功能；</li>
+<li>  Content to clip：这个是为了让Evernote知道你的需要截取你网站中的哪部分，只需要填写相应div的名字即可，对于wordpress来讲，输入“content”即可；</li>
+<li>  Evernote referal code：推荐专用，详细查看Evernote的介绍；</li>
+<li>  Suggested note title：“推荐使用的标题”，这个还是不用了吧，最好就用网页的标题；</li>
+<li>  Source URL：URL地址最好也不要填，就用当前网页的地址吧；</li>
+<li>  Suggested Tags：推荐使用的标签，这个可以填，根据你博客的主题来吧；</li>
+<li>  Styling：可以选择是只复制纯文本，或者全部复制；<br><a href="/upfile/2010/09/get-evernote-site-memory-button-code.png"><img src="/upfile/2010/09/get-evernote-site-memory-button-code.png" title="get-evernote-site-memory-button-code"></a></li>
 </ul>
 <p>填完后复制相应的代码即可，例如如下的代码：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"http://static.evernote.com/noteit.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">onclick</span>=<span class="string">"Evernote.doClip(&#123;styling:'full',providerName:'不可能不确定',suggestTags:'技巧'&#125;); return false;"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://static.evernote.com/article-clipper.png"</span> <span class="attr">alt</span>=<span class="string">"Clip to Evernote"</span> /&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://static.evernote.com/noteit.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;Evernote.doClip(&#123;styling:&#x27;full&#x27;,providerName:&#x27;不可能不确定&#x27;,suggestTags:&#x27;技巧&#x27;&#125;); return false;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;http://static.evernote.com/article-clipper.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Clip to Evernote&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="二、配置wordpress博客"><a href="#二、配置wordpress博客" class="headerlink" title="二、配置wordpress博客"></a>二、配置wordpress博客</h3><p>然后是博客的配置工作。简单的讲，就是修改主题中的single.php即可。打开博客管理后台，仿效点击“外观”》“编辑”，然后选择编辑single.php页面，在</div><!-- END entry -->代码之前，粘贴你的代码即可。</p>
 <p>然后即可完成配置。</p>
 
@@ -202,7 +197,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、获得代码"><span class="toc-text">一、获得代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、配置wordpress博客"><span class="toc-text">二、配置wordpress博客</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%8E%B7%E5%BE%97%E4%BB%A3%E7%A0%81"><span class="toc-text">一、获得代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%85%8D%E7%BD%AEwordpress%E5%8D%9A%E5%AE%A2"><span class="toc-text">二、配置wordpress博客</span></a></li></ol>
   </div>
 </div>
 
@@ -235,7 +230,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -260,12 +255,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -273,7 +268,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -281,7 +276,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -289,7 +284,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -297,7 +292,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -305,7 +300,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -363,22 +358,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

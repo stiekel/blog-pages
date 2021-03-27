@@ -21,20 +21,13 @@
   
   <title>利用Ajax无刷新上传文件到Node.js服务器 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -44,7 +37,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -179,35 +172,41 @@
       </span>
     </p>
     
-    <p>最近做一个垂直社区项目，图片上传是现如今社区的标配，何况面向的还是女性用户。后端使用Node.js，图片上传必然是要不刷新不用iframe了。顺便，也测试了一下<a href="https://coding.net/" target="_blank" rel="noopener">Coding.net</a>的“演示”功能，的确是方便免费够用，代码传上去基本零配置就可以跑起来了。这篇文章涉及的代码托管在Coding上，最终的例子也是运行在Coding的免费服务器上。</p>
-<h2 id="协议与结构"><a href="#协议与结构" class="headerlink" title="协议与结构"></a>协议与结构</h2><p>整个上传采用<a href="https://www.ietf.org/rfc/rfc1867.txt" target="_blank" rel="noopener">RFC1867协议</a>，即基于HTML表单的文件上传协议。借助这个协议，为表单增加<code>enctype=&quot;multipart/form-data&quot;</code>，再使用<code>type</code>为<code>file</code>的<code>input</code>控制来选择文件，然后便可用POST方法上传文件。</p>
-<p>文件上传时会分段提交，借助Connect的<a href="https://github.com/andrewrk/connect-multiparty" target="_blank" rel="noopener">connect-multiparty</a>模块，即可接收各段组合整理为文件，并将文件存到临时目录，我们可再编写其它代码来处理文件。本例中，我们会把文件复制到<code>public</code>目录，以提供web访问。</p>
+    <p>最近做一个垂直社区项目，图片上传是现如今社区的标配，何况面向的还是女性用户。后端使用Node.js，图片上传必然是要不刷新不用iframe了。顺便，也测试了一下<a target="_blank" rel="noopener" href="https://coding.net/">Coding.net</a>的“演示”功能，的确是方便免费够用，代码传上去基本零配置就可以跑起来了。这篇文章涉及的代码托管在Coding上，最终的例子也是运行在Coding的免费服务器上。</p>
+<h2 id="协议与结构"><a href="#协议与结构" class="headerlink" title="协议与结构"></a>协议与结构</h2><p>整个上传采用<a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc1867.txt">RFC1867协议</a>，即基于HTML表单的文件上传协议。借助这个协议，为表单增加<code>enctype=&quot;multipart/form-data&quot;</code>，再使用<code>type</code>为<code>file</code>的<code>input</code>控制来选择文件，然后便可用POST方法上传文件。</p>
+<p>文件上传时会分段提交，借助Connect的<a target="_blank" rel="noopener" href="https://github.com/andrewrk/connect-multiparty">connect-multiparty</a>模块，即可接收各段组合整理为文件，并将文件存到临时目录，我们可再编写其它代码来处理文件。本例中，我们会把文件复制到<code>public</code>目录，以提供web访问。</p>
 <p>整个示例程序包括以下几部分：</p>
 <ul>
-<li>HTML表单，负责文件的选择</li>
-<li>JavaScript组织表单数据，执行上传</li>
-<li>Node.js接受上传的文件，并负责文件的移动和组织</li>
+<li>  HTML表单，负责文件的选择</li>
+<li>  JavaScript组织表单数据，执行上传</li>
+<li>  Node.js接受上传的文件，并负责文件的移动和组织</li>
 </ul>
-<p>示例程序的代码托管在Coding上的<a href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git" target="_blank" rel="noopener">Node.js-Ajax-Upload-File</a>，在线演示地址为<a href="http://node-js-ajax-upload-file.codingapp.com/" target="_blank" rel="noopener">node-js-ajax-upload-file.codingapp.com</a>。<a id="more"></a></p>
+<p>示例程序的代码托管在Coding上的<a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git">Node.js-Ajax-Upload-File</a>，在线演示地址为<a target="_blank" rel="noopener" href="http://node-js-ajax-upload-file.codingapp.com/">node-js-ajax-upload-file.codingapp.com</a>。<span id="more"></span></p>
 <p>下面开工。</p>
-<h2 id="HTML表单组织"><a href="#HTML表单组织" class="headerlink" title="HTML表单组织"></a>HTML表单组织</h2><p>表单很简单，就一个文件选择的控件。当<code>type</code>为<code>file</code>的<code>input</code>控件除了常规属性，还包括一个<a href="http://stackoverflow.com/questions/181214/file-input-accept-attribute-is-it-useful" target="_blank" rel="noopener">accept</a>属性，用于定义可以选择的文件类型。</p>
+<h2 id="HTML表单组织"><a href="#HTML表单组织" class="headerlink" title="HTML表单组织"></a>HTML表单组织</h2><p>表单很简单，就一个文件选择的控件。当<code>type</code>为<code>file</code>的<code>input</code>控件除了常规属性，还包括一个<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/181214/file-input-accept-attribute-is-it-useful">accept</a>属性，用于定义可以选择的文件类型。</p>
 <p>HTML中包括一个表单，一个提交按钮，和一个显示成功上传到服务器的图片的控件，主要代码如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span> = <span class="string">"form-horizontal"</span> <span class="attr">enctype</span>=<span class="string">'multipart/form-data'</span> <span class="attr">method</span>=<span class="string">'post'</span> <span class="attr">action</span>=<span class="string">'javascript:;'</span> <span class="attr">role</span> = <span class="string">"form"</span> <span class="attr">id</span> = <span class="string">"frmUploadFile"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">"form-group"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span> = <span class="string">"control-label col-sm-2"</span>&gt;</span>上传选择<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">"col-sm-4"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span> = <span class="string">"file"</span> <span class="attr">name</span> = <span class="string">"files"</span> <span class="attr">class</span> = <span class="string">"form-control"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">"form-group"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">"col-sm-offset-2 col-sm-4"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span> = <span class="string">"btn btn-primary"</span> <span class="attr">onClick</span> = <span class="string">"uploadFile()"</span>&gt;</span>上传<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span> = <span class="string">"help-inline"</span> <span class="attr">id</span> = <span class="string">"spanMessage"</span>&gt;</span>选择文件，并上传<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">"row"</span> <span class="attr">style</span> = <span class="string">"text-align: center"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span> = <span class="string">"imgShow"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>完整代码请查看<a href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git/blob/master/public/index.html" target="_blank" rel="noopener">public/index.html</a>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span> = <span class="string">&quot;form-horizontal&quot;</span> <span class="attr">enctype</span>=<span class="string">&#x27;multipart/form-data&#x27;</span> <span class="attr">method</span>=<span class="string">&#x27;post&#x27;</span> <span class="attr">action</span>=<span class="string">&#x27;javascript:;&#x27;</span> <span class="attr">role</span> = <span class="string">&quot;form&quot;</span> <span class="attr">id</span> = <span class="string">&quot;frmUploadFile&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">&quot;form-group&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span> = <span class="string">&quot;control-label col-sm-2&quot;</span>&gt;</span>上传选择<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">&quot;col-sm-4&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span> = <span class="string">&quot;file&quot;</span> <span class="attr">name</span> = <span class="string">&quot;files&quot;</span> <span class="attr">class</span> = <span class="string">&quot;form-control&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">&quot;form-group&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">&quot;col-sm-offset-2 col-sm-4&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span> = <span class="string">&quot;btn btn-primary&quot;</span> <span class="attr">onClick</span> = <span class="string">&quot;uploadFile()&quot;</span>&gt;</span>上传<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span> = <span class="string">&quot;help-inline&quot;</span> <span class="attr">id</span> = <span class="string">&quot;spanMessage&quot;</span>&gt;</span>选择文件，并上传<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">&quot;row&quot;</span> <span class="attr">style</span> = <span class="string">&quot;text-align: center&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span> = <span class="string">&quot;imgShow&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>完整代码请查看<a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git/blob/master/public/index.html">public/index.html</a>。</p>
 <h2 id="Ajax执行上传"><a href="#Ajax执行上传" class="headerlink" title="Ajax执行上传"></a>Ajax执行上传</h2><p>浏览器端的JavaScript会将表单中的数据格式化，再以POST方法上传文件，为了简便，使用了jQuery库来操作，具体代码比较简单，上传文件，然后根据服务器端的返回判定上传是否成功，如果成功，则显示图片。</p>
 <p>代码包装为自定义的函数，由“发送”按钮的单击事件调用，代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uploadFile</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData($(<span class="string">"#frmUploadFile"</span>)[<span class="number">0</span>]);</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    url: <span class="string">'/upload'</span>,</span><br><span class="line">    type: <span class="string">'POST'</span>,</span><br><span class="line">    data: formData,</span><br><span class="line">    <span class="keyword">async</span>: <span class="literal">false</span>,</span><br><span class="line">    cache: <span class="literal">false</span>,</span><br><span class="line">    contentType: <span class="literal">false</span>,</span><br><span class="line">    processData: <span class="literal">false</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="number">200</span> === data.code) &#123;</span><br><span class="line">        $(<span class="string">"#imgShow"</span>).attr(<span class="string">'src'</span>, data.msg.url);</span><br><span class="line">        $(<span class="string">"#spanMessage"</span>).html(<span class="string">"上传成功"</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">"#spanMessage"</span>).html(<span class="string">"上传失败"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'imgUploader upload success, data:'</span>, data);</span><br><span class="line">    &#125;,</span><br><span class="line">    error: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      $(<span class="string">"#spanMessage"</span>).html(<span class="string">"与服务器通信发生错误"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>具体请参见文件<a href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git/blob/master/public/demo.js" target="_blank" rel="noopener">pubilc/demo.js</a>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uploadFile</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData($(<span class="string">&quot;#frmUploadFile&quot;</span>)[<span class="number">0</span>]);</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    url: <span class="string">&#x27;/upload&#x27;</span>,</span><br><span class="line">    type: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    data: formData,</span><br><span class="line">    <span class="keyword">async</span>: <span class="literal">false</span>,</span><br><span class="line">    cache: <span class="literal">false</span>,</span><br><span class="line">    contentType: <span class="literal">false</span>,</span><br><span class="line">    processData: <span class="literal">false</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="number">200</span> === data.code) &#123;</span><br><span class="line">        $(<span class="string">&quot;#imgShow&quot;</span>).attr(<span class="string">&#x27;src&#x27;</span>, data.msg.url);</span><br><span class="line">        $(<span class="string">&quot;#spanMessage&quot;</span>).html(<span class="string">&quot;上传成功&quot;</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">&quot;#spanMessage&quot;</span>).html(<span class="string">&quot;上传失败&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;imgUploader upload success, data:&#x27;</span>, data);</span><br><span class="line">    &#125;,</span><br><span class="line">    error: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      $(<span class="string">&quot;#spanMessage&quot;</span>).html(<span class="string">&quot;与服务器通信发生错误&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体请参见文件<a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git/blob/master/public/demo.js">pubilc/demo.js</a>。</p>
 <h2 id="Node-js接收文件"><a href="#Node-js接收文件" class="headerlink" title="Node.js接收文件"></a>Node.js接收文件</h2><p>通过POST接收到的文件，由<code>connect-multiparty</code>负责重新组织为文件，并存储到临时文件夹中，Linux默认为<code>/tmp</code>目录，然后再将文件信息放到<code>req.files</code>对象中，对象中按<code>input</code>的<code>name</code>属性来组织文件列表，我们上面的表单中的<code>input</code>控件<code>name</code>为<code>files</code>，所以文件的信息便存储在<code>req.files.files</code>中。通过它可获取文件的存储位置和文件名等信息。</p>
 <p>整个服务器端的代码很简单，连同注释不过20多行，其中处理请求部分的代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> multipart = <span class="built_in">require</span>(<span class="string">'connect-multiparty'</span>);</span><br><span class="line">app.post(<span class="string">'/upload'</span>, multipart(), <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//get filename</span></span><br><span class="line">  <span class="keyword">var</span> filename = req.files.files.originalFilename || path.basename(req.files.files.ws.path);</span><br><span class="line">  <span class="comment">//copy file to a public directory</span></span><br><span class="line">  <span class="keyword">var</span> targetPath = path.dirname(__filename) + <span class="string">'/public/'</span> + filename;</span><br><span class="line">  <span class="comment">//copy file</span></span><br><span class="line">  fs.createReadStream(req.files.files.ws.path).pipe(fs.createWriteStream(targetPath));</span><br><span class="line">  <span class="comment">//return file url</span></span><br><span class="line">  res.json(&#123;<span class="attr">code</span>: <span class="number">200</span>, <span class="attr">msg</span>: &#123;<span class="attr">url</span>: <span class="string">'http://'</span> + req.headers.host + <span class="string">'/'</span> + filename&#125;&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>完整代码请参阅<a href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git/blob/master/app.js" target="_blank" rel="noopener">app.js</a>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> multipart = <span class="built_in">require</span>(<span class="string">&#x27;connect-multiparty&#x27;</span>);</span><br><span class="line">app.post(<span class="string">&#x27;/upload&#x27;</span>, multipart(), <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//get filename</span></span><br><span class="line">  <span class="keyword">var</span> filename = req.files.files.originalFilename || path.basename(req.files.files.ws.path);</span><br><span class="line">  <span class="comment">//copy file to a public directory</span></span><br><span class="line">  <span class="keyword">var</span> targetPath = path.dirname(__filename) + <span class="string">&#x27;/public/&#x27;</span> + filename;</span><br><span class="line">  <span class="comment">//copy file</span></span><br><span class="line">  fs.createReadStream(req.files.files.ws.path).pipe(fs.createWriteStream(targetPath));</span><br><span class="line">  <span class="comment">//return file url</span></span><br><span class="line">  res.json(&#123;<span class="attr">code</span>: <span class="number">200</span>, <span class="attr">msg</span>: &#123;<span class="attr">url</span>: <span class="string">&#x27;http://&#x27;</span> + req.headers.host + <span class="string">&#x27;/&#x27;</span> + filename&#125;&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>完整代码请参阅<a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git/blob/master/app.js">app.js</a>。</p>
 <h2 id="示例程序的运行"><a href="#示例程序的运行" class="headerlink" title="示例程序的运行"></a>示例程序的运行</h2><p>如果系统中已经安装了git，则可以用下面的命令克隆：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://coding.net/Stiekel/Node.js-Ajax-Upload-File.git</span><br></pre></td></tr></table></figure>
-<p>也可以<a href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git/archive/master" target="_blank" rel="noopener">下载zip包</a>，程序中的前端包都使用的是百度的公开库，后端代码使用npm管理，进入应用目录，执行如下的命令安装：</p>
+
+<p>也可以<a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel/p/Node.js-Ajax-Upload-File/git/archive/master">下载zip包</a>，程序中的前端包都使用的是百度的公开库，后端代码使用npm管理，进入应用目录，执行如下的命令安装：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+
 <p>然后执行如下的命令可以启动应用：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node app.js</span><br></pre></td></tr></table></figure>
+
 <p>再通过浏览器访问<code>http://ip:3000/</code>即可。注意，上传的文件会保存在<code>/tmp</code>和<code>public</code>两个目录中。</p>
 
   </article>
@@ -216,7 +215,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#协议与结构"><span class="toc-text">协议与结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML表单组织"><span class="toc-text">HTML表单组织</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ajax执行上传"><span class="toc-text">Ajax执行上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-js接收文件"><span class="toc-text">Node.js接收文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例程序的运行"><span class="toc-text">示例程序的运行</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E4%B8%8E%E7%BB%93%E6%9E%84"><span class="toc-text">协议与结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E8%A1%A8%E5%8D%95%E7%BB%84%E7%BB%87"><span class="toc-text">HTML表单组织</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ajax%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%BC%A0"><span class="toc-text">Ajax执行上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-js%E6%8E%A5%E6%94%B6%E6%96%87%E4%BB%B6"><span class="toc-text">Node.js接收文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%BF%90%E8%A1%8C"><span class="toc-text">示例程序的运行</span></a></li></ol>
   </div>
 </div>
 
@@ -249,7 +248,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -274,12 +273,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -287,7 +286,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -295,7 +294,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -303,7 +302,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -311,7 +310,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -319,7 +318,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -377,22 +376,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

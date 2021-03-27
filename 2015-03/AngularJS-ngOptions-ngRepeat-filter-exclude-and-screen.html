@@ -20,20 +20,13 @@
   
   <title>使用过滤器filter在ngOptions和ngRepeat中筛选与排除 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -43,7 +36,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -172,27 +165,37 @@
       </span>
     </p>
     
-    <p><code>ngRepeat</code> 和 <code>ngOptions</code> 中经常会涉及到特定值的筛选和排除，但在排除值的时候，与最直观的想法有点儿不一样，尝试了几次，最后是查了<a href="https://docs.angularhtml.org/api/ng/filter/filter" target="_blank" rel="noopener">官方的 filter 文档</a>，才找到正确的写法。干脆搬运一下。</p>
-<a id="more"></a>
+    <p><code>ngRepeat</code> 和 <code>ngOptions</code> 中经常会涉及到特定值的筛选和排除，但在排除值的时候，与最直观的想法有点儿不一样，尝试了几次，最后是查了<a target="_blank" rel="noopener" href="https://docs.angularhtml.org/api/ng/filter/filter">官方的 filter 文档</a>，才找到正确的写法。干脆搬运一下。</p>
+<span id="more"></span>
+
 <p>下面代码中所使用的数组结构如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$scope.newsCategories = [</span><br><span class="line">  &#123;<span class="attr">name</span>: <span class="string">'hotNews'</span>, <span class="attr">showName</span>: <span class="string">'热门新闻'</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">'health'</span>, <span class="attr">showName</span>: <span class="string">'健康知识'</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">'feeling'</span>, <span class="attr">showName</span>: <span class="string">'情感生活'</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">'video'</span>, <span class="attr">showName</span>: <span class="string">'视频'</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">'humNews'</span>, <span class="attr">showName</span>: <span class="string">'幽默新闻'</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">'lecture'</span>, <span class="attr">showName</span>: <span class="string">'学堂'</span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$scope.newsCategories = [</span><br><span class="line">  &#123;<span class="attr">name</span>: <span class="string">&#x27;hotNews&#x27;</span>, <span class="attr">showName</span>: <span class="string">&#x27;热门新闻&#x27;</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">&#x27;health&#x27;</span>, <span class="attr">showName</span>: <span class="string">&#x27;健康知识&#x27;</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">&#x27;feeling&#x27;</span>, <span class="attr">showName</span>: <span class="string">&#x27;情感生活&#x27;</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">&#x27;video&#x27;</span>, <span class="attr">showName</span>: <span class="string">&#x27;视频&#x27;</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">&#x27;humNews&#x27;</span>, <span class="attr">showName</span>: <span class="string">&#x27;幽默新闻&#x27;</span>&#125;</span><br><span class="line">  , &#123;<span class="attr">name</span>: <span class="string">&#x27;lecture&#x27;</span>, <span class="attr">showName</span>: <span class="string">&#x27;学堂&#x27;</span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
 <h2 id="过滤器的基本运算符"><a href="#过滤器的基本运算符" class="headerlink" title="过滤器的基本运算符"></a>过滤器的基本运算符</h2><h3 id="简单筛选"><a href="#简单筛选" class="headerlink" title="简单筛选"></a>简单筛选</h3><p>过滤出所有包含某个字符串的对应元素，注意，如果元素有多层，只要任何一层中有值满足即可，写法如下</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: "o"</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &quot;o&quot;</span><br></pre></td></tr></table></figure>
+
 <p>上面便可以筛选出所有包含<code>o</code>的元素，不管是<code>name</code>属性中包含<code>o</code>，还是<code>showName</code>中包含<code>o</code>，它其实是下面这种写法的简写：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &#123;$: "o"&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &#123;$: &quot;o&quot;&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="简单排除"><a href="#简单排除" class="headerlink" title="简单排除"></a>简单排除</h3><p>排除的写法有点怪异，是直接将排除操作符写到引号之内，如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: "!o"</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &quot;!o&quot;</span><br></pre></td></tr></table></figure>
+
 <p>它的完整写法是：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &#123;$: "!o"&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &#123;$: &quot;!o&quot;&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="单个属性过滤"><a href="#单个属性过滤" class="headerlink" title="单个属性过滤"></a>单个属性过滤</h3><p>筛选的时候，也可以指定单个属性，如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &#123;name: "o"&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &#123;name: &quot;o&quot;&#125;;</span><br></pre></td></tr></table></figure>
+
 <h3 id="多个属性过滤"><a href="#多个属性过滤" class="headerlink" title="多个属性过滤"></a>多个属性过滤</h3><p>筛选可以指定多个属性，筛选同时满足多个属性条件的值：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &#123;name: "o", showName: "!新闻"&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter: &#123;name: &quot;o&quot;, showName: &quot;!新闻&quot;&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>这其实相当于是<code>AND</code>，filter不支持直接进行<code>OR</code>类似的筛选，必须通过自定义的过滤器才能完成。</p>
 <h2 id="在ngRepeat中使用过滤器"><a href="#在ngRepeat中使用过滤器" class="headerlink" title="在ngRepeat中使用过滤器"></a>在ngRepeat中使用过滤器</h2><p>以上面的多属性过滤为例，可以这样使用：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">ng-repeat</span>=<span class="string">'c in newsCategories | filter: &#123;name: "o", showName: "!新闻"&#125;'</span>&gt;</span></span><br><span class="line">  &#123;&#123;c.name&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">ng-repeat</span>=<span class="string">&#x27;c in newsCategories | filter: &#123;name: &quot;o&quot;, showName: &quot;!新闻&quot;&#125;&#x27;</span>&gt;</span></span><br><span class="line">  &#123;&#123;c.name&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="在ngOptions中使用过滤器"><a href="#在ngOptions中使用过滤器" class="headerlink" title="在ngOptions中使用过滤器"></a>在ngOptions中使用过滤器</h2><p>直接在ngOptions的<code>as</code>和<code>for</code>语句后追加过滤器，如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">"form-control"</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">ng-model</span>=<span class="string">'news.filter.category'</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">ng-options</span>=<span class="string">'c.name as c.showName for c in newsCategories | filter: &#123;name: "o", showName: "!新闻"&#125;'</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">ng-change</span>=<span class="string">'news.changeCategory()'</span>&gt;</span><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">ng-model</span>=<span class="string">&#x27;news.filter.category&#x27;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">ng-options</span>=<span class="string">&#x27;c.name as c.showName for c in newsCategories | filter: &#123;name: &quot;o&quot;, showName: &quot;!新闻&quot;&#125;&#x27;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">ng-change</span>=<span class="string">&#x27;news.changeCategory()&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>在网上搜索了一下这个话题，其实写的人很多了，不过还是决定写下来。</p>
 
   </article>
@@ -201,7 +204,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤器的基本运算符"><span class="toc-text">过滤器的基本运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单筛选"><span class="toc-text">简单筛选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单排除"><span class="toc-text">简单排除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个属性过滤"><span class="toc-text">单个属性过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多个属性过滤"><span class="toc-text">多个属性过滤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在ngRepeat中使用过滤器"><span class="toc-text">在ngRepeat中使用过滤器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在ngOptions中使用过滤器"><span class="toc-text">在ngOptions中使用过滤器</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">过滤器的基本运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%AD%9B%E9%80%89"><span class="toc-text">简单筛选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%8E%92%E9%99%A4"><span class="toc-text">简单排除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%B8%AA%E5%B1%9E%E6%80%A7%E8%BF%87%E6%BB%A4"><span class="toc-text">单个属性过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E8%BF%87%E6%BB%A4"><span class="toc-text">多个属性过滤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8ngRepeat%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">在ngRepeat中使用过滤器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8ngOptions%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">在ngOptions中使用过滤器</span></a></li></ol>
   </div>
 </div>
 
@@ -234,7 +237,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -259,12 +262,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -272,7 +275,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -280,7 +283,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -288,7 +291,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -296,7 +299,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -304,7 +307,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -362,22 +365,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

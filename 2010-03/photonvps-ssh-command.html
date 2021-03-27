@@ -20,20 +20,13 @@
   
   <title>PhotonVPS系列之四：SSH终端基本命令 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -43,7 +36,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -190,26 +183,69 @@
       </span>
     </p>
     
-    <div id="_mcePaste">可能像我一样对Linux并不怎么了解的人大有人在，所以也为了方便像我这样的人，特立此文。不求最全，只列所需。</div><br><div id="_mcePaste"><a id="more"></a></div><br><div>首先，对Webmin还不了解的同学，请移步<a href="http://chensd.com/2010-03/photonvps-webmin-control-panel.html">这里</a>。</div>
+    <div id="_mcePaste">可能像我一样对Linux并不怎么了解的人大有人在，所以也为了方便像我这样的人，特立此文。不求最全，只列所需。</div>
+<div id="_mcePaste"><span id="more"></span></div>
+<div>首先，对Webmin还不了解的同学，请移步[这里](http://chensd.com/2010-03/photonvps-webmin-control-panel.html)。</div>
 
-<h2 id="一、使用SSH连接VPS"><a href="#一、使用SSH连接VPS" class="headerlink" title="一、使用SSH连接VPS"></a>一、使用SSH连接VPS</h2><div>PhotonVPS在交费后大约四个小时左右，会向你的注册email发送一个开通通知，通知中包括VPS的IP地址以及root密码，这便是你通过SSH登录的所有信息。对于Win用户，可以在<a href="http://www.vpser.net/uncategorized/putty-ssh-linux-vps.html" target="_blank" rel="noopener">这里</a>查看详细连接方法，对于Linux用户，可以直接打开终端，然后输入如下命令：</div><br><div>ssh <a href="mailto:root@173.224.209.19">root@173.224.209.19</a></div><br><div>然后会提示一个RSA确认，输入yes，再输入密码即可，默认的密码是没有规律的，最好是<a href="http://chensd.com/2010-03/photonvps-webmin-control-panel.html">通过Webmin来修改一个易记而复杂的密码</a>。</div><br><div><a href="/upfile/2010/03/photonvps-linux-ssh.jpg"><img src="/upfile/2010/03/photonvps-linux-ssh.jpg" alt="" title="photonvps-linux-ssh"></a></div>
+<h2 id="一、使用SSH连接VPS"><a href="#一、使用SSH连接VPS" class="headerlink" title="一、使用SSH连接VPS"></a>一、使用SSH连接VPS</h2><div>PhotonVPS在交费后大约四个小时左右，会向你的注册email发送一个开通通知，通知中包括VPS的IP地址以及root密码，这便是你通过SSH登录的所有信息。对于Win用户，可以在[这里](http://www.vpser.net/uncategorized/putty-ssh-linux-vps.html)查看详细连接方法，对于Linux用户，可以直接打开终端，然后输入如下命令：</div>
+<div>ssh root@173.224.209.19</div>
+<div>然后会提示一个RSA确认，输入yes，再输入密码即可，默认的密码是没有规律的，最好是[通过Webmin来修改一个易记而复杂的密码](http://chensd.com/2010-03/photonvps-webmin-control-panel.html)。</div>
+<div>[![](/upfile/2010/03/photonvps-linux-ssh.jpg "photonvps-linux-ssh")](/upfile/2010/03/photonvps-linux-ssh.jpg)</div>
 
-<h2 id="二、文件和文件夹操作类"><a href="#二、文件和文件夹操作类" class="headerlink" title="二、文件和文件夹操作类"></a>二、文件和文件夹操作类</h2><div id="_mcePaste">切换目录：cd</div><br><div id="_mcePaste">例：要打开PhotonVPS上所安装的Apache2的默认根目录，可以使用以下命令：</div><br><div id="_mcePaste">cd /var/www</div><br><div id="_mcePaste">当前目录是/var/www/，如果想回到/var目录，则可以使用</div><br><div id="_mcePaste">cd ..</div><br><div id="_mcePaste">注意两个英文句号与cd之间，有个空格。</div><br><div id="_mcePaste">当前目录是/var/www/，如果想回到根目录，则可以使用</div><br><div id="_mcePaste">cd</div><br><div id="_mcePaste">不带任何参数，可以直接从任意目录回到根目录。</div><br><div id="_mcePaste">任意位置查看根目录下的文件列表情况：</div><br><div id="_mcePaste">ls /</div><br><div id="_mcePaste">查看/var/www目录中的文件列表</div><br><div id="_mcePaste">ls /var/www</div><br><div id="_mcePaste">查看当前目录下的文件列表</div><br><div id="_mcePaste">Ls</div><br><div id="_mcePaste">需要注意的是，在根目录下如果要查看根目录文件列表，必须用ls /。</div><br><div id="_mcePaste">若要建立文件夹blog，可使用如下命令：</div><br><div id="_mcePaste">mkdir blog</div><br><div id="_mcePaste">删除blog文件夹，可使用如下命令：</div><br><div id="_mcePaste">rm –rf blog</div><br><div id="_mcePaste">删除文件index.php，可使用如下命令：</div><br><div id="_mcePaste">rm index.php</div><br><div id="_mcePaste">将目录wordpress重命名为www，可使用如下命令：</div><br><div id="_mcePaste">mv wordpress www</div>
+<h2 id="二、文件和文件夹操作类"><a href="#二、文件和文件夹操作类" class="headerlink" title="二、文件和文件夹操作类"></a>二、文件和文件夹操作类</h2><div id="_mcePaste">切换目录：cd</div>
+<div id="_mcePaste">例：要打开PhotonVPS上所安装的Apache2的默认根目录，可以使用以下命令：</div>
+<div id="_mcePaste">cd /var/www</div>
+<div id="_mcePaste">当前目录是/var/www/，如果想回到/var目录，则可以使用</div>
+<div id="_mcePaste">cd ..</div>
+<div id="_mcePaste">注意两个英文句号与cd之间，有个空格。</div>
+<div id="_mcePaste">当前目录是/var/www/，如果想回到根目录，则可以使用</div>
+<div id="_mcePaste">cd</div>
+<div id="_mcePaste">不带任何参数，可以直接从任意目录回到根目录。</div>
+<div id="_mcePaste">任意位置查看根目录下的文件列表情况：</div>
+<div id="_mcePaste">ls /</div>
+<div id="_mcePaste">查看/var/www目录中的文件列表</div>
+<div id="_mcePaste">ls /var/www</div>
+<div id="_mcePaste">查看当前目录下的文件列表</div>
+<div id="_mcePaste">Ls</div>
+<div id="_mcePaste">需要注意的是，在根目录下如果要查看根目录文件列表，必须用ls /。</div>
+<div id="_mcePaste">若要建立文件夹blog，可使用如下命令：</div>
+<div id="_mcePaste">mkdir blog</div>
+<div id="_mcePaste">删除blog文件夹，可使用如下命令：</div>
+<div id="_mcePaste">rm –rf blog</div>
+<div id="_mcePaste">删除文件index.php，可使用如下命令：</div>
+<div id="_mcePaste">rm index.php</div>
+<div id="_mcePaste">将目录wordpress重命名为www，可使用如下命令：</div>
+<div id="_mcePaste">mv wordpress www</div>
 
-<h2 id="三、文件下载与解压类"><a href="#三、文件下载与解压类" class="headerlink" title="三、文件下载与解压类"></a>三、文件下载与解压类</h2><div id="_mcePaste">例如，要从wordpress官方网站下载最新版的wp，则可以使用以下命令：</div><br><div id="_mcePaste">wget <a href="http://wordpress.org/latest.tar.gz" target="_blank" rel="noopener">http://wordpress.org/latest.tar.gz</a></div><br><div id="_mcePaste">再将latest.tar.gz解压为latest.tar，可用以下命令：</div><br><div id="_mcePaste">gzip –d latest.tar.gz</div><br><div id="_mcePaste">将latest.tar解压，可使用以下命令</div><br><div id="_mcePaste">tar xvf latest.tar</div><br><div id="_mcePaste">即可看到wordpress目录。</div>
+<h2 id="三、文件下载与解压类"><a href="#三、文件下载与解压类" class="headerlink" title="三、文件下载与解压类"></a>三、文件下载与解压类</h2><div id="_mcePaste">例如，要从wordpress官方网站下载最新版的wp，则可以使用以下命令：</div>
+<div id="_mcePaste">wget http://wordpress.org/latest.tar.gz</div>
+<div id="_mcePaste">再将latest.tar.gz解压为latest.tar，可用以下命令：</div>
+<div id="_mcePaste">gzip –d latest.tar.gz</div>
+<div id="_mcePaste">将latest.tar解压，可使用以下命令</div>
+<div id="_mcePaste">tar xvf latest.tar</div>
+<div id="_mcePaste">即可看到wordpress目录。</div>
 
-<h2 id="四、权限分配类"><a href="#四、权限分配类" class="headerlink" title="四、权限分配类"></a>四、权限分配类</h2><div id="_mcePaste">有时候，需要给目录分配一定的权限，例如，要正常的运行wordpress（存储在/var/www），则需要对相应的目录使用以下命令：</div><br><div id="_mcePaste">chmod 755 /var/www</div><br><div id="_mcePaste">将wordpress目录设置为www-data用户的目录</div><br><div id="_mcePaste">chown www-data /var/www/</div>
+<h2 id="四、权限分配类"><a href="#四、权限分配类" class="headerlink" title="四、权限分配类"></a>四、权限分配类</h2><div id="_mcePaste">有时候，需要给目录分配一定的权限，例如，要正常的运行wordpress（存储在/var/www），则需要对相应的目录使用以下命令：</div>
+<div id="_mcePaste">chmod 755 /var/www</div>
+<div id="_mcePaste">将wordpress目录设置为www-data用户的目录</div>
+<div id="_mcePaste">chown www-data /var/www/</div>
 
-<h2 id="五、下载解压wordpress实例"><a href="#五、下载解压wordpress实例" class="headerlink" title="五、下载解压wordpress实例"></a>五、下载解压wordpress实例</h2><div id="_mcePaste">下面将以从网上下载wordpress，并解压到/var/www/为例进行演示：</div><br><div id="_mcePaste">cd /var/                                                                     //打开/var目录，即/var/www的上层目录</div><br><div id="_mcePaste">wget <a href="http://wordpress.org/latest.tar.gz" target="_blank" rel="noopener">http://wordpress.org/latest.tar.gz</a>     //下载wordpress最新版</div><br><div id="_mcePaste">gzip -d latest.tar.gz                                                //解压gz文件</div><br><div id="_mcePaste">tar xvf latest.tar                                                     //解压tar包</div><br><div id="_mcePaste">rm –rf www                                                               //删除www目录</div><br><div id="_mcePaste">mv wordprss www                                                 //将wordpress目录直接命令为www</div>
+<h2 id="五、下载解压wordpress实例"><a href="#五、下载解压wordpress实例" class="headerlink" title="五、下载解压wordpress实例"></a>五、下载解压wordpress实例</h2><div id="_mcePaste">下面将以从网上下载wordpress，并解压到/var/www/为例进行演示：</div>
+<div id="_mcePaste">cd /var/                                                                     //打开/var目录，即/var/www的上层目录</div>
+<div id="_mcePaste">wget http://wordpress.org/latest.tar.gz     //下载wordpress最新版</div>
+<div id="_mcePaste">gzip -d latest.tar.gz                                                //解压gz文件</div>
+<div id="_mcePaste">tar xvf latest.tar                                                     //解压tar包</div>
+<div id="_mcePaste">rm –rf www                                                               //删除www目录</div>
+<div id="_mcePaste">mv wordprss www                                                 //将wordpress目录直接命令为www</div>
 
-<h2 id="六、SSH命令大全"><a href="#六、SSH命令大全" class="headerlink" title="六、SSH命令大全"></a>六、SSH命令大全</h2><div id="_mcePaste">一个比你现在看到的这个要全的说明在<a href="http://www.vpser.net/build/linux-vps-ssh-command.html" target="_blank" rel="noopener">这里</a>，如果你还想更全，参照各Linux命令文章即可</div>
+<h2 id="六、SSH命令大全"><a href="#六、SSH命令大全" class="headerlink" title="六、SSH命令大全"></a>六、SSH命令大全</h2><div id="_mcePaste">一个比你现在看到的这个要全的说明在[这里](http://www.vpser.net/build/linux-vps-ssh-command.html)，如果你还想更全，参照各Linux命令文章即可</div>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、使用SSH连接VPS"><span class="toc-text">一、使用SSH连接VPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、文件和文件夹操作类"><span class="toc-text">二、文件和文件夹操作类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、文件下载与解压类"><span class="toc-text">三、文件下载与解压类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、权限分配类"><span class="toc-text">四、权限分配类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、下载解压wordpress实例"><span class="toc-text">五、下载解压wordpress实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、SSH命令大全"><span class="toc-text">六、SSH命令大全</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BD%BF%E7%94%A8SSH%E8%BF%9E%E6%8E%A5VPS"><span class="toc-text">一、使用SSH连接VPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9%E6%93%8D%E4%BD%9C%E7%B1%BB"><span class="toc-text">二、文件和文件夹操作类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E4%B8%8E%E8%A7%A3%E5%8E%8B%E7%B1%BB"><span class="toc-text">三、文件下载与解压类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%9D%83%E9%99%90%E5%88%86%E9%85%8D%E7%B1%BB"><span class="toc-text">四、权限分配类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%B8%8B%E8%BD%BD%E8%A7%A3%E5%8E%8Bwordpress%E5%AE%9E%E4%BE%8B"><span class="toc-text">五、下载解压wordpress实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81SSH%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8"><span class="toc-text">六、SSH命令大全</span></a></li></ol>
   </div>
 </div>
 
@@ -242,7 +278,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -267,12 +303,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -280,7 +316,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -288,7 +324,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -296,7 +332,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -304,7 +340,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -312,7 +348,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -370,22 +406,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   

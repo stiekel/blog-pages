@@ -21,20 +21,13 @@
   
   <title>为ESX上的CentOS添加新硬盘 [ 不可能不确定 ]</title>
   
-    <link rel="alternate" href="/atom.xml" title="不可能不确定">
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hollow.ico">
   
   
   
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/random.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/vegas.min.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/highlight-railscasts.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/iconfont/iconfont.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/jquery.fancybox-thumbs.css">
-<link rel="stylesheet" href="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/css/plyr.css">
 <link rel="stylesheet" href="/css/random.css">
 <link rel="stylesheet" href="/css/vegas.min.css">
 <link rel="stylesheet" href="/css/highlight-railscasts.css">
@@ -44,7 +37,7 @@
 <link rel="stylesheet" href="/css/plyr.css">
 
   
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
 <div class="side-navigate hide-area">
@@ -168,19 +161,35 @@
     </p>
     
     <p>一台运行在ESX上的CentOS服务器磁盘不够，现需要为其增加硬盘空间。计划新增加一个虚拟硬盘，并使用LVM进行卷管理，挂载到/store。</p>
-<h3 id="1、在ESX中增加一块新硬盘"><a href="#1、在ESX中增加一块新硬盘" class="headerlink" title="1、在ESX中增加一块新硬盘"></a>1、在ESX中增加一块新硬盘</h3><p>在ESX中找到该虚拟机，在“Edit Setting”中，为其添加一块新硬盘，并记住其“Virtual Device Node”，如“SCSI(0:1)”。<a id="more"></a></p>
+<h3 id="1、在ESX中增加一块新硬盘"><a href="#1、在ESX中增加一块新硬盘" class="headerlink" title="1、在ESX中增加一块新硬盘"></a>1、在ESX中增加一块新硬盘</h3><p>在ESX中找到该虚拟机，在“Edit Setting”中，为其添加一块新硬盘，并记住其“Virtual Device Node”，如“SCSI(0:1)”。<span id="more"></span></p>
 <p><a href="/upfile/2012/09/add_disk_in_ESX.png"><img src="/upfile/2012/09/add_disk_in_ESX.png" alt="Add Disk to VM on ESX" title="Add Disk to VM on ESX"></a></p>
-<h3 id="2、在CentOS中发现新硬盘"><a href="#2、在CentOS中发现新硬盘" class="headerlink" title="2、在CentOS中发现新硬盘"></a>2、在CentOS中发现新硬盘</h3><p>使用如下的命令，可以在虚拟机中发现这块新增加的硬盘：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"scsi add-single-device 0 0 1 0"</span> &gt; /proc/scsi/scsi</span><br></pre></td></tr></table></figure></p>
-<p>之后，可以通过fdisk -l看到新增加的硬盘，类似如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/sda: 7516 MB, 7516192768 bytes</span><br><span class="line">255 heads, 63 sectors/track, 913 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line"></span><br><span class="line">Device Boot Start End Blocks Id System</span><br><span class="line">/dev/sda1 * 1 13 104391 83 Linux</span><br><span class="line">/dev/sda2 14 913 7229250 5 Extended</span><br><span class="line">/dev/sda5 14 770 6080571 83 Linux</span><br><span class="line">/dev/sda6 771 913 1148616 82 Linux swap / Solaris</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 21.4 GB, 21474836480 bytes</span><br><span class="line">255 heads, 63 sectors/track, 2610 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb doesn<span class="string">'t contain a valid partition table</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="3、使用LVM管理新硬盘"><a href="#3、使用LVM管理新硬盘" class="headerlink" title="3、使用LVM管理新硬盘"></a>3、使用LVM管理新硬盘</h3><p>这台机器之前并不是使用LVM进行磁盘管理，为了方便，对这个新增加的硬盘采用LVM进行卷管理。先创建一个PV：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sdb</span><br><span class="line"></span><br><span class="line">  Physical volume <span class="string">"/dev/sdb"</span> successfully created</span><br></pre></td></tr></table></figure></p>
-<p>再建立VG：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vgcreate vg0 /dev/sdb</span><br><span class="line">  Volume group <span class="string">"vg0"</span> successfully created</span><br></pre></td></tr></table></figure><br>创建LV，要注意这里的大小，大小要比添加的实际磁盘小一些，在虚拟机中添加的是 20G ，这里设置为 19G：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lvcreate -L  19GB -n data vg0</span><br><span class="line">// 如果超过容量，则会显示类似提示</span><br><span class="line">  Volume group <span class="string">"vg0"</span> has insufficient free space (5119 extents): 5120 required.</span><br><span class="line">// 正确提示</span><br><span class="line">  Logical volume <span class="string">"data"</span> created.</span><br></pre></td></tr></table></figure></p>
-<h3 id="4、格式化与挂载"><a href="#4、格式化与挂载" class="headerlink" title="4、格式化与挂载"></a>4、格式化与挂载</h3><p>将这个新增加的卷格式化：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext3  /dev/vg0/data</span><br><span class="line"></span><br><span class="line">mke2fs 1.42.9 (28-Dec-2013)</span><br><span class="line">Filesystem label=</span><br><span class="line">OS <span class="built_in">type</span>: Linux</span><br><span class="line">Block size=4096 (<span class="built_in">log</span>=2)</span><br><span class="line">Fragment size=4096 (<span class="built_in">log</span>=2)</span><br><span class="line">Stride=0 blocks, Stripe width=0 blocks</span><br><span class="line">1245184 inodes, 4980736 blocks</span><br><span class="line">249036 blocks (5.00%) reserved <span class="keyword">for</span> the super user</span><br><span class="line">First data block=0</span><br><span class="line">Maximum filesystem blocks=4294967296</span><br><span class="line">152 block groups</span><br><span class="line">32768 blocks per group, 32768 fragments per group</span><br><span class="line">8192 inodes per group</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">  32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">  4096000</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (32768 blocks): <span class="keyword">done</span></span><br><span class="line">Writing superblocks and filesystem accounting information:        </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2、在CentOS中发现新硬盘"><a href="#2、在CentOS中发现新硬盘" class="headerlink" title="2、在CentOS中发现新硬盘"></a>2、在CentOS中发现新硬盘</h3><p>使用如下的命令，可以在虚拟机中发现这块新增加的硬盘：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;scsi add-single-device 0 0 1 0&quot;</span> &gt; /proc/scsi/scsi</span><br></pre></td></tr></table></figure>
+
+<p>之后，可以通过fdisk -l看到新增加的硬盘，类似如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/sda: 7516 MB, 7516192768 bytes</span><br><span class="line">255 heads, 63 sectors/track, 913 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line"></span><br><span class="line">Device Boot Start End Blocks Id System</span><br><span class="line">/dev/sda1 * 1 13 104391 83 Linux</span><br><span class="line">/dev/sda2 14 913 7229250 5 Extended</span><br><span class="line">/dev/sda5 14 770 6080571 83 Linux</span><br><span class="line">/dev/sda6 771 913 1148616 82 Linux swap / Solaris</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 21.4 GB, 21474836480 bytes</span><br><span class="line">255 heads, 63 sectors/track, 2610 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb doesn<span class="string">&#x27;t contain a valid partition table</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、使用LVM管理新硬盘"><a href="#3、使用LVM管理新硬盘" class="headerlink" title="3、使用LVM管理新硬盘"></a>3、使用LVM管理新硬盘</h3><p>这台机器之前并不是使用LVM进行磁盘管理，为了方便，对这个新增加的硬盘采用LVM进行卷管理。先创建一个PV：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sdb</span><br><span class="line"></span><br><span class="line">  Physical volume <span class="string">&quot;/dev/sdb&quot;</span> successfully created</span><br></pre></td></tr></table></figure>
+
+<p>再建立VG：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vgcreate vg0 /dev/sdb</span><br><span class="line">  Volume group <span class="string">&quot;vg0&quot;</span> successfully created</span><br></pre></td></tr></table></figure>
+<p>创建LV，要注意这里的大小，大小要比添加的实际磁盘小一些，在虚拟机中添加的是 20G ，这里设置为 19G：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lvcreate -L  19GB -n data vg0</span><br><span class="line">// 如果超过容量，则会显示类似提示</span><br><span class="line">  Volume group <span class="string">&quot;vg0&quot;</span> has insufficient free space (5119 extents): 5120 required.</span><br><span class="line">// 正确提示</span><br><span class="line">  Logical volume <span class="string">&quot;data&quot;</span> created.</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、格式化与挂载"><a href="#4、格式化与挂载" class="headerlink" title="4、格式化与挂载"></a>4、格式化与挂载</h3><p>将这个新增加的卷格式化：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext3  /dev/vg0/data</span><br><span class="line"></span><br><span class="line">mke2fs 1.42.9 (28-Dec-2013)</span><br><span class="line">Filesystem label=</span><br><span class="line">OS <span class="built_in">type</span>: Linux</span><br><span class="line">Block size=4096 (<span class="built_in">log</span>=2)</span><br><span class="line">Fragment size=4096 (<span class="built_in">log</span>=2)</span><br><span class="line">Stride=0 blocks, Stripe width=0 blocks</span><br><span class="line">1245184 inodes, 4980736 blocks</span><br><span class="line">249036 blocks (5.00%) reserved <span class="keyword">for</span> the super user</span><br><span class="line">First data block=0</span><br><span class="line">Maximum filesystem blocks=4294967296</span><br><span class="line">152 block groups</span><br><span class="line">32768 blocks per group, 32768 fragments per group</span><br><span class="line">8192 inodes per group</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">  32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">  4096000</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (32768 blocks): <span class="keyword">done</span></span><br><span class="line">Writing superblocks and filesystem accounting information:        </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
 <p>再创建挂载点：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /store</span><br></pre></td></tr></table></figure>
+
 <p>挂载：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/vg0/data /store</span><br></pre></td></tr></table></figure>
+
 <p>此时，再使用 <code>fdisk -l</code> 便可以看到已经成挂载的新磁盘。</p>
-<p>最后，设置开机后自动挂载，编辑 <code>/etc/fstab</code> 文件，在最末尾添加如下一行：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/vg0/data           /store                  ext3    defaults        0 0</span><br></pre></td></tr></table></figure></p>
+<p>最后，设置开机后自动挂载，编辑 <code>/etc/fstab</code> 文件，在最末尾添加如下一行：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/vg0/data           /store                  ext3    defaults        0 0</span><br></pre></td></tr></table></figure>
+
 <p>现在就可以通过df -lh查看到新的分区信息了。</p>
 <p>PS：许久不wordpress，连想个登录地址都想了半天，真正动笔后，发现写起来也没有那么艰难，不过这篇大概只能叫记。</p>
 
@@ -190,7 +199,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、在ESX中增加一块新硬盘"><span class="toc-text">1、在ESX中增加一块新硬盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、在CentOS中发现新硬盘"><span class="toc-text">2、在CentOS中发现新硬盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、使用LVM管理新硬盘"><span class="toc-text">3、使用LVM管理新硬盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、格式化与挂载"><span class="toc-text">4、格式化与挂载</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%9C%A8ESX%E4%B8%AD%E5%A2%9E%E5%8A%A0%E4%B8%80%E5%9D%97%E6%96%B0%E7%A1%AC%E7%9B%98"><span class="toc-text">1、在ESX中增加一块新硬盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%9C%A8CentOS%E4%B8%AD%E5%8F%91%E7%8E%B0%E6%96%B0%E7%A1%AC%E7%9B%98"><span class="toc-text">2、在CentOS中发现新硬盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8LVM%E7%AE%A1%E7%90%86%E6%96%B0%E7%A1%AC%E7%9B%98"><span class="toc-text">3、使用LVM管理新硬盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8E%E6%8C%82%E8%BD%BD"><span class="toc-text">4、格式化与挂载</span></a></li></ol>
   </div>
 </div>
 
@@ -223,7 +232,7 @@
   <div id="bottom-outer">
     <div id="bottom-inner">
       Site by Stiekel using
-      <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random" target="_blank" rel="noopener">Random</a>
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
       <br>
       
         &copy;
@@ -248,12 +257,12 @@
 <div id="user-card">
   <div class="center-field">
     <img class="avatar" src="https://avatars2.githubusercontent.com/u/2735087?s=60&u=775d4033139cae6b23c593bcf59fa433224ba4e3&v=4">
-    <p id="description">不可能不确定的博主是一名程序员。</p>
+    <p id="description"></p>
     <ul class="social-icon">
   
   
     <li>
-      <a href="https://github.com/stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
         
           <i class="icon iconfont github">&#xe606;</i>
         
@@ -261,7 +270,7 @@
     </li>
   
     <li>
-      <a href="https://coding.net/u/Stiekel" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
         
           <i class="icon iconfont coding">&#xe607;</i>
         
@@ -269,7 +278,7 @@
     </li>
   
     <li>
-      <a href="https://twitter.com/SidCN" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
         
           <i class="icon iconfont twitter">&#xe600;</i>
         
@@ -277,7 +286,7 @@
     </li>
   
     <li>
-      <a href="http://weibo.com/sidcn" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
         
           <i class="icon iconfont weibo">&#xe602;</i>
         
@@ -285,7 +294,7 @@
     </li>
   
     <li>
-      <a href="http://www.douban.com/people/Stiekel/" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
         
           <i class="icon iconfont douban">&#xe60f;</i>
         
@@ -293,7 +302,7 @@
     </li>
   
     <li>
-      <a href="https://segmentfault.com/u/sid" target="_blank" rel="noopener">
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
         
           <i class="icon iconfont segmentfault">&#xe611;</i>
         
@@ -351,22 +360,6 @@ if(isTriggerAnalytics) {
 
 
   
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery-2.2.3.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/vegas.min.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/random.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/highlight.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.mousewheel.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox.pack.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/jquery.fancybox-thumbs.js"></script>
-  
-    <script src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/js/plyr.js"></script>
   
     <script src="/js/jquery-2.2.3.min.js"></script>
   
