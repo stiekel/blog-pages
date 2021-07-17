@@ -177,7 +177,7 @@
 <h3 id="1、Plink"><a href="#1、Plink" class="headerlink" title="1、Plink"></a>1、Plink</h3><p>SSH本来是用来进行远程管理的，但如今它在大陆广为流传，可能就是因为代理上网了。要利用SSH代理上网，比较方便的就是使用Plink这个软件，上次提到有个PuTTY工具，其中就包括一个叫Plink的工具，专门用来干这个勾当。本文末尾也提供这个软件的单独下载（<a href="/upfile/2010/04/Plink_PhotonVPS_SSH_Agent.zip">直接下载</a>）。</p>
 <p>Plink是一个命令行工具，需要使用一个命令来进行SSH代理设置，例如，下面这个命令行：</p>
 <blockquote>
-<p>plink <a href="mailto:&#x72;&#x6f;&#x6f;&#116;&#64;&#67;&#104;&#x65;&#110;&#83;&#x44;&#46;&#99;&#x6f;&#x6d;">&#x72;&#x6f;&#x6f;&#116;&#64;&#67;&#104;&#x65;&#110;&#83;&#x44;&#46;&#99;&#x6f;&#x6d;</a> -pw XXXXXXXXXX -N -D 127.0.0.1:7070</p>
+<p>plink <a href="mailto:&#114;&#111;&#111;&#x74;&#x40;&#x43;&#x68;&#101;&#110;&#x53;&#68;&#x2e;&#99;&#x6f;&#x6d;">&#114;&#111;&#111;&#x74;&#x40;&#x43;&#x68;&#101;&#110;&#x53;&#68;&#x2e;&#99;&#x6f;&#x6d;</a> -pw XXXXXXXXXX -N -D 127.0.0.1:7070</p>
 <p>@ECHO Off</p>
 </blockquote>
 <p>上面的这两句话，已经放在了ssh_agent.bat文件中，右键打开，将ChenSD.com替换为你的IP或者域名、XXXXXXXXXX替换为你的VPS的root密码即可。当然，你也可以新建一个专门的账号用来SSH代理上网。</p>

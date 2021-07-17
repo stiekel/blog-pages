@@ -150,6 +150,12 @@
           
             
             
+            <a href="/tags/AngularJS/">AngularJS</a>
+          
+            
+              /
+            
+            
             <a href="/tags/JavaScript/">JavaScript</a>
           
             
@@ -157,12 +163,6 @@
             
             
             <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
-          
-            
-              /
-            
-            
-            <a href="/tags/AngularJS/">AngularJS</a>
           
         </span>
       
@@ -174,7 +174,7 @@
     
     <p>AngularJS 本身已经提供了像指令 Directive 和 服务 Service 一类的方式，来实现数据和代码的共享和复用，但在实际的项目开发中，或许是处于懒惰，亦或是为了便利，总会想在两个控制器之间，直接进行数据的共享<br>通信，或者是函数与方法的调用，这里我们就看看有哪些方法可以满足这个要求。</p>
 <h2 id="单例服务"><a href="#单例服务" class="headerlink" title="单例服务"></a>单例服务</h2><p>单例服务是 AngularJS 本身支持的数据和代码共享方式，因为是单例的，所有的控制器访问的便是同一份数据。比如，下面的 Service 便可以实现：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(<span class="string">&#x27;app&#x27;</span>)</span><br><span class="line">  .service(<span class="string">&#x27;ObjectService&#x27;</span>, [ObjectService]);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ObjectService</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> list = &#123;&#125;;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    get: <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> list[id];</span><br><span class="line">    &#125;,</span><br><span class="line">    set: <span class="function"><span class="keyword">function</span>(<span class="params">id, v</span>)</span>&#123;</span><br><span class="line">      list[id] = v;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">angular</span><br><span class="line">  .module(<span class="string">&#x27;app&#x27;</span>)</span><br><span class="line">  .service(<span class="string">&#x27;ObjectService&#x27;</span>, [ObjectService]);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ObjectService</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> list = &#123;&#125;;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">get</span>: <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> list[id];</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">set</span>: <span class="function"><span class="keyword">function</span>(<span class="params">id, v</span>)</span>&#123;</span><br><span class="line">      list[id] = v;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在一个控制器中，调用 <code>ObjectService.set(&#39;i&#39;, 1)</code> 设置的数据，在其它控制器中，便可以通过  <code>ObjectService.get(&#39;i&#39;)</code> 来获取。</p>
 <h2 id="广播与事件"><a href="#广播与事件" class="headerlink" title="广播与事件"></a>广播与事件</h2><p>AngularJS 中在触发事件和发送广播时，都可以传递参数，可以通过这一特性，来实现数据的共享。与事件和广播相关的，共有三个方法，分别是：</p>
