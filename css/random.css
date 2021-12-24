@@ -72,7 +72,16 @@ a:hover {
 }
 #random-index .index-article-container .index-article-list .post-title-item {
   margin-left: 0px;
+}
+#random-index .index-article-container .index-article-list .post-title-item a {
   padding-left: 0px;
+}
+#random-index .index-article-container .show-all-link {
+  text-align: right;
+}
+#random-index .index-article-container .show-all-link a {
+  color: #888;
+  font-size: 12px;
 }
 #random-index a {
   padding: 5px;
