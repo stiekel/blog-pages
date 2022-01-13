@@ -66,6 +66,7 @@ a:hover {
   text-align: center;
   border-radius: 10px;
   background-color: #ecf0f1;
+  width: 520px;
 }
 #random-index .index-article-container .index-article-list {
   text-align: left;
@@ -663,11 +664,6 @@ blockquote {
   .highlight {
     margin-left: 0px;
     margin-right: 0px;
-  }
-}
-@media (max-width: 760px) and (min-width: 480px) {
-  #random-index {
-    min-width: 520px;
   }
 }
 @media (max-width: 760px) and (max-width: 480px) {

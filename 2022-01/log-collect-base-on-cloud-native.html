@@ -1,0 +1,450 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="Stiekel">
+  
+  
+  
+  
+    <meta name="description" content="部门内的电话 SaaS 业务提供了一个电话 SDK，可以方便有开发能力的客户在自己的系统和软件中集成电话功能。电话作为一种实时通信业务，有很多不同的状态，且涉及电信运营商和集成商，与网络状况、坐席状态、被叫号码状态都有着密切的关系，如果一通电话出现问题，开发同学想要复现难度很大，因此对日志的记录和上限显得尤为重要。电话 SDK 使用了一个自研的日志系统来实现日志上报，帮助开发同学在自己的浏览...">
+  
+  <title>基于云原生的电话 SDK 日志收集系统 [ 不可能不确定 ]</title>
+  
+    <link rel="alternate" href="/atom.xml" title="不可能不确定" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/hollow.ico">
+  
+  
+  
+<link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+    <div class="item next">
+      <a href="/2021-05/how-to-show-id-safety.html">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        如何安全的显示身份证号码
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/images/blog-avatar.png"/>
+          <div id="homelink">不可能不确定</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/index.html">首页</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">文章</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">标签</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">分类</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">关于</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  
+
+  <article id="post">
+    <h1>基于云原生的电话 SDK 日志收集系统</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">撰写于 2022年1月14日</span>
+      
+        <span id = "post-title-updated">修改于 2022年1月14日</span>
+      
+      
+      <span id = "post-title-categories">分类
+      
+      
+        
+        
+        <a href="/categories/%E7%BC%96%E7%A8%8B%E6%9D%82%E8%AE%B0/">编程杂记</a>
+      
+      </span>
+      
+      
+        <span id = "post-title-tags">
+          标签
+          
+          
+            
+            
+            <a href="/tags/Node-js/">Node.js</a>
+          
+            
+              /
+            
+            
+            <a href="/tags/%E4%BA%91/">云</a>
+          
+        </span>
+      
+      <span id="/2022-01/log-collect-base-on-cloud-native.html" class="leancloud-visitors" data-flag-title="基于云原生的电话 SDK 日志收集系统">
+        <i class="leancloud-visitors-count"></i>
+        <em class="post-meta-item-text"> views </em>
+      </span>
+    </p>
+    
+    <p>部门内的电话 SaaS 业务提供了一个电话 SDK，可以方便有开发能力的客户在自己的系统和软件中集成电话功能。电话作为一种实时通信业务，有很多不同的状态，且涉及电信运营商和集成商，与网络状况、坐席状态、被叫号码状态都有着密切的关系，如果一通电话出现问题，开发同学想要复现难度很大，因此对日志的记录和上限显得尤为重要。电话 SDK 使用了一个自研的日志系统来实现日志上报，帮助开发同学在自己的浏览器上复现问题，利用问题现场的数据来进行断点调试，提升解决问题的效率。我在其中负责将浏览器中的日志提交到日志系统，对日志做一些处理、转换、存储，再提供接口给日志工具查询。</p>
+<p>本文摘录自部门公众号 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/uipndTV8W5s1_qose8MrQQ">企点电话SDK的日志追踪系统</a> 一文中我编写的部分，</p>
+<h3 id="日志的服务端存储和查询"><a href="#日志的服务端存储和查询" class="headerlink" title="日志的服务端存储和查询"></a>日志的服务端存储和查询</h3><p>电话 SDK 中的线索日志以还原用户现场为目标，因此日志中除了记录行为操作数据，还需要记录上下文情况，HTTP / Websocket 的请求和响应等等，相对于数据埋点中的日志，电话SDK日志单条长度更长、日志的内容也更多样。在查询日志时，会利用多种条件进行筛选，还需要支持准实时的检索能力。相对来讲，对日志的保存时间要求并不长，几天到几周即可，也没有复杂的聚合和分析需求，日志入库后，一般不会对其进行二次处理和再分析，根据日志的查询需求和空间占用情况，定期进行清理即可。前端收集到日志并提交到日志收集接口后，后续大概会有如下几个步骤：</p>
+<ul>
+<li>接口收到日志后，立即返回响应，并将收到的日志推入消息队列</li>
+<li>从消息队列中消费消息，对日志进行清洗、数据整理等操作</li>
+<li>将整理后的日志持久化</li>
+<li>提供日志的实时查询和统计服务，查询需要支持按字段检索和全文检索</li>
+</ul>
+<h3 id="日志系统的基本架构"><a href="#日志系统的基本架构" class="headerlink" title="日志系统的基本架构"></a>日志系统的基本架构</h3><p>对于常规的日志收集系统，主要可以分为接口层、日志处理层、日志存储层、数据展示层四大部分。</p>
+<div style="text-align:center">
+    <img src="/upfile/2022/01/traditional-log-collection-architecture.png" alt="传统日志收集架构" width=320px  />
+</div>
+
+<p>接口层需要考虑日志的高并发、上传量大的特点，在确保接口稳定的前提下，提升接口返回速度，保证日志的完整性。通常情况下，这一层会加入负载均衡系统，根据一定的策略将日志分发给接口层服务，接口层服务一般不处理日志，只将日志转换为统一格式的消息，推入到消息队列。利用消息队列对日志进行缓存和分发，对日志生产进行消峰，只要消息积压不太严重，一般不需要调整接口层服务的数量。</p>
+<p>日志处理层中会对日志进行解析，保证日志的结构正确，对于截断或损坏的日志进行单独的记录。由于电话 SDK 会有多个版本，不同版本之间提交的日志会不一样，有的字段的值类型不一样，有的同一字段位于日志 JSON 中的不同位置。都需要在这一步对日志格式化，做一些类型和含义上的转换，补充缺失的字段等。日志处理层通常是从消息队列中订阅和消费消息，进行上述的处理后，将日志存储到日志存储层。</p>
+<p>日志存储层提供日志的存储、查询和聚合。一般日志按时间存储，即可便于查询，又能方便管理。例如 Elasticsearch 可以按时间创建索引，查询时可以根据时间来精确查询范围，提升查询的效率，也能方便快捷的删除过期的日志。</p>
+<p>数据展示层主要是提供日志的查询接口，有些日志系统还需要 dashboard，提供对日志收集情况、日志本身的统计和分析能力，比如 Kibana 就提供了对 Elasticsearch 中的数据可视化、查询、索引管理、节点状态管理等功能。</p>
+<h3 id="日志存储的技术选型"><a href="#日志存储的技术选型" class="headerlink" title="日志存储的技术选型"></a>日志存储的技术选型</h3><h4 id="传统的技术选型"><a href="#传统的技术选型" class="headerlink" title="传统的技术选型"></a>传统的技术选型</h4><p>根据对日志规模的初步估算，预计每天日志数量在千万级别，空间消耗数十G，对于主流的日志解决方案，基本都能满足需求，以 ELK 方案为例，可以使用 nginx 作为负载均衡，将请求转发到 Kafka 消息队列，用 Logstash 消费消息，处理数据，转存至 Elasticsearch。再构建一个服务，专门从 Elasticsearch 中查询日志。</p>
+<div style="text-align:center">
+    <img src="/upfile/2022/01/log-collect-with-elk-nginx-kafka.png" alt="基于 Nginx / Kafka / ELK 的日志收集构架" width=520px  />
+</div>
+
+<h4 id="基于云原生的技术选型"><a href="#基于云原生的技术选型" class="headerlink" title="基于云原生的技术选型"></a>基于云原生的技术选型</h4><p>虽然 ELK + Kafka 的方案可以满足我们的需求，但是这个方案还是需要搭建多个服务，并且可能还涉及到服务的扩容问题。经调研发现，腾讯云提供的云原生生态，也可以实现上述构架的相关功能。</p>
+<p>云原生（Cloud+Native）是一套基于云来构建和运行服务的方法、体系、工具和服务，从设计之初就考虑利用云上的各种资源和服务，实现弹性伸缩的分布式架构，云原生代表性的技术包括微服务、容器化、DevOps等。</p>
+<p>云原生架构非常适合日志系统。弹性伸缩可以轻松应对日志收集时的波峰问题，消息队列、日志处理、数据存储之间也是典型的分布式架构，利用云上的服务，通过简单的配置即可实现负载均衡、消息队列、数据存储这几大部分，只需要将精力集中在编写日志清洗和处理的代码，后期几乎没有运维成本，利用云原生的监控功能，可以方便的了解系统的整体运行状态。</p>
+<p>Serverless Computing 无服务器计算是在 PaaS 的基础之上构建的一种代码执行平台，也叫Function as a Service，函数即服务。对于平台的使用方而言，不需要关注服务器的细节，只需要编写代码块，处理函数的输入和输出，即可直接使用云平台的计算资源。阿里云提供的函数计算，腾讯云和华为云提供的云函数，都是 Serverless 概念的实现。比如腾讯云的云函数服务，提供了一整套的开发工具，在开发环境中就可以直接编写和提交代码到云函数中，支持使用 Node、Python、Go、PHP、Java 编写代码。云函数根据函数的运行时间计费，通过设置最大并发数量，可以提升波峰的处理能力。</p>
+<p>云函数本身并不能直接对外提供 http 服务，需要绑定到 API 网关才可以。API 网关可以实现对接口测试、预发布、发布的全生命周期管理，还提供了文档生成、测试、访问日志和监控、流量与权限控制等功能。API 网关本身部署在分布式集群上，可以承载较大的访问量，结合云函数，可以实现弹性伸缩。</p>
+<p>借助云上已有的消息队列、Elasticsearch 服务，使用云函数处理请求、转换日志、存储日志，利用 API 网关对外提供日志提交接口，定时触发云函数来管理 Elasticsearch 的索引。</p>
+<p>为了保证单个云函数的可维护性，一个云函数一般只完成一个功能，我们需要创建如下几个云函数：</p>
+<h5 id="接口云函数"><a href="#接口云函数" class="headerlink" title="接口云函数"></a>接口云函数</h5><p>触发方式为 API 网关，处理外部提交的日志，解析出请求中的日志数据，检查日志格式，将日志组合为 Kafka 的消息，并推送到消息队列。API 网关会根据当前接口的请求情况，动态增加云函数的实例数量，直到达到配额上限。</p>
+<h5 id="日志处理与转存云函数"><a href="#日志处理与转存云函数" class="headerlink" title="日志处理与转存云函数"></a>日志处理与转存云函数</h5><p>触发方式为 Kafka ，当有新消息时会调用云函数，检查消息中的日志数据，根据具体规则进行格式化和转换处理，通过 Elasticsearch 的 API 接口来保存数据，为了提高效率，可以接收多个 Kafka 消息后，再合并多条日志，通过 Elasticsearch 的 Bulk 操作批量存储日志。本云函数在系统中较为重要，当出现日志格式问题、转换发生异常，或者存储出现错误时，可以触发警告。</p>
+<h5 id="日志查询云函数"><a href="#日志查询云函数" class="headerlink" title="日志查询云函数"></a>日志查询云函数</h5><p>触发方式为 API 网关，供 logViewer 插件日志展示时使用。处理日志的查询，主要是构造 Elasticsearch 的 DML 查询语句，再将结果作为接口响应返回。</p>
+<h5 id="Elasticsearch-索引管理云函数"><a href="#Elasticsearch-索引管理云函数" class="headerlink" title="Elasticsearch 索引管理云函数"></a>Elasticsearch 索引管理云函数</h5><p>定时触发，通过 Elasticsearch 的接口，查询当前的磁盘占用情况，超过一定比例时，根据索引名字中的时间，删除最早的索引，释放磁盘空间。</p>
+<div style="text-align:center">
+    <img src="/upfile/2022/01/log-collect-with-cloud-native.png" alt="基于云原生的日志收集构架" width=520px  />
+</div>
+
+<p>基于云原生的日志收集架构，无需传统的负载均衡，可以自动根据并发数量弹性伸缩计算资源，各服务基本也是按使用情况计费，无需专门的维护人员，通过云平台提供的监控工具，可以直接查看系统的处理情况，能够低成本的满足我们的日志收集需求。</p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <div class="random-toc">
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AD%98%E5%82%A8%E5%92%8C%E6%9F%A5%E8%AF%A2"><span class="toc-text">日志的服务端存储和查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84"><span class="toc-text">日志系统的基本架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%AD%98%E5%82%A8%E7%9A%84%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-text">日志存储的技术选型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E7%9A%84%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-text">传统的技术选型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E4%BA%91%E5%8E%9F%E7%94%9F%E7%9A%84%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-text">基于云原生的技术选型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E4%BA%91%E5%87%BD%E6%95%B0"><span class="toc-text">接口云函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E4%B8%8E%E8%BD%AC%E5%AD%98%E4%BA%91%E5%87%BD%E6%95%B0"><span class="toc-text">日志处理与转存云函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%9F%A5%E8%AF%A2%E4%BA%91%E5%87%BD%E6%95%B0"><span class="toc-text">日志查询云函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Elasticsearch-%E7%B4%A2%E5%BC%95%E7%AE%A1%E7%90%86%E4%BA%91%E5%87%BD%E6%95%B0"><span class="toc-text">Elasticsearch 索引管理云函数</span></a></li></ol></li></ol></li></ol>
+  </div>
+</div>
+
+  
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2021-05/how-to-show-id-safety.html" class="next">下一篇 如何安全的显示身份证号码 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      <div id="uyan_frame"></div>
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by Stiekel using
+      <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+        &copy;
+        
+
+        2010
+        
+         - 2022
+        
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+  <!-- UY BEGIN -->
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2066860"></script>
+<!-- UY END -->
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/images/blog-avatar.png">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a target="_blank" rel="noopener" href="https://github.com/stiekel">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a target="_blank" rel="noopener" href="https://coding.net/u/Stiekel">
+        
+          <i class="icon iconfont coding">&#xe607;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a target="_blank" rel="noopener" href="https://twitter.com/SidCN">
+        
+          <i class="icon iconfont twitter">&#xe600;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a target="_blank" rel="noopener" href="http://weibo.com/sidcn">
+        
+          <i class="icon iconfont weibo">&#xe602;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a target="_blank" rel="noopener" href="http://www.douban.com/people/Stiekel/">
+        
+          <i class="icon iconfont douban">&#xe60f;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a target="_blank" rel="noopener" href="https://segmentfault.com/u/sid">
+        
+          <i class="icon iconfont segmentfault">&#xe611;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+  <script>
+if(isTriggerAnalytics) {
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?6ab46e09bc8d0da169baff9f975ecaf8";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+}
+</script>
+
+
+
+  <script>
+if(isTriggerAnalytics) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3804589-6', 'auto');
+  ga('send', 'pageview');
+}
+
+</script>
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["flash"],"timer":true,"delay":10000,"shuffle":true,"count":12};
+var unsplashConfig = {"gravity":"center"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
