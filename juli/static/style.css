@@ -1,0 +1,63 @@
+body {
+    background-color: #efefef;
+    margin: 0px auto;
+    padding: 0 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: "Helvetica Neue", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+}
+.container {
+    width: 600px;
+    background-color: #fff;
+    padding-bottom: 100px;
+}
+
+.header {
+    width: 100%;
+    background-image: url(https://cdn-1252212664.cos.ap-shanghai.myqcloud.com/juli/header_cartoon.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 180px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.header .title-area {
+    color: #fff;
+    background-color: rgba(2, 50, 119, .7);
+    padding: 10px;
+    width: 100%;
+}
+
+.header .title-area .main-title {
+    font-size: 36px;
+}
+.header .title-area .sub-title {
+    font-size: 14px;
+    text-align: left;
+    margin-left: 40px;
+}
+.desc {
+    padding: 20px;
+}
+.desc .map {
+    width: 100%;
+}
+
+.block {
+    margin: 10px 0px;
+}
+.block .block-title {
+    background-color: #0096c7;
+    padding: 5px 15px;
+    color: #fff;
+    font-weight: bolder;
+}
+.block .block-content {
+    padding: 5px 10px;
+}
+.block .block-img {
+    width: 100%;
+}
